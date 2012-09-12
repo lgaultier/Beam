@@ -1,0 +1,678 @@
+%\documentclass[compress,notesonly]{beamer} %compress to make bars as small as possible
+                                           %notesonly to add note not visible on screen (\note[]{})
+%\documentclass[compress,slidescentered,notes=show]{beamer}
+\documentclass[compress,slidescentered,notes=hide]{beamer}
+\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage[english, french]{babel}
+\usepackage{pifont}
+\usepackage{beamerthemesplit}
+\usepackage{multicol} %possibility to create columns
+\usepackage{graphicx} %add pictures
+\graphicspath{{./pict/}} %path to pictures
+\usepackage{indentfirst}
+\usepackage{tikz} %add schemes
+\usetikzlibrary{shapes} %add diamonds shape to schemes
+\usepackage{multimedia} %add video
+%\usepackage[absolute,showboxes, overlay]{textpos}
+%\textblockorigin{1mm}{1mm}
+%\TPshowboxestrue % or false to display contour
+\usepackage{array}
+\pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
+\usenavigationsymbolstemplate{}
+\usetheme{Warsaw}
+%\useoutertheme{infolines} %to add numerotation
+\usepackage{geometry} %put margin
+\geometry{hmargin=0.25cm, vmargin=0.0cm}
+\usepackage{color} %creation of own colors
+%\usecolortheme[named=SeaGreen]{structure}
+\definecolor{bleuclair}{rgb}{0.2,0.9,0.8}
+%\definecolor{mycyan}{rgb}{.19,0.5,0.5}
+\definecolor{mycyan}{rgb}{0.2,0.6,0.6}
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=mycyan}
+\setbeamercolor{block title}{bg=mycyan,fg=black}%bg=background, fg= foreground
+\setbeamercolor{block body}{bg=lightgray,fg=black}%bg=background, fg= foreground
+%\setbeamercolor{structure}{bg=black, fg=green}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{alerted text}{fg=red}
+%\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{frametitle}{fg=white}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{titlelike}{fg=black}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{section in sidebar}{fg=black}
+\setbeamercolor{section in sidebar shaded}{fg= grey}
+\setbeamercolor{subsection in sidebar}{fg=black}
+\setbeamercolor{subsection in sidebar shaded}{fg= grey}
+\setbeamercolor{itemize item}{fg=mycyan}
+\setbeamercolor{section in tableofcontents}{fg=black,bg=black}
+\setbeamercolor*{item projected}{fg = white, bg=mycyan} 
+%\setbeamercolor{sidebar}{bg=red}
+%\beamertemplatetransparentcovered %set transparancy
+\useoutertheme{shadow}
+\newcommand{\gu}[1]{#1}
+\newcommand{\legende}[1]{\textit{\footnotesize #1}}
+\renewcommand{\figurename}{Fig.}
+\setlength{\unitlength}{1cm} %to use pictures
+%usepackage{default}
+%\setbeamersize{text margin left=0cm}
+%\setbeamersize{text margin right=0cm}
+%\setbeamersize{text margin top=0cm}
+%\setbeamersize{sidebar width left=0cm}
+%\setbeamersize{sidebar width right=0cm}
+%\usepackage{fullpage}
+\setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{./pict/slide0006_background}}
+
+\title{On the use of sub-mesoscale tracer information \hspace{4cm} and mesoscale altimetric field \hspace{6cm} for the control of ocean circulations.}
+\subtitle{\vspace{1.5em} \textbf{A Data Assimilation strategy}}
+\author[OSM ]{Lucile Gaultier, Jacques Verron, Pierre Brasseur, Jean-Michel Brankart}
+\date{\textit{February 22, 2012}}
+
+%\logo{\includegraphics[height=1.5cm]{./pict/logo_meom.jpeg}}
+%\logo{\insertframenumber/\inserttotalframenumber}
+%\pgfdeclareimage[height=1.2cm]{legi}{./pict/logo_legi.jpeg}
+%\logo{\pgfuseimage{legi}}
+
+\begin{document}
+
+%1%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \maketitle
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=bleuclair}
+%  \begin{center}
+%   \large{\textbf{A data assimilation strategy}}
+%  \end{center}
+  \begin{center}
+    \includegraphics[height=1.5cm]{./pict/logo_meom.jpeg}
+    \hspace{0.5cm}
+    \includegraphics[height=1.5cm]{./pict/logo_legi.jpeg}
+    \hspace{0.5cm}
+    \includegraphics[height=1.5cm]{./pict/logo_cnrs.jpeg}
+    \hspace{0.5cm}
+    \includegraphics[height=1.5cm]{./pict/logo_cnes.jpeg}
+  \end{center}
+
+  \note{
+This talk is about the joint use of sub-mesoscale tracer information and mesoscale altimetric field, for the control of ocean circulation. 
+More precisely, the information provided by images of tracers such as the Sea Surface Temperature or the Chlorophyll is used to correct the assessment of the circulation made by altimetric satellites.  
+The originality of this talk is the use of Data Assimilation strategy to control ocean circulation. 
+}
+%The methods are similar to the one used in Data Assimilation, which is one of the field of expertise of the team I am working with. I benefit from these experience to build up this method.}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\logo{\insertframenumber/\inserttotalframenumber}
+
+\section{Context and objectives}
+  \subsection{Sub-mesoscales}
+
+%2%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Sub-mesoscales }
+  \begin{columns}
+   \column{.01\textwidth}
+    \column{.50\textwidth}
+
+    \begin{block}{}
+      \begin{itemize}
+        \item Intermediate scale between Mesoscale and dissipative scales.\\
+        \item Filaments length: 1-10~km.
+      \end{itemize}
+    \end{block}
+    \begin{block}{Generation of sub-mesoscales}
+      \begin{itemize}
+        \item Frontogenesis.
+        \item Unforced instabilities such as ageostrophic baroclinic instability.
+        \item Forced motions such as flows affected by buoyancy fluxes.  
+      \end{itemize}
+    \end{block}
+
+    \column{.49\textwidth}
+    \includegraphics[width=0.9\linewidth]{submeso.png}\\
+    %\includegraphics[width=0.6\linewidth]{frontogenesis.png}\\ 
+     \small{Baroclinic instability in an idealized model (Chlorophyll)}
+  \end{columns}
+  \begin{block}{Importance of sub-mesoscales }
+    %\begin{itemize}
+      \ding{226} Impact on larger scale circulation \\ 
+      \ding{226} Energetic importance \\ 
+    %\end{itemize}
+     \small{(Capet \& al, 2008, Thomas \& al, 2008, Klein \& al, 2008, Ferrari \& al, 2008)  %Marchiasiello AJOUTER DATE FERRARI
+           } 
+  \end{block}
+\note{
+Our goal is to represent sub-mesoscale structures in the dynamic field. 
+%The main ingredient of these talk is the observation of sub-mesoscales. 
+I am not going to give you a lecture on the theory of the sub-mesoscales since we have already heard about it and you probably know more about it than I do.
+The main concern here is the representation of sub-mesoscale structures, that is to say 1 km length filament. 
+Indeed, these small structures have a huge impact on larger scale. 
+More over we observe these structures in tracer such as the Chlorophyll as you can see on the picture from a model. 
+
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \subsection{Observation from space}
+
+%3%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Observation of sub-mesoscales}
+  \begin{columns}
+   \column{0.01\textwidth}
+   \column{0.51\textwidth}
+    \begin{block}{}
+        Sub-mesoscales are not resolved by altimetry.
+ %bservations of the dynamic (altimetry).
+    \end{block}
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{along_track_tas.png}\\
+    \legende{Jason and Envisat tracks, 15 days around December 22, 2004, Tasmania region}
+  \end{center}
+  \column{0.0001\textwidth}
+  \column{0.47\textwidth}
+  \only<2>{
+  \begin{block}{}
+     Sub-mesoscales are observed using satellite tracer sensors.
+     \vspace{0.25em}
+  \end{block}}
+  \begin{center}
+    \only<2>{\includegraphics[width=0.65\linewidth]{A2004358041000_L2_LAC_OC.png}\\ 
+\legende{Chlorophyll, December 22, 2004, Tasmania region}}
+  \end{center}
+  \end{columns}
+  \only<2>{
+  \begin{block}{}
+    Joint use of altimetry and high resolution tracer observation to improve the assessment of the dynamic.
+  \end{block}} 
+\note{
+    %altimetry not efficient to represent sub-mesoscale
+First of all, the dynamic of the ocean is currently observed from space by altimetric satellites. 
+Using radars, the altimeter measures the sea surface height along its track. \\
+Here is a map representing the tracks of altimetric satellites during 15 days.
+It is common to use the derived velocity assuming that the geostrophic hypothesis is valid.
+It is clear on this picture that altimetry is not sufficient to represent the sub-mesoscale.  
+Nonetheless, Sub-mesoscale patterns can easily be observed using High Resolution tracer observation from satellites. In this picture, the tracer is the Chlorophyll observed by MODIS sensor, but we can as well use as a tracer the Sea Surface temperature
+%In the following study, I will refer to tracer as tracer observable from space.
+%It includes mainly Sea Surface Temperature and Ocean Color. 
+So we aim at Considering tracer information to improve the assessment of the dynamic made by altimetry. 
+    %since few years using tracers 
+    %tracer alone not sufficient to represent dynamic of sub-mesoscale
+    %conjoint use of altimetry and tracer
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%4%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Context of inversion of information}
+  \begin{block}{Data Assimilation}
+    \ding{226} aims at finding an optimal compromise between information of different natures, space and time sampling. 
+%The sources are generally some observation (satellite, in situ) and a numerical model
+  \end{block}
+  \begin{tikzpicture}
+%    \node[color=blue, text width=4cm, text centered] (UV) at (7,2.7) {Mesoscale field};
+    \node[color=black, text width=3.9cm, text centered] (pUV) at (7,0) {\includegraphics[width=0.9\linewidth]{aviso_20079_tasmania.png}\\ %};
+        \legende{Velocity map}}; %mania region, December 22, 2004}};
+%    \node[color=green, text width=4cm, text centered] (TRA) at (0,2.7) {Sub-mesoscale tracer image};
+    \node[color=black, text width=3.9cm, text centered] (pTRA) at (0,0) {\includegraphics[width=0.9\linewidth]{pict/A2004358041000_L2_LAC_OC.png}\\ %};
+        \legende{Chlorophyll image}}; %, Tasmania region, December 22, 2004}};
+    \node[draw] (int) at (3.7,1) {\large{?}};
+  \draw[->,>=latex] (pTRA)--(pUV);
+    \node[color=black, text width=3.9cm, text centered] (mtext) at (3.5,-1.6) { \legende{Tasmania region,\\ December 22, 2004}};
+  \end{tikzpicture}
+ 
+  \visible<2->{
+  \begin{block}{Use of a Data Assimilation approach}
+  The inversion of sub-mesoscale tracer information to correct mesoscale velocity has never been done before
+  %Optimization problem
+  \end{block}}
+
+%Find the optimal correction to apply on the velocity in order to take into account the information in the HR image. 
+
+\note{
+To do so, the framework of this study is a data assimilation problem. 
+Data Assimilation aims at finding the optimal solution between two different kinds of information. In our problem, we use a data assimilation strategy but so far without a model. 
+In our problem, we have information from altimetry (at a resolution 1/3, with a map a week) and from the tracer image (at a resolution of 1km and with a map a day). 
+The goal of this method is %to find the optimal velocity correction that consider information form the High Resolution image. 
+to extract information from the tracer image to improve the assessment of the velocity. 
+To my knowledge, it has never been done before, we build up the strategy from the start to the end. 
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%5%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents%[pausesections]
+\note{
+We have already seen the context and objective. 
+we are going to detail some point of the methodology and have a look at some corrections resulting from this method.}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section[Method]{Combining altimetric data and tracer images}
+
+\subsection[proxy FSLE]{Find a proxy between tracer and velocity}
+
+%6%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Find a proxy between tracer and velocity}
+  \begin{tikzpicture}
+    \node[draw, color=blue, text width=4cm, text centered] (meso) at (0,0) {Mesoscale Velocity};
+    \node[draw, color=green!60!black, text width=4cm, text centered](subm) at (0,-1) {Sub-mesoscale tracer};
+    \node[draw, color=blue, text width=4cm, text centered] (cor) at (7,-0.5) {Corrected Velocity};
+    \draw[->,>=latex] (meso)--(cor);
+    \draw[->,>=latex] (subm)--(cor);
+  \end{tikzpicture}
+  \vspace{0.6cm}
+  \begin{block}{Find the correction of this background the most compatible with tracer information}
+    \begin{itemize}
+     \item The direct measure of the distance between $\vec{\bf{u}}$ and \textbf{Tracer} is not possible
+     \item Need to find a go-between variable
+     \item Use of Finite-Size Lyapunov Exponents as a proxy (FSLE)
+    \end{itemize}
+  \end{block}
+  %\begin{block}{}
+    \small{See Gaultier \& al, 2012 for details}
+  %\end{block}
+  \note{
+As I previously told you, the approach is the joint use of information from altimetry and from satellites observation of tracers such as SST or Chlorophyll.
+We are looking for the correction to be applied on a background velocity such as the geostrophic mesoscale altimetric velocity field so that the corrected velocity field is a better match to the tracer image.
+The goal of this study is to measure the distance between a mesoscale velocity and the high resolution image and to look for the mesoscale velocity as close as possible to the tracer image. \\
+The direct measure of the distance between the tracer and the velocity field is not feasible. 
+Therefore, a go-between variable is needed. 
+For this study we choose to use the FSLE as a proxy.
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%7%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Are Lyapunov exponents a reliable proxy/image?}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}%[!htbp]
+        \includegraphics[width=6cm]{pict/fsle_24_stat_reg_20814_s_atl.png}\\
+        \legende{FSLE, South Atlantic region, \\December 27, 2006}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \includegraphics[width=6cm]{pict/A2006360165000_L2_LAC_SST.png}\\
+        \legende{Tracer (SST), South Atlantic region, \\December 27, 2006}
+      \end{figure}
+    \end{column}
+  \end{columns}
+  \vspace{0.5cm}
+  \begin{block}{}
+  Lyapunov measures stirring in a fluid \\
+  $\rightarrow$ Link between sub-mesoscale dynamics and biologic stirring. \\
+  (Lehahn \& al, 2008, d'Ovidio \& al, 2004)
+  \end{block}
+%  Maximum lines of Lyapunov exponents and frontal tracer structures present similar patterns (d'Ovidio \& al (2004)).
+  \note{
+%A mesoscale velocity field is able to generate submesoscale filaments
+%These tracer filaments do not align necessarely with the instantaneous
+%streamlines.
+%These tracer filaments are reminiscent of SST and CHL patches
+%How can we detect tracer fronts? -> Lyapunov analysis
+Recent studies have established a link between mesoscale dynamics and tracer images, as mesoscale velocity field is able to generate sub-mesoscale filaments.
+The structures visible on the FSLE derived from a mesoscale velocity field are consistent with tracer frontal structures. 
+That is to say the tracer gradient.  
+We are looking for the velocity that give the FSLE as close as possible to the tracer gradient.
+ }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection[Inversion]{Inversion of sub-mesoscale information}
+
+%8%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Methodology}
+%\temporal<n> {before}{at n}{after}
+  \begin{block}{}
+    $\bullet$ Cost function:
+    $$J(u)=\|\mathcal{I}_{FSLE}(u)- \mathcal{I}_{OBS}\| + background\ term $$
+    The cost function is strongly non linear, with many local minima.\\
+%\alt<2>{\centering\includegraphics[width=0.5\linewidth]{J2_med19904.png}\includegraphics[width=0.5\linewidth]{Jiter_record6_HR.png}\\}
+%  {
+  \end{block}
+  \vspace{0.6cm}
+  \begin{block}{}
+    $\bullet$ Explore sub-space of errors to find the velocity that minimizes the cost function. \\
+    Velocity panel using EOF Analysis with all velocity fields available:
+    $$\textbf{u}_k = \bar{\textbf{u}} + \sum_{i=0}^n{\underbrace{a_k^i}_{Eigenvalue}\underbrace{\textbf{u}^i}_{EOF_{}}}$$
+    The number of degrees of freedom is reduced, using only 100 or less EOFs. \\
+  \end{block}
+  \vspace{0.2cm}
+  \note{
+The method to find this velocity uses the same strategies as the one used in Data Assimilation. 
+The FSLE and the norm of the tracer gradient are binarized, so that we compare similar quantities. 
+For a given velocity u, we measure the distance between the binarized FSLE (derived from this velocity u) $\lambda(u)$,  and the observation (ie, norm of the gradient tracer binarized).
+ The background error is supposed to be small (the mesoscale altimetric velocity field is quite reliable at large scale). 
+Therefore, a background term is added.
+ We look for the velocity that minimizes the cost function among a sub-space of 
+ perturbed velocities
+
+We get a sample of the velocity by computing the sub-space of velocity errors, and we add this perturbation to the background velocity.
+}
+%La perturbation de la vitesse est calculée grâce à une décomposition en vecteurs propres d'un ensemble de champs de vitesses. Les EOFs nous permettent d'obtenir les directions principales de perturbation.}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{Test Case}
+%
+%9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \centering
+  \frametitle{Test case : small area in the South Atlantic ocean}
+  \begin{figure}
+    \includegraphics[width=0.5\linewidth]{s_atlb2.jpg}
+  \end{figure}
+  \begin{itemize}
+    \item \textbf{Time Range}: from 1998 to June 2009, 595 velocity maps
+    \item \textbf{Velocity field}: AVISO, Altimetric data
+    \item \textbf{Resolution}: $1/3^o$, grid points : 13*17
+    \item \textbf{FSLE Resolution}: $1/48^o$, grid points : 99*130
+  \end{itemize}
+%  \vsapce{1cm}
+  \begin{itemize}
+    \item \textbf{Tracer field}: SST or Chlorophyll data (MODIS sensor, L2 product)
+    \item \textbf{Resolution needed to detect filaments}: $1/100^o$
+    %resolution needed to detect filament $1/100^o$, to match fsle $1/50^o$
+  \end{itemize}
+  \note{
+In the following, we show that the inversion of tracer images is feasible in a real case. 
+I choose to show you a test case in a small rectangular area located in the South Atlantic Ocean. 
+An other test case in the Mediterranean Sea has been published in an article. 
+The background velocity is provided by AVISO mapped product. 
+The sub-space of errors is generated using nearly 600 hundred AVISO velocity maps. 
+The velocity resolution is $1/3^o$. 
+The velocity fields are interpolated so that the resolution of FSLE images are $1/48^o$. 
+Two tracers are used in this study: the SST and the Chlorophyll. Both images are provided by MODIS sensor at a resolution $1/100^o$. This products are filtered and degraded at the same resolution of FSLE. 
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection[Cost function]{Study of the cost function}
+
+%10%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \centering
+  \frametitle{Cost function study}
+  %\begin{center}
+  %  STEP 2
+  %\end{center}
+  \begin{columns}
+    \begin{column}{0.49\textwidth}
+    \begin{center}
+     Explore the cost function around the solution \\ 
+    \includegraphics[width=0.78\linewidth]{J1D_tra0s_atl3_1_10.png}
+     \end{center}
+    \end{column}
+    \begin{column}{0.49\textwidth}
+     \begin{center} 
+     Cost function as a function of the number of iterations \\
+    \includegraphics[width=0.78\linewidth]{Jiter_20471_s_atl2.png}
+    \end{center}
+     \end{column}
+     \end{columns}
+ \begin{block}{}
+  \alt<2>{Use of Simulated Annealing to decrease the cost function.\\
+          Use of Gibbs' sampler to get a sample of the potential solutions.}
+  {Cost Function : $J(u)=\|\mathcal{I}_{FSLE}(u)- \mathcal{I}_{OBS}\| + background\ term $}
+  \end{block}
+ \note{
+A first step of tracer inversion is to check that the inversion of FSLE is feasible, that is to say, we can retrieve a velocity field from the FSLE image. 
+The second step is the inversion of the SST tracer. 
+The right picture represent the cost function as a function of the number of iterations (log-log scale). 
+It is reassuring to see that the cost function converges
+The cost function is irregular and many local minimum exist. 
+A Simulated Annealing algorithm is needed to avoid being stuck in a local minimum. 
+The left picture represents the distance between the solution of the process of minimization and the perturbed solution as a function of the amplitude of perturbation. 
+Each plot represents a direction of perturbation. 
+% On vérifie alors que l'écart entre la solution trouvée et la solution perturbée a un minimum et qu'il est situé à l'endroit où la solution n'est pas perturbée. 
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+   \subsection[Results]{Corrected velocity field}
+
+%11%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Results: Velocity field correction calculated using the \alt<2>{Chl}{SST}}
+  \begin{tabular}{p{0.2em}cccl}
+    %\hline
+    & \small{SSH} 
+    & \small{Velocity field}
+    & \small{FSLE} 
+    & \alt<2>{\small{Chlorophyll}}{\small{SST}} \\
+    %\hline
+    \rotatebox{90}{\small{OBSERVATION}}
+    & \includegraphics[width=2.75cm]{./pict/aviso_h_020471_bin0.png} 
+    & \includegraphics[width=2.35cm]{./pict/aviso_20471_s_atl2_oc.png}
+    & \includegraphics[width=2.75cm]{./pict/fsle_48_stat_reg_20471__bin0.png}
+    & \alt<2>{\includegraphics[width=2.73cm]{./pict/chl2006019.png}} 
+      {\includegraphics[width=2.75cm]{./pict/sst_20471_small.png}} \\
+  %   \hline
+    % \hline
+    \rotatebox{90}{\small{CORRECTION}}
+    & \alt<2>{\includegraphics[width=2.7cm]{./pict/aviso_h_020471_eof_bin1_oc.png}}
+        {\includegraphics[width=2.7cm]{./pict/aviso_h_020471_mean_bin0.png}} 
+   & \alt<2>{\includegraphics[width=2.3cm]{./pict/aviso_20471_s_atl2_sa_oc.png}}
+        {\includegraphics[width=2.3cm]{./pict/aviso_20471_s_atl2_mean-2.png}} 
+   & \alt<2>{\includegraphics[width=2.75cm]{./pict/fsle_48_stat_reg_20471__sa_bin1_oc.png}}
+        {\includegraphics[width=2.75cm]{./pict/fsle_48_stat_reg_20471__eof_bin0.png}} 
+   & \\      
+ %\hline
+  \end{tabular}
+
+  \note{
+As previously seen, it is not easy to find the global minimum of the cost function.
+Therefore, the next step is to get a sample of all the potential solutions. 
+The potential solutions are the solution that have a cost function value smaller than the minimum found using the Simulated Annealing algorithm. 
+The mean of all these potential solution is represented below. 
+Looking at the variance of all these potential solutions, we can assess the reliability of this velocity field. 
+On the first line, the observed field are plotted. From the left to the right, there is the velocity field plotted over the SST tracer, the FSLE, the SSH.
+On the second line the corrected field are plotted.  
+The velocity has been corrected using the SST as a tracer. 
+The eddy on the corrected velocity is much more alike the tracer structure that the one on the observed velocity. 
+The result is quite similar when the Chlorophyll is used to correct the velocity field
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%12%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Results: Lagrangian trajectories \alt<2>{(tracer: Chl)}{(tracer: SST)}}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}%[!htbp]
+        
+        \includegraphics[width=4.5cm]{./pict/traj_avi2_sst_20471_s_atl2.png}\\
+        \legende{Lagrangian trajectories from the observed velocity field}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \alt<2>{\includegraphics[width=4.5cm]{./pict/traj_sa_chl_20471_s_atl2.png}\\}{\includegraphics[width=4.5cm]{./pict/traj_varsst_20471_s_atl2.png}\\}
+        \legende{Lagrangian trajectories from the corrected velocity field}
+      \end{figure}
+    \end{column}
+  \end{columns} 
+  \begin{block}{}
+
+  \begin{itemize}
+    \item The trajectory of six particles are represented over the \alt<2>{Chlorophyll}{SST} 
+    \item These trajectories are similar to the filaments observed in \alt<2>{Chlorophyll}{SST}
+%    \item \only<2>{Velocity does not cross frontal structure anymore}
+  \end{itemize}
+  \end{block}
+  \note{
+On both pictures, Lagrangian trajectories of six particles are plotted.
+On the left you can see Lagrangian trajectories derived from observed velocities plotted over the SST.
+On the right, Lagrangian trajectories derived from corrected velocities using the SST over the SST.  
+The Lagrangian trajectories derived from corrected velocities are much more consistent with the tracer than the one from AVISO velocity. 
+Lagrangian trajectories of corrected velocities using SST or Chlorophyll tracers are not the same. 
+} 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section[]{Conclusion}
+%13%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \centering
+  \frametitle{Conclusion}
+
+  \begin{block}{}
+   \textbf{Sub-mesoscale information are invertible to control larger scales dynamics}
+  \end{block}
+  \begin{block}{}
+  \begin{itemize}
+    \item Altimetry and tracer observations are complementary.
+    \item Tracer information can compensate for the lack of SSH resolution in time and space.
+    \item High resolution Sea Surface Temperature or Ocean Color data are useful to control ocean physics. 
+  \end{itemize}
+  \end{block}
+
+  \begin{block}{Future work}
+  \begin{itemize}
+    \item Twin experiment in an idealized coupled physico-biogeochemical model to assess the quality of the correction.
+    \item  Data Assimilation of image in a coupled physico-biogeochemical model.
+  \end{itemize}
+  \end{block}
+
+  \note{ 
+In this study, the altimetric and the tracer image observation are used together to improve the assessment the dynamic at small scales. 
+We can compensate for the lack of spatial and temporal resolution using information from tracer images.
+It is feasible to invert sub-mesoscale tracer information for the control of dynamic in the ocean at larger scale.
+However, There is no way to assess the improvement made on the velocity during the process of correction because we do not know the truth.   
+Now that we have proven the reliability of this method in a real case, we need to assess the reliability of the solution . 
+The next step is to use a physico-biogeochemical coupled model. The high resolution model is a channel configuration, able to generate few eddies using a baroclinic instability.
+Using this model, we will have access to the truth so that we can assess the reliability of the solution of this method. 
+
+The goal of this study is also to develop Data Assimilation of images in a physical biogeochemical model in order to improve the prediction of oceanic circulations. 
+%
+%%Still, we need to quantify the error made on this new estimation of the velocity. 
+%%A similar study on a coupled physico-biogeochemical model should be interesting to improve the method and quantify the resulting error. 
+ }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%13%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{center}
+Thank you for your attention 
+\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%15%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Data Assimilation}
+  \begin{figure}
+    \includegraphics[width=0.8\linewidth]{brasseur_da.png}
+  \end{figure}
+  \legende{Conceptual representation of filtering with sequential assimilation, Brasseur, 2006}
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%15%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%\frametitle{Sub-mesoscale}
+%\begin{block}{}
+%Sub-mesoscales are scales defined by a Rossby number of order one
+%$$R_{o} = \frac{inertial\ force}{Coriolis\ force} =  \frac{U}{fL}$$
+
+%It is caracterized by ageostrophic circulation: strain dominates over rotation. \\
+% \end{block}
+ 
+% \begin{block}{}
+% Three major ingredients: 
+%  \begin{itemize}
+%     \item frontogenesis
+%     \item straining by the mesoscale turbulent field 
+%     \item sub-mesoscale baroclinic instability.
+%    \end{itemize}
+%  \end{block}
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%15%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Connection between FSLE and tracer filaments}
+  \begin{columns}
+    \begin{column}{0.49\textwidth}
+      \begin{figure}
+        \includegraphics[width=5cm]{lohafex.png}
+      \end{figure}
+      \legende{Chlorophyll, South Atlantic, d'Ovidio \& al, 2004} 
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \begin{figure}
+        \includegraphics[width=5cm]{lehahn.png}
+      \end{figure}
+      \legende{Chlorophyll, Pomme area, Lehahn \& al, 2008}
+    \end{column}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%5%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Physical meaning of Lyapunov Exponents}
+%  Lyapunov exponents are defined as the exponential rate of separation, averaged over time \\
+%  \vspace{1cm}
+%  \centering
+%%insert graph of advecting trajectories to get stable or unstable manifolds
+%%to I need to specify backwards = Stable = cf Lehahn2007
+%  \begin{columns}
+%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}
+%%        \includegraphics[width=1\linewidth]{manifold.png}
+%%      \end{figure}
+%       \begin{center}
+%       \begin{tikzpicture}
+%%    \node (W) at (-2,0) {};
+%%    \node (E) at (2,0.6) {};
+%%    \node (C) at (0,0) {H};
+%%    \node (N) at (-0.6,2) {};
+%%    \node (S) at (0.6,-2) {};
+%%    \draw[->>,>=latex] (W) edge[bend right] (C);
+%%    \draw[->>,>=latex] (E) edge[bend right] (C);
+%%    \draw[->>,>=latex] (C) edge[bend left] (N); 
+%%    \draw[->>,>=latex] (C) edge[bend left] (S);
+%        \node (xi) at (0,0.2) {Xi};
+%        \node (xf) at (4,1) {Xf};
+%        \node (yi) at (0,-0.2) {Yi};
+%        \node (yf) at (4,-0.8) {Yf};
+%        \node (di) at (0.82,0) {$\delta_{initial}$};
+%        \node (df) at (4.15,0.1) {$\delta_{final}$};
+%
+%        \draw[-,>=latex] (xf) to[bend left=10] (xi);
+%        \draw[-,>=latex] (yf) edge[bend right=10] (yi);
+%        \draw[<->,>=latex] (0.3,0.2)--(0.3,-0.2);
+%        \draw[<->,>=latex] (3.7,0.95)--(3.7,-0.75);
+%      \end{tikzpicture}
+%      \end{center}
+%    \end{column}
+%    \begin{column}{0.49\textwidth}
+%      \begin{block}{FSLE}
+%      $$\lambda  = \frac{1}{T} \times log(\frac{\delta_{final}}{\delta_{initial}}) $$
+%      \end{block}
+%%      \vspace{1cm}
+%%      \legende{Backward (red) and forward (green) integration of trajectories}
+%    \end{column}
+%  \end{columns}
+% \vspace{1cm}
+% Lyapunov exponents constitute Lagrangian transport barriers between different regions (Lehahn \& al (2007)).
+%%  Stable and Unstable Manifolds constitute Lagrangian transport barriers between different regions because they are material invariant curves that cannot be crossed by purely advective process
+%  \note{Lyapunov exponents are defined as the exponential rate of separation, averaged over time. In this study we'll use Finite time Lyapunov Exponent. In practical terms we integrate the trajectories of particles and calculate th final distance of two particles, initially at distance deltai after a time T. }
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+\end{document}

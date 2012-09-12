@@ -1,0 +1,789 @@
+\documentclass{beamer}
+\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{beamerthemesplit}
+\usepackage{multicol}
+\usepackage{graphicx}
+\graphicspath{./pict/}
+\usepackage{indentfirst}
+\usenavigationsymbolstemplate{}
+%\usepackage{multimedia}%put video
+\usetheme{Warsaw}
+%\usetheme{Singapore}
+\usepackage{geometry}%put margin
+\geometry{hmargin=0.15cm, vmargin=0.cm}
+\usepackage{color}
+%\usecolortheme[named=SeaGreen]{structure}
+\definecolor{bleuclair}{rgb}{0.7,0.7,0.4}
+%\definecolor{mycyan}{rgb}{.19,0.5,0.5}
+\definecolor{mycyan}{rgb}{0.2,0.6,0.6}
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=mycyan}
+\setbeamercolor{block title}{bg=mycyan,fg=black}%bg=background, fg= foreground
+\setbeamercolor{block body}{bg=lightgray,fg=black}%bg=background, fg= foreground
+%\setbeamercolor{structure}{bg=black, fg=green}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{alerted text}{fg=red}
+%\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{frametitle}{fg=white}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{titlelike}{fg=black}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{section in sidebar}{fg=black}
+\setbeamercolor{section in sidebar shaded}{fg= grey}
+\setbeamercolor{subsection in sidebar}{fg=black}
+\setbeamercolor{subsection in sidebar shaded}{fg= grey}
+\setbeamercolor{itemize item}{fg=mycyan}
+\setbeamercolor{section in tableofcontents}{fg=black,bg=black}
+\setbeamercolor*{item projected}{fg = white, bg=mycyan} 
+%\setbeamercolor{sidebar}{bg=red}
+
+\useoutertheme{shadow}
+%\usecolortheme{beetle}
+\newcommand{\gu}[1]{#1}
+\newcommand{\legende}[1]{\textit{\footnotesize #1}}
+\renewcommand{\figurename}{Fig.}
+%usepackage{default}
+%\setbeamersize{text margin left=0cm}
+%\setbeamersize{text margin right=0cm}
+%\setbeamersize{text margin top=0cm}
+%\setbeamersize{sidebar width left=0cm}
+%\setbeamersize{sidebar width right=0cm}
+%\usepackage{fullpage}
+\setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{./pict/slide0006_background}}
+
+\title{Correction of Aviso velocity using Osmium, first tests}
+\author{}
+\date{\textit{\today}}
+
+\begin{document}
+
+%1%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \maketitle
+  %insert logo here
+\end{frame}
+
+%2%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Outline}
+%  \tableofcontents%[pausesections]
+%\end{frame}
+
+%	\section{Context}
+
+%SEVERAL SCALES IN THE OCEAN
+
+%%3%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{}
+%  \begin{block}{ The objective is to explore the feasability of using submesoscale tracer information to controle ocean dynamic fields}
+%   \begin{itemize}
+%%    \item Use of Lyapunov exponents as a proxy to compare velocity fields and Chlorophyll or Sea Surface Temperature images
+%    \item Comparison of FSLE and Chlorophyll or SST patterns (d'Ovidio et al, 2004)
+%    \item Inversion of submesoscale FSLE (Finite-size Lyapunov Exponents) images to mesoscale velocity
+%    \item Inversion of submesoscale SST images to mesoscale velocity
+%%     \item Inversion of submesoscale FSLE images to mesoscale velocity
+%
+%  \end{itemize}
+%  \end{block}
+%\  
+%
+%%Velocity fields: Aviso altimeter Data\\
+%%Tracer images: SST and Chlorphyll from MODIS captor\\
+%%Region: Mediterranean Sea : from $4.8^oE$ to $8^oE$, from $38.2^oN$ to $40.^oN$ \\ 
+%
+%\end{frame}
+%%assimilation of submesoscale obs into ocean models for the control of larger scales
+%	%Is it feasible
+%	%Can se use image proxies
+%	%Are Lyapunov exponents a relaible proxy
+%	%Can we make the link between altimetry and ocean color, physics and biogeochemistry
+%%Two steps : 1 Are subemesoscale synthetic images invertilbes to larger scale ocean circulation
+%%	     2 are submesoscale ocean color images invertibles to larger scale ocean circulation
+%
+%
+%%	\section{Data set}
+% %%4%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Data set}
+%  \begin{itemize}
+%    \item \textbf{Region}: Mediterranean Sea, from $4.8^oE$ to $8^oE$, from $38.2^oN$ to $40.^oN$
+%    \item \textbf{Time Range}: from 1998 to June 2009, 595 velocity maps
+%    \item \textbf{Velocity fields}: AVISO altimeter data
+%    \item \textbf{Resolution}: $1/8^o$, grid points: 26*17
+%    \item \textbf{FSLE Resolution}: $1/48^o$, grid points: 119*86
+%  \end{itemize}
+%%  \vsapce{1cm}
+%  \begin{itemize}
+%    \item \textbf{SST field}: Data from MODIS captor, L2 product
+%    \item \textbf{Resolution}: $1/100^o$
+%  \end{itemize}
+%\end{frame}
+%
+%	\section{Comparison between FSLE fields and SST}
+%
+%%%5%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Comparison between FSLE fields and SST}
+%  \begin{columns}
+%    \begin{column}{0.5\textwidth}
+%      \begin{figure}%[!htbp]
+%        \includegraphics[width=6cm]{../Lyap/Plot/19904_med/fsle_48_stat_reg_19904_med.jpg}\\
+%        \legende{FSLE, June 30, 2004}
+%      \end{figure}
+%    \end{column}
+%    \begin{column}{0.5\textwidth}
+%      \begin{figure} 
+%        \includegraphics[width=6cm]{../Lyap/Plot/SST/A2004184123500_L2_LAC_SST.jpg}\\
+%        \legende{Sea Surface Temperature, July 03, 2004}
+%      \end{figure}
+%    \end{column}
+%  \end{columns}
+%\end{frame}
+%
+%%6%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Method to detect filaments in SST image}
+%  \begin{center}
+%  \includegraphics[width=0.8\linewidth]{./scheme.jpg}
+%  \end{center}
+%\end{frame}
+%
+%%7%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[plain]
+%  \frametitle{Method to detect filaments in SST image}
+%%  MODIS SST $\rightarrow$ Lanczos Filter $\rightarrow$ Gradiant $\rightarrow$ Decrease resolution $\rightarrow$ Binarization $\rightarrow$ Filaments
+%  \begin{columns}
+%    \begin{column}{0.5\textwidth}
+%      \begin{figure}%[!htbp]
+%        \includegraphics[width=4.50cm]{../Lyap/Plot/SST/A2004184123500_L2_LAC_SST_record_bin1.jpg}\\
+%        \legende{SST without filtering}
+%      \end{figure}
+%    \end{column}
+%    \begin{column}{0.5\textwidth}
+%      \begin{figure}%[!htbp]
+%        \includegraphics[width=4.50cm]{../Lyap/Plot/SST/A2004184123500_L2_LAC_SST_record_bin4.jpg}\\
+%        \legende{SST with $\lambda$=10 Lanczos filter}
+%      \end{figure}
+%    \end{column}
+%  \end{columns}
+%  \begin{columns}
+%    \begin{column}{0.5\textwidth}
+%      \begin{figure}
+%        \includegraphics[width=4.50cm]{../Lyap/Plot/SST/A2004184123500_L2_LAC_SST_record_bin6.jpg}\\
+%        \legende{SST with $\lambda$=15 Lanczos filter}
+%      \end{figure}
+%    \end{column}
+%    \begin{column}{0.5\textwidth}
+%      \begin{figure}%[!htbp]
+%        \includegraphics[width=4.50cm]{../Lyap/Plot/SST/A2004184123500_L2_LAC_SST_record_bin9.jpg}\\
+%        \legende{SST $\lambda$=25 Lanczos filter}
+%      \end{figure}
+%    \end{column}
+%  \end{columns}
+%\end{frame}
+%
+%	\section{Inversion of submesoscale information}
+%
+%%7%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Minimizing the cost function using a simulated annealing algorithm}
+%  $\bullet$ Cost function: $J = \|\hat{\lambda}_{fsle}-\hat{\lambda}_{tracer}\| \times (1+log\left(\frac{\|u\|}{\|u_{aviso}\|} \right))$\\ 
+%  \ 
+%
+%  $\bullet$ First estimate: Aviso velocity field \\ 
+%  \ 
+%
+%  $\bullet$ Perturbation: background velocity error simulated by drawing from the Gaussian Probability distribution \\ 
+%  \ 
+%
+%  $\bullet$ Amplitude of perturbation evolves with the cost function: $\gamma= \alpha \times(J-J_{0})$ \\ 
+%  \ 
+%
+%  $\bullet$ Probability of accepting uphill move: $p=exp(-\delta J/T)$ with $T= \beta \times (J-J_{0})$ \\ 
+%  	               
+%\end{frame}
+%
+%%8%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Comparison between Aviso velocity and the corrected one}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}%[!htbp]
+        \includegraphics[width=5.9cm]{./pict/aviso_velmap19904_med_osmium.png}\\
+        \legende{Aviso velocity, June 30, 2004, \\cost function: 0.33}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure} 
+        \includegraphics[width=5.9cm]{./pict/aviso_velmap19904_med_osmium0300.png}\\
+        \legende{Corrected velocity, cost function: 0.23, number of iterations: 30000}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cost function as a function of the number of iterations}
+  \begin{center}
+  \begin{figure}
+    \includegraphics[width=0.6\linewidth]{./pict/Jiter_record6_HR.png}\\
+    \legende{Cost function as a function of number of iterations}
+  \end{figure}
+  The cost function has many local minimum, We can't be sure that the simulated annealing algorithm finds the best solution.  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Corrected velocities, test 1 (1/2)}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}%[!htbp]
+        \includegraphics[width=5.9cm]{./pict/aviso_velmap19904_med_osmium0100.png}\\
+        \legende{Corrected Velocity after 10 000 iterations}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \includegraphics[width=5.9cm]{./pict/aviso_velmap19904_med_osmium0200.png}\\
+        \legende{Corrected velocity, after 20 000 iterations}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Corrected velocities, test 1 (2/2)}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}%[!htbp]
+        \includegraphics[width=5.9cm]{./pict/aviso_velmap19904_med_osmium0300.png}\\
+        \legende{Corrected Velocity after 30 000 iterations}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \includegraphics[width=5.9cm]{./pict/aviso_velmap19904_med_osmium0570.png}\\
+        \legende{Corrected velocity, after 57 000 iterations}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Corrected velocities test2 }
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}%[!htbp]
+        \includegraphics[width=5.9cm]{./pict/aviso_velmap19904_med_osmium0100HR.png}\\
+        \legende{Corrected Velocity after 10 000 iterations}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}%[!htbp]
+        \includegraphics[width=5.9cm]{./pict/aviso_velmap19904_med_osmium0800HR.png}\\
+        \legende{Corrected Velocity after 80 000 iterations}
+      \end{figure}
+
+    \end{column}
+  \end{columns}
+  
+  \vspace{1cm} 
+  In this second test, the final corrected velocity is totally different from the Aviso velocity. \\ 
+  The corrected velocity found after 10 000 iterations seems more accurate than the one found after 80 000 iterations. 
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Conclusion}
+  \begin{block}{}
+    As the number of iterations increases, the difference between the corrected velocity and the Aviso velocity becomes too important. \\ 
+    We must take into account the fact that Aviso velocity is not totally inaccurate. 
+    Therefore it is necessary to add a term representing the Aviso velocity pattern in the cost function. 
+  \end{block}
+\end{frame}
+
+%
+%%8%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}[plain]
+%  \frametitle{Comparison between Aviso velocity and the corrected one}
+%%  MODIS SST $\rightarrow$ Lanczos Filter $\rightarrow$ Gradiant $\rightarrow$ Decrease resolution $\rightarrow$ Binarization $\rightarrow$ Filaments
+%  \begin{columns}
+%    \begin{column}{0.5\textwidth}
+%      \begin{figure}%[!htbp]
+%        \includegraphics[width=4.5cm]{../Lyap/Plot/19904_med/pfsle_48_stat_reg_19904_med.jpg}\\
+%        \legende{FSLE from Aviso velocity, June 30, 2004}
+%      \end{figure}
+%    \end{column}
+%    \begin{column}{0.5\textwidth}
+%      \begin{figure}%[!htbp]
+%        \includegraphics[width=4.5cm]{../Lyap/Plot/19904_med/pfsle_est37133_19904_med.jpg}\\
+%        \legende{FSLE from Corrected velocity}
+%      \end{figure}
+%    \end{column}
+%  \end{columns}
+%  \begin{columns}
+%    \begin{column}{0.5\textwidth}
+%      \begin{figure}
+%        \includegraphics[width=4.5cm]{../Lyap/Plot/SST/A2004184123500_L2_LAC_SST_record_bin6.jpg}\\
+%        \legende{Filaments from tracer}
+%      \end{figure}
+%    \end{column}
+%  \end{columns}
+%\end{frame}
+%
+%
+%
+%%\begin{frame}[plain]
+%%  \frametitle{Method to detect filaments in SST image}
+%%%  MODIS SST $\rightarrow$ Lanczos Filter $\rightarrow$ Gradiant $\rightarrow$ Decrease resolution $\rightarrow$ Binarization $\rightarrow$ Filaments
+%%  \begin{columns}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}%[!htbp]
+%%        \includegraphics[width=4.50cm]{../Lyap/Plot/SST/A2004184123500_L2_LAC_SST_record_bin1.jpg}\\
+%%        \legende{SST not filtered}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}%[!htbp]
+%%        \includegraphics[width=4.50cm]{../Lyap/Plot/SST/A2004184123500_L2_LAC_SST_record_bin4.jpg}\\
+%%        \legende{SST filtered with $\lambda$=10}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%  \begin{columns}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}
+%%        \includegraphics[width=4.50cm]{../Lyap/Plot/SST/A2004184123500_L2_LAC_SST_record_bin6.jpg}\\
+%%        \legende{SST filtered with $\lambda$=15}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}%[!htbp]
+%%        \includegraphics[width=4.50cm]{../Lyap/Plot/SST/A2004184123500_L2_LAC_SST_record_bin9.jpg}\\
+%%        \legende{SST filtered with $\lambda$=25}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%\end{frame}
+%
+%
+%
+%
+%
+%
+%%  \begin{columns}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}%[!htbp]
+%%        \includegraphics[width=5cm]{../Lyap/Plot/19001/fsle_24_stat_reg_0019001.jpg}\\
+%%        \legende{FSLE, Pomme area, January 09, 2002}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure} 
+%%        \includegraphics[width=6cm]{../Lyap/Plot/Jiter/Jiter_log_19001_pomme.png}\\
+%%        \legende{Cost function as a function of Iteration, Pomme area, January 09, 2002}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%\end{frame}
+%%
+%%%5%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}[plain]{Previous results: Pomme area}
+%%  \frametitle{Previous results: Pomme area}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \centering
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.12]{../Lyap/Plot/Chloro/A2007154_L3m_DAY_CHL_chlor_a_4km_pomme.jpg}
+%%%        \caption{Chlorophyll from Modis captor, 03 June 2007}    
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}  
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.12]{../Lyap/Plot/SST/A2007154_L3m_DAY_SST_4_pomme.jpg}
+%%%        \caption{Sea Surface Temperature from Modis captor, June 03, 2007}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]    
+%%        \includegraphics[scale=0.12]{../Lyap/Plot/Chloro/pA2007154_L3m_Day_CHL_chlor_a_4km_pomme.jpg}\\
+%%        \legende{\hspace{1.cm}Binarized chlorophyll gradient from Modis captor, June 03, 2007\hspace{1.cm}} 
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth} 
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.12]{../Lyap/Plot/SST/pA2007154_L3m_DAY_SST_4_pomme.jpg}\\
+%%        \legende{\hspace{1.cm}Binarized SST gradient from Modis captor, June 03, 2007\hspace{1.cm}}
+%%      \end{figure}
+%%    \end{column}     
+%%  \end{columns} 
+%%\end{frame}
+%%
+%%%%6%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{Previous results: Mediterranean area}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.49\textwidth}
+%%      \begin{figure}[!htbp]
+%%%        \includegraphics[width=4cm]{../Lyap/Plot/19904_med/fsle_24_stat_reg_0019904meds.jpg}\\
+%%        \includegraphics[width=5cm]{../Lyap/Plot/fsle_24_stat_reg_19218_meds.png}\\
+%%        \legende{FSLE, Mediterranean Sea, small area, August 14, 2002}    
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.49\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[width=6cm]{../Lyap/Plot/Jiter/Jiter_log_19904_meds.png}\\
+%%        \legende{Cost function as a function of number of iteration, T=200, neof=075}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%  \begin{block}{}
+%%    Problems when minimizing the cost function
+%%  \end{block}    
+%%\end{frame}
+%%
+%%%7%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{Resolution of FSLE divided by two in Mediterranean area}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.49\textwidth}
+%%      \begin{figure}[!htbp]
+%%%        \includegraphics[width=4cm]{../Lyap/Plot/19904_med/fsle_24_stat_reg_19904meds.jpg}\\
+%%        \includegraphics[width=5cm]{../Lyap/Plot/fsle_48_stat_reg_19218_meds.png}\\
+%%        \legende{FSLE, Mediterranean Sea, small area, August 14, 2002}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.49\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[width=6cm]{../Lyap/Plot/Jiter/Jiter_log_19218_0075medsT200.png}\\
+%%        \legende{Cost function as a function of number of iteration, T=200, neof=075}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%  \begin{block}{}
+%%    Problems when minimizing the cost function
+%%  \end{block}
+%%\end{frame}
+%%
+%%
+%%%8%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}[plain]{Previous results: SST in Mediterranean area from MODIS}
+%%  \frametitle{Previous results: SST in Mediterranean area from MODIS}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.12]{../Lyap/Plot/SST/A2004184_L3m_DAY_SST_4_med.jpg}\\
+%%%        \legende{Sea Surface temperature in the Mediterranean Sea from MODIS captor}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.12]{../Lyap/Plot/SST/A2004184123500_L2_LAC_SST.jpg}
+%%%        \legende{Binarized Sea Surface Temperature}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.12]{../Lyap/Plot/SST/pA2004184_L3m_DAY_SST_4_med.jpg}\\
+%%        \legende{Low Resolution}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.12]{../Lyap/Plot/SST/pA2004184123500_L2_LAC_SST.jpg}\\
+%%        \legende{High Resolution}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%\end{frame}
+%%
+%%%9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{Tests from Didier Auroux}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.19]{./pict/test_HR.jpg}\\
+%%        \legende{SST in Mediterranean area}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.33]{./pict/test_didier.jpg}\\
+%%        \legende{Test from Didier Auroux}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%\end{frame}
+%%
+%%
+%%%10%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{Previous difficulties}
+%%  \begin{block}{}
+%%    \begin{itemize}
+%%      \item FSLE are not accurate near the coast
+%%      \item Find the simulating annealing factors that make the minimization of the cost function possible
+%%      \item Find an area with few clouds, presence of passive tracers and mesosale stirring
+%%      \item Structures highlights by binarization not continuous
+%%    \end{itemize}
+%%  \end{block}
+%%\end{frame}
+%%
+%%	\section{Studies on several areas}
+%%
+%%%11%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{Leeuwin Current}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.32]{../Lyap/Plot/fsle_24_stat_reg_19253_leeuwin.png}\\
+%%        \legende{FSLE, Leeuwin Current}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.32]{../Lyap/Plot/SST/SST_L3m_DAY_4_2002261_leeuwin.png}\\
+%%        \legende{SST, Leeuwin Current}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%  \begin{block}{}
+%%    Mesoscale structures visible, no submesoscale activity found in the litterature\\
+%%    Unaccurate in the vicinity of the coast
+%%  \end{block}
+%%\end{frame}
+%%
+%%%12%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{Leeuwin Current}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.32]{../Lyap/Plot/pfsle_24_stat_reg_19253_leeuwin.png}\\
+%%        \legende{Binarized FSLE, Leeuwin Current}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.32]{../Lyap/Plot/SST/pSST_L3m_DAY_4_2002261_leeuwin.png}\\
+%%        \legende{Binarized SST, Leeuwin Current}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%  \begin{block}{}
+%%    Mesoscale structures visible, no submesoscale activy found in the litterature\\
+%%    Difficulty with the vicinity of the coast
+%%  \end{block}
+%%\end{frame}
+%%
+%%
+%%%13%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{Californian Current}
+%%
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.38]{../Lyap/Plot/fsle_24_stat_reg_19988_california.png}\\
+%%        \legende{FSLE, Californian Current}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.38]{../Lyap/Plot/SST/SST_L3m_DAY_4_2004266_california.png}\\
+%%        \legende{SST, Californian Current}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%  \begin{block}{}
+%%    Coastal current, the filaments are too close to the coast.
+%%  \end{block}
+%%\end{frame}
+%%
+%%%14%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{Californian Current}
+%%
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.38]{../Lyap/Plot/SST/SST_L3m_DAY_4_2004266_california.png}\\
+%%        \legende{SST, Californian Current}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.38]{../Lyap/Plot/SST/pSST_L3m_DAY_4_2004266_california.png}\\
+%%        \legende{SST, Californian Current}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%\end{frame}
+%%
+%%%15%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{South Atlantic, East of Tasmania}
+%%
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/fsle_24_stat_reg_20079_tasmania.png}\\
+%%        \legende{FSLE, South Pacific }
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/SST/SST_L3m_DAY_4_2004358_tasmania.png}\\
+%%        \legende{SST, South Pacific}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%
+%%\end{frame}
+%%
+%%%16%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{South Pacific, East of Tasmania}
+%%
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/pfsle_24_stat_reg_20079_tasmania.png}\\
+%%        \legende{FSLE, South Pacific }
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/SST/pSST_L3m_DAY_4_2004358_tasmania.png}\\
+%%        \legende{SST, South Pacific }
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%
+%%\end{frame}
+%%
+%%%17%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{South Atlantic, East of Tasmania}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/SST/SST_L3m_DAY_4_2004358_tasmania.png}\\
+%%        \legende{SST, South Pacific}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/SST/pSST_L3m_DAY_4_2004358_tasmania.png}\\
+%%        \legende{SST, South Pacific }
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%\end{frame}
+%%
+%%%18%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{South Atlantic, East of Tasmania}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/Chloro/CHL_L3m_DAY_4_2004358_tasmania.png}\\
+%%        \legende{Chlorophyll, South Pacific}
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/Chloro/pCHL_L3m_DAY_4_2004358_tasmania.png}\\
+%%        \legende{Chlorophyll, South Pacific}
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%\end{frame}
+%%
+%%%19%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{South Pacific, East of Tasmania}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/pfsle_24_stat_reg_20079_tasmania.png}\\
+%%        \legende{FSLE, South Pacific }
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/Chloro/pCHL_L3m_DAY_4_2004358_tasmania.png}\\
+%%        \legende{Chlorophyll, South Pacific }
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%\end{frame}
+%%
+%%%20%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{South Pacific, East of Tasmania}
+%%  \begin{columns}
+%%    \centering
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/SST/pSST_L3m_DAY_4_2004358_tasmania.png}\\
+%%        \legende{SST, South Pacific }
+%%      \end{figure}
+%%    \end{column}
+%%    \begin{column}{0.5\textwidth}
+%%      \begin{figure}[!htbp]
+%%        \includegraphics[scale=0.42]{../Lyap/Plot/Chloro/pCHL_L3m_DAY_4_2004358_tasmania.png}\\
+%%        \legende{Chlorophyll, South Pacific }
+%%      \end{figure}
+%%    \end{column}
+%%  \end{columns}
+%%\end{frame}
+%%
+%%%21%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%\begin{frame}
+%%  \frametitle{TO DO LIST}
+%%  \begin{itemize}
+%%    \item Inversion of FSLE images on Tasmania area
+%%    \item Meeting with Francesco d'Ovidio
+%%    \item Binarization method need to be improved
+%%    \item Singularity Exponents?
+%%    \item Choice of a model to study
+%%    \item Meeting with Marina Lévy
+%%  \end{itemize}
+%%\end{frame}
+%%
+%%%%
+%%%%%%%%%%%CHOICE OF AN AREA
+%%%%%%%%%%%BINARIZATION IS POSSIBLE
+%%%
+%%%
+%%%
+%%%
+%%
+%%
+%%
+\end{document}

@@ -1,0 +1,716 @@
+%\documentclass[compress,notesonly]{beamer} %compress to make bars as small as possible
+                                           %notesonly to add note not visible on screen (\note[]{})
+\documentclass[compress,slidescentered,notes=show]{beamer}
+%\documentclass[compress,slidescentered,notes=hide]{beamer}
+\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage[english, french]{babel}
+\usepackage{pifont}
+\usepackage{beamerthemesplit}
+\usepackage{multicol} %possibility to create columns
+\usepackage{graphicx} %add pictures
+\graphicspath{{./pict/}} %path to pictures
+\usepackage{indentfirst}
+\usepackage{tikz} %add schemes
+\usetikzlibrary{shapes} %add diamonds shape to schemes
+\usepackage{multimedia} %add video
+%\usepackage[absolute,showboxes, overlay]{textpos}
+%\textblockorigin{1mm}{1mm}
+%\TPshowboxestrue % or false to display contour
+\pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
+\usenavigationsymbolstemplate{}
+\usetheme{Warsaw}
+%\useoutertheme{infolines} %to add numerotation
+\usepackage{geometry} %put margin
+\geometry{hmargin=0.25cm, vmargin=0.0cm}
+\usepackage{color} %creation of own colors
+%\usecolortheme[named=SeaGreen]{structure}
+\definecolor{bleuclair}{rgb}{0.2,0.9,0.8}
+%\definecolor{mycyan}{rgb}{.19,0.5,0.5}
+\definecolor{mycyan}{rgb}{0.2,0.6,0.6}
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=mycyan}
+\setbeamercolor{block title}{bg=mycyan,fg=black}%bg=background, fg= foreground
+\setbeamercolor{block body}{bg=lightgray,fg=black}%bg=background, fg= foreground
+%\setbeamercolor{structure}{bg=black, fg=green}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{alerted text}{fg=red}
+%\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{frametitle}{fg=white}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{titlelike}{fg=black}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{section in sidebar}{fg=black}
+\setbeamercolor{section in sidebar shaded}{fg= grey}
+\setbeamercolor{subsection in sidebar}{fg=black}
+\setbeamercolor{subsection in sidebar shaded}{fg= grey}
+\setbeamercolor{itemize item}{fg=mycyan}
+\setbeamercolor{section in tableofcontents}{fg=black,bg=black}
+\setbeamercolor*{item projected}{fg = white, bg=mycyan} 
+%\setbeamercolor{sidebar}{bg=red}
+%\beamertemplatetransparentcovered %set transparancy
+\useoutertheme{shadow}
+\newcommand{\gu}[1]{#1}
+\newcommand{\legende}[1]{\textit{\footnotesize #1}}
+\renewcommand{\figurename}{Fig.}
+\setlength{\unitlength}{1cm} %to use pictures
+%usepackage{default}
+%\setbeamersize{text margin left=0cm}
+%\setbeamersize{text margin right=0cm}
+%\setbeamersize{text margin top=0cm}
+%\setbeamersize{sidebar width left=0cm}
+%\setbeamersize{sidebar width right=0cm}
+%\usepackage{fullpage}
+\setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{./pict/slide0006_background}}
+
+\title{Inversion des informations images sous-mésoéchelles\hspace{4cm} pour le contrôle de la dynamique à plus large échelle}
+\author[CNES ]{Lucile Gaultier, Jacques Verron, Pierre Brasseur, Jean-Michel Brankart}
+\date{\textit{\today}}
+
+%\logo{\includegraphics[height=1.5cm]{./pict/logo_meom.jpeg}}
+%\logo{\insertframenumber/\inserttotalframenumber}
+%\pgfdeclareimage[height=1.2cm]{legi}{./pict/logo_legi.jpeg}
+%\logo{\pgfuseimage{legi}}
+
+\begin{document}
+
+%1%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \maketitle
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=bleuclair}
+  \begin{center}
+    \includegraphics[height=1.5cm]{./pict/logo_meom.jpeg}
+    \hspace{0.5cm}
+    \includegraphics[height=1.5cm]{./pict/logo_legi.jpeg}
+    \hspace{0.5cm}
+    \includegraphics[height=1.5cm]{./pict/logo_cnrs.jpeg}
+    \hspace{0.5cm}
+    \includegraphics[height=1.5cm]{./pict/logo_cnes.jpeg}
+  \end{center}
+
+  \note{
+ Le sujet de cette présentation est l'inversion des informations sous-mésoéchelles contenues dans les images de traceurs afin de corriger des dynamiques mésoéchelles. 
+ Plus précisément, dans cette étude, on utilise les informations contenues dans les observations spatiales de traceurs comme la Chlorophylle ou la température de surface de mer (SST) afin d'améliorer l'estimation de la circulation océanique faite par les satellites altimétriques.
+% Pour ce faire, on s'appuie sur une des spécialités de l'équipe qui est l'utilisation des observations pour prédire et améliorer les prédictions. 
+On utilise alors des techniques similaires à celles de l'assimilation de données, les compétences du laboratoire sur ce sujet nous sont très utiles. }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\logo{\insertframenumber/\inserttotalframenumber}
+
+%SEVERAL SCALES IN THE OCEAN
+%1%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[plain]
+  \centering
+  \frametitle{\centering Dynamiques méso et sous-mésoéchelles}
+%\only<1-2>{
+%  \begin{figure}
+%    \includegraphics[width=0.7\linewidth]{scales2.png}
+%  \end{figure}}
+%\only<2>{
+%  \begin{textblock*}{5}[0,0](3,2)
+%  \begin{picture}(3,5)
+%    \thicklines
+%    \put(0,0){line(1,0){10}}
+%  \end{picture}
+%  \end{textblock*}}
+%  \begin{textblock}{11.5cm}(0mm,0mm)
+  \begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] (pict) at (1,0){\includegraphics[width=11.5cm]{scales3.jpg}};
+%\only<2-4>{\node[color=black!60] (meso) at (10.3,3.6) {\tiny{Sub-meso and Mesoscale phenomena}};
+%           \draw[fill=green!60, anchor=base,opacity=0.5] (8.6,5) ellipse (1.4 and 1.6);}
+\only<4-5>{ \draw[fill=yellow!70, anchor=base,opacity=0.6] (7.1,3.5) rectangle (12.0,07.3);
+            \node[color=black] (OC) at (8.66,7.1) {Satellites 'Traceurs'};}
+\only<3-5>{
+            \draw[fill=blue!70, anchor=base,opacity=0.6] (9.4,4.6) rectangle (12.0,07.3); 
+            \node[color=blue!70] (alti) at (11.5,5.7) {Satellites Altimétriques};}           
+\only<2-5>{
+           \draw[fill=green!60, anchor=base,opacity=0.6] (8.6,5) ellipse (1.4 and 1.6); 
+           \node[color=black!60] (meso) at (10.3,3.6) {Phénomènes Sous-méso et Mésoéchelles};}
+
+\only<5>{ \node[fill=mycyan, text width=11.2cm] at (6.7,3) {\ding{226}Sous-échantillonnage de l'altimétrie : utilisation des données biogéochimiques et SST};
+          \node[fill=mycyan, text width=11.2cm] at (6.7,2) {\ding{226}Projets SWOT, Altika/SARAL : satellites altimétriques haute-résolution, nécessité de gérer un grand nombre de données};}
+  \end{tikzpicture}
+
+\note{
+ Les échelles de la dynamique océanique sont très variées, allant de l'échelle climatologique aux processus moléculaires. \\
+ On s'intéresse ici aux phénomènes mésoéchelles et sous-mésoéchelles. \\
+ Les satellites altimétriques ne peuvent observer que la dynamique mésoéchelle car les traces de ces satellites sont distantes, alors que les capteurs de SST ou de Chlorophylle ont une très bonne résolution spatiale (jusqu'à 200m) et fournissent quasiment une image par jour. \\
+ On désire alors exploiter aux maximum les images hautes résolutions des traceurs.
+ On cherche donc à extraire les informations dynamiques contenues dans les images traceurs afin de palier au manque de résolution des satellites altimétriques. 
+ Dans le contexte de développement de satellites altimétriques à hautes résolution, il est aussi intéressant d'élaborer des stratégies d'assimilation de données images haute résolution. 
+}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%2%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Plan}
+  \tableofcontents%[pausesections]
+  \note{
+  Je vais d'abord présenter la philosophie générale de cette étude, je détaillerai ensuite quelques idées clefs de la méthode, nous allons soumettre un papier dans le courant du mois, donnant les détails de la méthode. J'illustrerai cette méthode sur un exemple. }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	
+	\section{Philosophie de l'étude}
+
+%3%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Philosophie de l'étude}
+
+  \begin{tikzpicture}
+    \node[color=blue, text width=4cm, text centered] (UV) at (7,2.7) {Champ mésoéchelle}; 
+    \node[color=green, text width=4cm, text centered] (pUV) at (7,0) {\includegraphics[width=1\linewidth]{aviso_20079_tasmania.png}\\}; 
+%        \legende{Chlorophyll, Tasmania region, December 22, 2004}};
+    \node[color=green, text width=4cm, text centered] (TRA) at (0,2.7) {Image traceur Sous-mésoéchelle};
+    \node[color=green, text width=4cm, text centered] (pTRA) at (0,0) {\includegraphics[width=1\linewidth]{pict/A2004358041000_L2_LAC_OC.png}\\};
+ %       \legende{Velocity map, Tasmania region, December 22, 2004};
+    \node[draw] (int) at (3.7,1) {\large{?}};
+  \draw[->,>=latex] (pTRA)--(pUV);
+  \end{tikzpicture}
+  \vspace{0.3cm}
+  \visible<2->{
+  \begin{block}{}
+    L'inversion d'information traceur à sous-mésoéchelle n'a jamais été faite auparavant
+%    The inversion of sub-mesoscale tracer information to correct mesoscale velocity has never been done before
+  \end{block}}
+  \note{
+ Comme expliqué dans l'introduction, on cherche à utiliser les informations dynamiques contenues dans les images de SST ou de Chlorophylle afin de corriger un champ mésoéchelle de vitesse. \\ 
+ Des études ont déjà établi un lien entre les structures visibles sur les images traceurs et les champs de vitesses en utilisant des opérateurs Lagrangien comme les FSLE (Finite Size Lyapunov Exponents). 
+ Cependant, l'inversion des informations contenues dans les images traceurs dans le but de corriger un champ de vitesse n'a jamais été faite auparavant et je vais détailler dans la suite quelques éléments de cette méthode. }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%4%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{}
+  \begin{tikzpicture}
+    \node[draw, color=blue, text width=4cm, text centered] (meso) at (0,0) {Vitesse mésoéchelle};
+    \node[draw, color=green, text width=4cm, text centered](subm) at (0,-1) {Traceur sous-mésoéchelle};
+    \node[draw, color=blue, text width=4cm, text centered] (cor) at (7,-0.5) {Vitesse corrigée};
+    \draw[->,>=latex] (meso)--(cor);
+    \draw[->,>=latex] (subm)--(cor);
+  \end{tikzpicture}
+  \vspace{0.6cm}
+  \begin{block}{On doit trouver la correction à appliquer sur l'estimation de la vitesse la plus compatible avec l'information contenue dans le traceur}
+    \begin{itemize}
+     \item La mesure directe de la différence entre la vitesse $\vec{\bf{u}}$ et \textbf{Traceur} n'est pas possible
+     \item Nécessité de trouver une variable intermédiaire (proxy)
+     \item Utilisation de \textit{Finite-Size Lyapunov Exponents} (FSLE) en tant que proxy
+    \end{itemize}
+  \end{block}
+  \note{
+ Tout d'abord, il n'est pas possible de calculer un champs de vitesse avec comme seule entrée une image de traceurs. 
+On utilise alors une première estimation de la vitesse (background), comme par exemple le champs de vitesses géostrophiques à mésoéchelle observé par l'altimétrie. On corrige cette première estimation à l'aide de l'image haute résolution du traceur. \\ 
+ On cherche alors la correction de la vitesse mésoéchelle la plus proche du traceur. 
+ \\
+ %Pour mesurer la distance entre le traceur et la vitesse, 
+ Comme il est difficile de comparer directement le traceur et la vitesse, on fait appel à une variable intermédiaire : Le FSLE, Finite-Size Lyapunov Exponent. }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%5%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Le champ de FSLE est-il une variable intermédiaire fiable?}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}%[!htbp]
+        \includegraphics[width=6cm]{pict/fsle_24_stat_reg_20814_s_atl.png}\\
+        \legende{FSLE, région Sud Atlantique, \\27 décembre 2006}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure} 
+        \includegraphics[width=6cm]{pict/A2006360165000_L2_LAC_SST.png}\\
+        \legende{Traceur (SST), région Sud Atlantique, \\27 décembre 2006}
+      \end{figure}
+    \end{column}
+  \end{columns}
+  \vspace{0.5cm}
+  \begin{block}{}
+  Les FSLE mesurent l'étirement du fluide \\
+  \ding{226} Lien entre la dynamique sous-mésoéchelle et les structures filamentaires des traceurs. (Lehahn \& al, 2008, d'Ovidio \& al, 2004)
+  \end{block}
+%  Maximum lines of Lyapunov exponents and frontal tracer structures present similar patterns (d'Ovidio \& al (2004)).
+  \note{
+ Des études récentes ont établi le lien entre la dynamique mésoéchelle et les images traceurs. 
+Elles montrent la cohérence entre les structures du FSLE calculées grâce au champs de vitesses et les structures frontales du traceurs, c'est à dire le gradient du traceur. \\ 
+On cherche alors la vitesse qui donne le FSLE le plus proche de la norme du gradient du traceur.}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section[Méthode]{Processus d'inversion d'images}
+
+%6%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Méthode}
+%\temporal<n> {before}{at n}{after}
+  \begin{block}{}
+    $\bullet$ Fonction coût : 
+    $$J(u)=\|\lambda(u)- \lambda_{obs}\| + background\ term $$
+    La fonction coût est fortement non linéaire avec de nombreux minima locaux.\\
+%\alt<2>{\centering\includegraphics[width=0.5\linewidth]{J2_med19904.png}\includegraphics[width=0.5\linewidth]{Jiter_record6_HR.png}\\}
+%  {
+  \end{block}
+  \vspace{0.2cm}
+  \begin{block}{}
+    $\bullet$ On explore le sous-espace d'erreurs afin de trouver la vitesse qui minimise la fonction coût. \\
+    on calcule un échantillon de vitesses grâce à une décomposition en vecteurs propres d'un ensemble de vitesses observées :
+    $$\textbf{u}_k = \bar{\textbf{u}} + \sum_{i=0}^n{\underbrace{a_k^i}_{Eigenvalue}\underbrace{\textbf{u}^i}_{EOF_{}}}$$
+    Le nombre de degré de liberté est réduit, on utilise 50 EOFs. \\
+  \end{block} 
+  \vspace{0.2cm} 
+  \note{
+ %Pour ce faire, %la méthode est similaire à celle employée dans le cadre de l'Assimilation de Données. 
+ On binarise le FSLE et la norme du gradient du traceur (afin de comparer des quantités équivalentes). 
+ On compare pour une vitesse donnée, la distance entre le FSLE binarisé (calculé à partir de la vitesse)  et l'observation de la norme du gradient du traceur binarisée. \\
+ En considérant que l'erreur sur le premier estimé (le terme background donc ici le champs de vitesse altimétrique)  est faible, on ajoute un terme de rappel au premier estimé. \\
+ On cherche alors la vitesse qui minimise la fonction coût parmi un sous-espace de vitesses perturbées. 
+ La perturbation de la vitesse est calculée grâce à une décomposition en vecteurs propres d'un ensemble de champs de vitesses. Les EOFs nous permettent d'obtenir les directions principales de perturbation.}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%7%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \centering
+  \frametitle{Etude exploratoire}
+  \begin{block}{}
+    \begin{itemize}
+      \item \textbf{Step 1}: Le FSLE convient-il à notre étude?   \vspace{0.2cm} \hspace{5cm} 
+        Inversion d'images synthétiques sous-mésoéchelles pour contrôler la dynamique à plus large échelle
+        (Expérience jumelle)\vspace{0.4cm}
+      \item \textbf{Step 2}: Comparer les images sous-mésoéchelles observées et le proxy \vspace{0.2cm} \hspace{5cm} 
+        Inversion d'images traceur à sous-mésoéchelle pour contrôler la dynamique à plus large échelle
+    \end{itemize}
+  \end{block} 
+  \note{
+Notre étude s'effectue en deux temps : 
+ On effectue d'abord une étude exploratoire afin de vérifier que la variable intermédiaire FSLE convient à notre étude, c'est à dire qu'à partir d'une image FSLE est inversible. 
+ En d'autres mots, on vérifie que l'on peut recalculer la vitesse à partir du champs de FSLE et d'une ébauche. \\  
+ %Le premier estimé (ou terme background) est le champs de vitesse observé volontairement perturbée. 
+ %On perturbe ce première estimé afin de minimiser la fonction coût et de retrouver le champs de vitesse observé.\\ 
+ Si l'expérience jumelle est concluante, on peut alors tester l'inversion complète de l'information image traceur sous-mésoéchelle.
+ Je ne montre dans la suite que les tests de sensibilité effectués sur l'expérience réelle.  } 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{Exemple}
+
+%8%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \centering
+  \frametitle{Etude d'une petite zone : dans l'océan Sud Atlantique}
+  \begin{figure}
+    \includegraphics[width=0.5\linewidth]{s_atlb.jpg}
+  \end{figure}
+  \begin{itemize}
+    \item \textbf{Echelle de temps}: de 1998 à Juin 2009, 595 champs de vitesses
+    \item \textbf{Champs de vitesses}: Données altimétriques provenant d'AVISO
+    \item \textbf{Résolution}: $1/3^o$, nombre de points de grille : 13*17
+    \item \textbf{Résolution FSLE}: $1/48^o$, nombre de points de grille : 99*130
+  \end{itemize}
+%  \vsapce{1cm}
+  \begin{itemize}
+    \item \textbf{Image traceur}: SST ou Chlorophylle (capteur MODIS, produit L2)
+    \item \textbf{Résolution nécessaire à la détection de filaments}: $1/100^o$
+    %resolution needed to detect filament $1/100^o$, to match fsle $1/50^o$
+  \end{itemize}
+  \note{
+ On démontre ici la faisabilité de l'inversion d'images traceurs dans un cas d'observations réelles. \\ 
+ On choisit une petite zone rectangulaire dans l'Océan Atlantique Sud. \\ 
+ Une vitesse altimétrique provenant des produits AVISO grillées représente le premier estimé de la vitesse à mésoéchelle. 
+ Les cartes de ces vitesses pendant la période 1992 2009 sont alors utilisées afin de créer un sous-ensemble de vitesses perturbées. 
+ La résolution des grilles AVISO sur cette zone est de $1/3^o$. 
+ On interpole les vitesses afin de créer un FSLE à une résolution de $1/48^o$. 
+ L'observation traceur est une image de la SST provenant du capteur MODIS. Le produit est initialement grillé à une résolution de $1/100^o$, puis filtré pour enlever le bruit d'observation et dégradé à la même résolution que le FSLE. }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \centering
+%\alt<2>{\frametitle{Study of the cost function: Full inversion}}
+%       {\frametitle{Study of the cost function: Inversion of FSLE}}
+%
+%  \alt<2>{
+%  \begin{center}
+%    STEP 2
+%  \end{center}
+%  \begin{figure}
+%    \includegraphics[width=0.48\linewidth]{J2_med19904.png}
+%    \hspace{0.2cm}
+%    \includegraphics[width=0.48\linewidth]{Jiter_19904_med.png}
+%  \end{figure}}
+%  {\begin{center}
+%    STEP 1
+%  \end{center}
+%  \begin{figure}
+%    \includegraphics[width=0.48\linewidth]{J2_meds19904_lyap.png}
+%    \hspace{0.2cm}
+%    \includegraphics[width=0.48\linewidth]{Jiter_19904_med_lyap.png} 
+%  \end{figure}}
+%  \begin{block}{}
+%  \alt<2>{Simulated Annealing to decrease the cost function without being stuck in a local minimum}
+%  {Cost function: $J(u)=\|\lambda(u)- \lambda_{obs}\| + background\ term $}
+%  \end{block}
+%  \alt<2>{
+% \note{ Comme l'inversion du FSLE est possible, on passe à la deuxième étape: l'inversion de la SST.
+% On trace les mêmes figures que pour le cas précédant.
+% Sur la figure de droite, on constate combien la fonction coût est irrégulière. On a du utiliser un algorithme de Simulated Annealing pour eviter d'être bloqué dans les minimums locaux. 
+% Il est donc difficile de trouver le minimum global.
+% La figure de gauche représente l'écart entre la solution trouvée par le processus de minimisation et cette même solution perturbée en fonction de l'amplitude de perturbation.
+% Chaque courbe représente une direction de perturbation.
+% On vérifie alors que l'écart entre la solution trouvée et la solution perturbée a un minimum et qu'il est situé à l'endroit où la solution n'est pas perturbée. }
+%  }
+%  {\note{
+% L'étape 1 consiste à prouver la faisabilité de l'inversion du proxy FSLE grâce à une expérience jumelle. 
+% On calcule alors le FSLE du champs de vitesses altimétrique observé et on le prend comme observation traceur. 
+% On perturbe le champs altimétrique observé afin de définir notre premier estimé. 
+% On veut alors retrouver le champs de vitesses observées. \\ 
+% A gauche vous voyez les variations de la fonction coût en fonction de l'amplitude de perturbation. Chaque courbe représente une direction de perturbation. 
+% On constate alors l'existence d'un minimum global, lorsque le champs n'est pas perturbé. 
+% On voit aussi sur la figure de droite, qui représente l'évolution de la fonction coût avec le nombre d'itérations (en échelle log-log) qu'un minimum est atteint de façon stable. \\ 
+% Il est donc possible d'identifier la vitesse qui minimise la fonction coût, c'est à dire de calculer une vitesse à partir d'un champ de FSLE. }
+%} 
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \centering
+  \frametitle{Etude de la fonction coût : inversion complète}
+  \begin{center}
+    STEP 2
+  \end{center}
+  \begin{figure}
+    \includegraphics[width=0.48\linewidth]{J2_med19904.png}
+    \hspace{0.2cm}
+    \includegraphics[width=0.48\linewidth]{Jiter_20471_s_atl2.png}
+  \end{figure}
+ \begin{block}{}
+  \alt<2>{Simulated Annealing (recuit simulé) utilisé pour décroître la fonction coût}
+  {Fonction coût : $J(u)=\|\lambda(u)- \lambda_{obs}\| + background\ term $}
+  \end{block}
+ \note{
+Comme l'inversion du FSLE est possible, on passe à la deuxième étape: l'inversion de la SST.
+La figure de droite représente l'évolution de la fonction coût avec le nombre d'itérations (en échelle log-log).
+ Sur la figure de droite, on constate combien la fonction coût est irrégulière. On a du utiliser un algorithme de Simulated Annealing pour éviter d'être bloqué dans les minimums locaux. 
+ Il est donc difficile de trouver le minimum global.
+ La figure de gauche représente l'écart entre la solution trouvée par le processus de minimisation et cette même solution perturbée en fonction de l'amplitude de perturbation.
+ Chaque courbe représente une direction de perturbation.
+ On vérifie alors que l'écart entre la solution trouvée et la solution perturbée a un minimum et qu'il est situé à l'endroit où la solution n'est pas perturbée. }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+%10%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Résultats: correction du champ de vitesses à l'aide de la \alt<2>{SST}{Chl}}
+
+  \begin{columns}
+    \begin{column}{0.10\textwidth} 
+      \begin{figure}
+        \alt<2>{\includegraphics[width=2.5cm]{./pict/sst_20471_small.png}}
+        {\includegraphics[width=2.5cm]{./pict/sst_20471_small.png}}
+      \end{figure}
+      \begin{block}{}
+        \tiny{Observations altimétriques du 18 janvier 2006}
+      \end{block}
+      \begin{block}{}
+        \tiny{Champs corrigés}
+      \end{block}
+    \end{column}
+    \begin{column}{0.25\textwidth}
+      \begin{center} \small{Champ de vitesses} \end{center}
+      \begin{figure}%[!htbp]
+        \includegraphics[width=2.4cm]{./pict/aviso_20471_s_atl2_oc.png}\\
+     %   \legende{Champ de vitesses}
+      \end{figure}      
+      \begin{figure}%[!htbp]
+      \alt<2>{
+        \includegraphics[width=2.4cm]{./pict/aviso_20471_s_atl2_sa_oc.png}}
+        {\includegraphics[width=2.4cm]{./pict/aviso_20471_s_atl2_mean-2.png}}
+       % \legende{Champ de vitesse corrigé}
+      \end{figure}
+    \end{column}
+ 
+ %    \begin{column}{0.11\textwidth}
+%     \begin{center} \tiny{Observations altimétriques du 18 janvier 2006} \end{center}
+%    \end{column} 
+    \begin{column}{0.25\textwidth}
+      \begin{center} \small{FSLE} \end{center}
+      \begin{figure}
+      \includegraphics[width=2.6cm]{./pict/fsle_48_stat_reg_20471__bin0.png}\\
+     %    \legende{FSLE}
+      \end{figure}
+       \begin{figure}
+        \alt<2>{
+        \includegraphics[width=2.6cm]{./pict/fsle_48_stat_reg_20471__sa_bin1_oc.png}}
+        {\includegraphics[width=2.6cm]{./pict/fsle_48_stat_reg_20471__eof_bin0.png}}
+       % \legende{FSLE provenant du champ de vitesses corrigé}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.25\textwidth}
+      \begin{center} \small{SSH}\end{center}
+      \begin{figure}
+        \includegraphics[width=2.6cm]{./pict/aviso_h_020471_bin0.png}
+      %   \legende{SSH AVISO du 18 janvier 2006}
+      \end{figure}
+      \begin{figure}
+        \alt<2>{
+        \includegraphics[width=2.6cm]{./pict/aviso_h_020471_eof_bin1_oc.png}}
+        {\includegraphics[width=2.6cm]{./pict/aviso_h_020471_mean_bin0.png}}
+        %\legende{Champ de SSH corrigé}
+      \end{figure}
+    \end{column}
+  \end{columns}
+
+
+  \note{
+ On a vu précédemment que la minimisation de la fonction coût permet difficilement de trouver le minimum global de celle-ci. 
+ On va donc échantillonner, autour d'un minimum de la fonction coût, les solutions potentielles, c'est à dire les vitesses dont la fonction coût est inférieur ou comparable au minimum trouvé par le simulated annealing. 
+On obtient alors un ensemble de solutions possibles. \\ 
+ Je représente ici la moyenne de ces solutions possibles (ligne du bas). 
+% On peut aussi estimer la fiabilité de ce champ de vitesse corrigé en regardant la variance de toutes les solutions potentielles. 
+ Regardons les corrections qu'apportent cette solution. 
+ Vous voyez sur la ligne du haut les vitesses superposée au traceur STT, le FSLE et la SSH observés par les satellites altimétriques ; sur la ligne du bas, les vecteurs vitesses superéposés au traceur SST, le FSLE et la SSH corrigés. 
+ De premier abord, on constate que globalement le tourbillon de la vitesse corrigée correspond mieux à la structure frontale du traceur. }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%11%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Résultats : Trajectoires Lagrangiennes \alt<2>{(traceur : SST)}{(traceur : Chl)}}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}%[!htbp]
+        
+        \includegraphics[width=4.9cm]{./pict/traj_avi2_sst_20471_s_atl2.png}\\
+        \legende{Trajectoires lagrangiennes issues du champ de vitesses observé}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{figure}
+        \alt<2>{\includegraphics[width=4.9cm]{./pict/traj_sa_sst_20471_s_atl2.png}\\}
+        {\includegraphics[width=4.9cm]{./pict/traj_varsst_20471_s_atl2.png}\\}
+        \legende{Trajectoires lagrangiennes issues du champ de vitesses corrigé}
+      \end{figure}
+    \end{column}
+  \end{columns} 
+  \begin{block}{}
+
+  \begin{itemize}
+    \item Les trajectoires des six particules sont représentés sur un champ de \alt<2>{température de surface (SST, $^o$C)}{Chlorophylle (mg.m$^-3$)} 
+    \item Ces trajectoires suivent les structures filamentaires du traceur \alt<2>{SST}{Chlorophylle}
+%    \item \only<2>{Velocity does not cross frontal structure anymore}
+  \end{itemize}
+  \end{block}
+  \note{
+ Certaines zones ne sont pas corrigées de façon très cohérente avec le traceur comme par exemple le Sud Ouest du tourbillon, où le flot parait accéléré sur la vitesse corrigée. 
+ Le résultat le plus intéressant est la correction effectuée sur des zones où les vitesses observées traversent une structure frontale du traceur. 
+  On peut alors regarder un zoom sur le rectangle bleu, on constate alors que la correction permet aux vitesses un meilleur alignement le long de la structure frontale.
+} 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%12%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Results: correction on velocity}
+%  \begin{columns}
+%    \begin{column}{0.5\textwidth}
+%      \begin{figure}%[!htbp]
+%        \includegraphics[width=5.9cm]{./pict/aviso_norm19904_med_diff_bin1.png}\\
+%        \legende{Norm of the difference between the observed velocity and the corrected one}
+%      \end{figure}
+%    \end{column}
+%    \begin{column}{0.5\textwidth}
+%      \begin{figure}%[!htbp]
+%        \includegraphics[width=5.9cm]{./pict/aviso_norm19904_med_var_bin1.png}\\
+%        \legende{Norm of the variance of the ensemble sample which characterizes the PDF of the solution.}
+%      \end{figure}
+%    \end{column}
+%  \end{columns}
+%  \begin{block}{}
+%  \begin{itemize}
+%    \item Velocity strengthen in the South West of the picture
+%    \item Good accuracy on the correction of the eddy 
+%  \end{itemize}
+%  \end{block}
+%  \note{
+ %Essayons maintenant d'analyser la fiabilité de cette solution.
+%En effet j'ai évoqué le fait que nous avons un ensemble de solutions possibles. Il nous faut donc  évaluer quelle est la fiabilité de cette solution par rapport à une autre. Nous allons donc regarder la variance de notre échantillon de solution possible.   
+% Tout d'abord, à gauche, vous voyez la norme de la différence entre la vitesse observée et la vitesse corrigée.
+% On constate de premier abord que le Sud Ouest de l'image est effectivement beaucoup corrigé et rien n'indique une telle intensité de correction sur l'image SST.  
+% Le nord du tourbillon subit lui aussi une correction importante. 
+% A droite on voit la norme de la variance des différentes solutions potentielles. Plus la variance est élevée, plus les solutions potentielles diffèrent les unes des autres et remettent en cause la fiabilité de la correction. 
+% Cela est le cas pour la partie Sud Ouest de l'image car la variance y est élevée. 
+% Par contre la correction importante effectuée sur la partie Nord du tourbillon est considéré comme fiable avec une variance relativement faible.
+% Globalement, la variance est faible, donc notre ensemble de solutions est relativement homogène. 
+%Nous n'avons toutefois aucun moyen d'estimer l'apport bénéfique de notre correction par rapport à la réalité car nous ne possédons pas d'information sur la réalité. 
+% Travailler avec un modèle couplé physique-biogéochimie peut alors être un atout pour raffiner notre méthode. 
+%}
+%\end{frame}
+
+	\section[]{Conclusion}
+%13%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \centering
+  \frametitle{Conclusion}
+
+  \begin{block}{L'inversion d'information image à sous-mésoéchelle pour le contrôle des circulations à plus grande échelle est possible}
+  \begin{itemize}
+    \item Les données altimétriques et les images traceurs sont complémentaires
+    \item Les informations contenues dans les traceurs peuvent compenser le manque de résolution des donnée altimétrique (SSH).
+   \item Les données haute-résolutions SST ou couleur de l'océan sont utiles pour le contrôle de la dynamique océanique. 
+  \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \centering
+  \frametitle{Conclusion}
+  \begin{block}{Prochaines étapes}
+  \begin{itemize}
+    \item Mise en place d'un modèle couplé physique-biogéochimie idéalisé.
+    \item Inversion d'une image sous-mésoéchelle dans ce modèle
+    \item Quantifier l'apport de la correction sur la vitesse, grâce à la connaissance de la vérité (expérience jumelle).
+  \end{itemize}
+  \end{block}
+
+  \begin{block}{Perspectives}
+  \begin{itemize}
+    \item Assimilation de donnée traceur sous-mésoéchelles au sein d'un modèle couplé physique-biogéochemie.
+  \end{itemize}
+  \end{block}
+  \note{ On utilise conjointement des observations altimétriques et des images traceurs comme la SST dans cette étude. 
+ On a montré que l'on peut pallier au manque de résolution spatial et temporel des satellites altimétries en utilisant des informations images traceurs. 
+ Il est donc possible dans un cas réel, d'utiliser les informations des traceurs à sous-mésoéchelles pour contrôler la dynamique océanique à plus grande échelle. 
+ Il est cependant difficile de savoir si la correction apporte une amélioration de l'estimation des champs de vitesses. 
+Maintenant que nous savons que cette méthode peut s'appliquer dans le cas réel, travailler avec un modèle couplé physique-biogéochimie à haute résolution nous permettrait de raffiner la méthode car nous pourrons estimer l'erreur effectuée lors de la correction. 
+
+Le but ultime de ce travail est de pouvoir réaliser de l'assimilation de donnée d'images dans un modèle couplé phyique-biogéochimie, afin d'améliorer les prédictions de la circulation océaniques. 
+%This study shows how to make up for the sub-sampling in time and space of altimetry using Tracer information. 
+%We also proved that sub-mesoscale tracer information can control larger scale dynamics in the ocean. 
+%Still, we need to quantify the error made on this new estimation of the velocity. 
+%A similar study on a coupled physico-biogeochemical model should be interesting to improve the method and quantify the resulting error. 
+ }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%13%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{center}
+Merci de votre attention
+\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%15%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Data Assimilation}
+  \begin{figure}
+    \includegraphics[width=0.8\linewidth]{brasseur_da.png}
+  \end{figure}
+  \legende{Conceptual representation of filtering with sequential assimilation, Brasseur, 2006}
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%15%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Sub-mesoscale}
+\begin{block}{}
+Sub-mesoscales are scales defined by a Rossby number of order one
+$$R_{o} = \frac{inertial\ force}{Coriolis\ force} =  \frac{U}{fL}$$
+
+It is caracterized by ageostrophic circulation: strain dominates over rotation. \\
+ \end{block}
+ 
+ \begin{block}{}
+ Three major ingredients: 
+  \begin{itemize}
+     \item frontogenesis
+     \item straining by the mesoscale turbulent field 
+     \item sub-mesoscale baroclinic instability.
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%15%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Connection between FSLE and tracer filaments}
+  \begin{columns}
+    \begin{column}{0.49\textwidth}
+      \begin{figure}
+        \includegraphics[width=5cm]{lohafex.png}
+      \end{figure}
+      \legende{Chlorophyll, South Atlantic, d'Ovidio \& al, 2004} 
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \begin{figure}
+        \includegraphics[width=5cm]{lehahn.png}
+      \end{figure}
+      \legende{Chlorophyll, Pomme area, Lehahn \& al, 2008}
+    \end{column}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%5%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Physical meaning of Lyapunov Exponents}
+  Lyapunov exponents are defined as the exponential rate of separation, averaged over time \\
+  \vspace{1cm}
+  \centering
+%insert graph of advecting trajectories to get stable or unstable manifolds
+%to I need to specify backwards = Stable = cf Lehahn2007
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+%      \begin{figure}
+%        \includegraphics[width=1\linewidth]{manifold.png}
+%      \end{figure}
+       \begin{center}
+       \begin{tikzpicture}
+%    \node (W) at (-2,0) {};
+%    \node (E) at (2,0.6) {};
+%    \node (C) at (0,0) {H};
+%    \node (N) at (-0.6,2) {};
+%    \node (S) at (0.6,-2) {};
+%    \draw[->>,>=latex] (W) edge[bend right] (C);
+%    \draw[->>,>=latex] (E) edge[bend right] (C);
+%    \draw[->>,>=latex] (C) edge[bend left] (N); 
+%    \draw[->>,>=latex] (C) edge[bend left] (S);
+        \node (xi) at (0,0.2) {Xi};
+        \node (xf) at (4,1) {Xf};
+        \node (yi) at (0,-0.2) {Yi};
+        \node (yf) at (4,-0.8) {Yf};
+        \node (di) at (0.82,0) {$\delta_{initial}$};
+        \node (df) at (4.15,0.1) {$\delta_{final}$};
+
+        \draw[-,>=latex] (xf) to[bend left=10] (xi);
+        \draw[-,>=latex] (yf) edge[bend right=10] (yi);
+        \draw[<->,>=latex] (0.3,0.2)--(0.3,-0.2);
+        \draw[<->,>=latex] (3.7,0.95)--(3.7,-0.75);
+      \end{tikzpicture}
+      \end{center}
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \begin{block}{FSLE}
+      $$\lambda  = \frac{1}{T} \times log(\frac{\delta_{final}}{\delta_{initial}}) $$
+      \end{block}
+%      \vspace{1cm}
+%      \legende{Backward (red) and forward (green) integration of trajectories}
+    \end{column}
+  \end{columns}
+ \vspace{1cm}
+ Lyapunov exponents constitute Lagrangian transport barriers between different regions (Lehahn \& al (2007)).
+%  Stable and Unstable Manifolds constitute Lagrangian transport barriers between different regions because they are material invariant curves that cannot be crossed by purely advective process
+  \note{Lyapunov exponents are defined as the exponential rate of separation, averaged over time. In this study we'll use Finite time Lyapunov Exponent. In practical terms we integrate the trajectories of particles and calculate th final distance of two particles, initially at distance deltai after a time T. }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\end{document}
