@@ -1,0 +1,366 @@
+\documentclass{beamer}
+
+% Vary the color applet  (try out your own if you like)
+%\colorlet{structure}{red!65!black}
+\usetheme{Singapore}
+%\beamertemplateshadingbackground{yellow!100}{white}
+
+\setbeamersize{text margin left=4mm, text margin right=4mm} 
+
+%\usepackage{beamerthemesplit}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % pour les accents (mettre latin1 pour
+% windows au lieu de utf8)
+\usepackage[frenchb]{babel} % le documents est en francais
+\usepackage{amsmath} % un packages mathematiques
+\usepackage{amssymb}				% collection de symboles math�matiques
+\usepackage{amsthm}
+\usepackage{xcolor} % pour definir plus de couleurs
+\usepackage{graphicx} % pour inserer des figures
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{block body}{fg=white,bg=red} 
+\setbeamercolor{block body alerted}{fg=white,bg=red}
+
+\def\hilite<#1>{%
+  \temporal<#1>{\color{gray}}{\color{blue}}%
+               {\color{blue!25}}}
+
+
+\title[Réunion Modélisation]{Mélange vertical profond: une révolution}
+\author[Pierre Labreuche]{Pierre Labreuche }%\inst{1}}
+\institute[LEGI:]{
+%  \inst{1}%
+   \'Equipes MEOM \& MEIGE
+   \\LEGI}
+\date[\today]{}%Présentation de stage}
+\subject{Géophysique}
+
+%\pgfdeclaremask{fsu}{fsu_logo_ybkgrd}
+%\pgfdeclareimage[mask=fsu,width=1cm]{fsu-logo}{fsu_logo_ybkgrd}
+
+%\logo{\vbox{\vskip0.1cm\hbox{\pgfuseimage{fsu-logo}}}}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Où en est on?}
+    \tableofcontents[currentsection,currentsubsection]
+    \begin{figure}[htbp]
+%    \includegraphics[height=2cm]{Plots/mechanisme.png}
+    \end{figure}
+
+  \end{frame}
+}
+
+
+
+\begin{document}
+
+\frame
+{
+\titlepage
+%\includegraphics[width=2cm]{images/logoens} \hfill \includegraphics[width=2cm]{images/logoucbl} \hfill \includegraphics[width=2cm]{images/logounivlyon}  \hfill \includegraphics[width=2cm]{images/logolegi}
+
+}
+%Table of Topics
+
+\section{Cours 101}
+
+\subsection{Les ondes}
+
+\frame
+{
+Les ondes internes (IW):
+\begin{itemize}
+\item<1-> Générées par le vent, ou l'action conjointe des marées ou d'un courant profond avec de la bathymétrie
+\item<1-> Très énergétiques dans l'océan
+\item<1-> Un des principaux signaux sous-mésoéchelle (mais pas que)
+\item<1-> De fréquence comprise entre f et N
+\begin{figure}[htbp]
+%\uncover<2->{ \includegraphics[height=5cm]{Plots/Snapshot_highlight.jpg} \\}
+\end{figure}
+\end{itemize}
+}
+
+\frame
+{
+Les oscillations inertielles (IO):
+\begin{itemize}
+\item<1-> Un cas dégénéré d'onde interne de fréquence f
+\item<1-> D'échelle horizontale bien plus grande que les autres ondes internes ($\sim 10 - 100 km$) (homogène selon l'horizontale pour mon étude)
+\end{itemize}
+}
+
+\subsection{Mechanisme}
+\frame
+{
+\begin{figure}[htbp]
+%\uncover<2->{
+%\alt<2>{ \includegraphics[height=3cm]{Plots/topo_U_G.png} } {
+%\alt<3>{ \includegraphics[height=3cm]{Plots/topo_U_G_ILW.png} } {
+%\alt<4>{ \includegraphics[height=3cm]{Plots/topo_U_G_ILW_IO.png} } {
+%{ \includegraphics[height=3cm]{Plots/mechanisme.png}} }}}
+%}
+\end{figure}
+\uncover<1->{Le schéma qui explique le méchanisme de Nikurashin et Ferrari: \\}
+\uncover<2->{Un courant géostrophique passe au dessus d'une topographie\\}
+\uncover<3->{Le courant crée des ondes \\}
+\uncover<4->{Les ondes déferlent et créent des oscillations inertielles\\}
+\uncover<5->{Les oscillation inertielles augmentent le déferlement des ondes internes\\}
+\uncover<6->{... Etc etc ...}
+}
+
+%\frame
+%{
+%\tableofcontents
+%}
+
+\section{Des gros calculs}
+\subsection{Les équations}
+\frame
+{
+On adimensionne les équations par rapport à la raideur des ondes internes:
+\alert{$$\epsilon = k_z h_T \sim \frac{N h_T}{U_G}$$}
+Avec une dissipation de Raigleigh: $D(\bf{u}) = -\lambda \bf{u}$\\
+\uncover<2->{
+Et on fait un dévelloppement multi-échelle (Bender-Orzag):
+\tiny{
+%\begin{align*}
+$$
+t = t + \epsilon^{-1}T^{(1)} + \epsilon^{-2} T^{(2)} + \cdots$$
+$${\bf x} = {\bf x} + \sum_{i=1}^{\infty} \epsilon^{-i}{\bf X}^{(i)}
+$$%%\end{align*}
+}
+pour les coordonnées, et pour les variables: \\
+\tiny{
+%\begin{align*}
+$$\bf{u} = \bf{u}^G(T_G,X_G) + \bf{u}^I(t,T_I,X_I) + \sum_{i=1}^{\infty} \epsilon^i \bf{u}^{(i)}$$
+$$w = w^G(T_G,X_G) + w^I(t,T_I,X_I) + \sum_{i=1}^{\infty} \epsilon^i w^{(i)}$$
+%p &= p^G(T_G,X_G) + \epsilon^2 Ro p^I(t,T_I,X_I) + Ro \sum_{i=1}^{\infty} \epsilon^i u^{(i)}\\
+%b &= b^G(T_G,X_G) + \epsilon^3 b^I(t,T_I,X_I) + \sum_{i=1}^{\infty} \epsilon^i b^{(i)}\\
+%D_{m,b} &= \epsilon D_{m,b}^{(1)} + \epsilon^2 D_{m,b}^{(2)} + \cdots
+%\end{align*}
+}}}
+\frame
+{
+On développe, on fait plein de trucs cools et on a:
+%\begin{align*}
+%$$Nu = u + i v $$
+\alt<1>{
+$$\partial_t \overline{V^{(3)}} + i f \overline{V^{(3)}}  = - A + U_I k_T f^{-1}  C\quad e^{i f(t-t_0)}  - \lambda \overline{V^{(3)}}$$
+%\end{align*}
+%\begin{align*}
+$$ - ( \partial_{T^{(3)}}U_{IO} + i f \partial_{T^{(3)}}t_0 U_{IO} - U_{IO} k_T f^{-1}  B) \quad e^{-i f(t-t_0)}$$
+%\end{align*}
+
+
+}
+{
+$$\alert{\partial_t \overline{V^{(3)}} + i f \overline{V^{(3)}} } = - A + U_I k_T f^{-1}  C\quad e^{i f(t-t_0)}  - \lambda \overline{V^{(3)}}$$
+%\end{align*}
+\alert{
+%\begin{align*}
+$$ - ( \partial_{T_{slow}}U_{IO} + i f \partial_{T_{slow}}t_0 U_{IO} - U_{IO} k_T f^{-1}  B) \quad e^{-i f(t-t_0)}$$
+%\end{align*}
+}
+}
+\uncover<2>{}
+}
+\subsection{Les résultats du calcul}
+\frame
+{
+\color{magenta}{$$\partial_{T_{slow}}U_{IO} + i f \partial_{T_{slow}}t_0 U_{IO} - U_{IO} k_T f^{-1}  B = 0$$}
+\color{black}
+Evolution des oscillations inertielles:
+$$U_{IO}(t,T_{slow}) = U_{IO}(0) \quad e^{\Gamma T_{slow}} \quad e^{f(t-t_0)}$$
+\begin{overprint}
+\onslide<1>
+En séparant l'évolution de l'amplitude et de la phase:
+$$
+U_{IO}(T_{slow}) = U_{IO}(0) \quad e^{k_T f^{-1} \Re (B) T_{slow}}
+$$
+$$
+t_0(T_{slow}) = k_T f^{-2} \Im (B) T_{slow}
+$$
+
+\onslide<2-3>
+
+
+$$\Gamma \sim \alpha . \big( 2 cos(\frac{\pi z}{h_c}) + \frac{\lambda}{f}sin(\frac{\pi z}{h_c})  \big)e^{-\frac{\lambda}{f} \frac{\pi z}{h_c}}$$
+
+$$t_0    \sim \alpha . \big( 2 sin(\frac{\pi z}{h_c}) - \frac{\lambda}{f}cos(\frac{\pi z}{h_c})  \big)e^{-\frac{\lambda}{f} \frac{\pi z}{h_c}} \quad T^{(3)}$$
+\end{overprint}
+
+\uncover<3->{
+%La vitesse de groupe des ondes internes:
+%$$
+%c_g^z(IW) = \frac{\partial \omega}{\partial \bf{k}}|_z \sim \frac{U_G^2 k_T}{N}
+%$$
+
+%\alert{
+\begin{center}
+\begin{minipage}{50mm}
+      \begin{alertblock}{}
+            \begin{center}
+                  \color{green}{$h_c = \frac{\pi c_g^z(IW)}{f} \sim \frac{\pi U_G^2 k_T}{N f}$}
+                  $\quad$
+                  \color{blue}{$\alpha =  1 + 4 \frac {f^2}{U_G^2 k_T^2} - 6 \frac{\lambda^2}{U_G^2 k_T^2}$}
+
+%                  \textbf{Très important}
+            \end{center}
+      \end{alertblock}
+\end{minipage}
+\end{center}
+%\begin{theorem}<+->
+%\color{red}{$h_c = \frac{\pi c_g^z(IW)}{f} $}
+%$\quad$ , $\quad$
+%\color{blue}{$\alpha =  1 + 4 \frac {f^2}{U_G^2 k_T^2} - 6 \frac{\lambda^2}{U_G^2 k_T^2}$}
+%\end{theorem}
+}
+}
+\frame
+{
+\color{magenta}{$$\partial_{T^{(3)}}U_{IO} + i f \partial_{T^{(3)}}t_0 U_{IO} - U_{IO} k_T f^{-1}  B = 0$$}
+\color{black}
+Evolution des oscillations inertielles:
+$$U_{IO}(t,T_{slow}) = U_{IO}(0) \quad e^{\Gamma T_{slow}} \quad e^{f(t-t_0)}$$
+\begin{center}
+\begin{minipage}{50mm}
+      \begin{alertblock}{}
+            \begin{center}
+                  \color{green}{$h_c = \frac{\pi c_g^z(IW)}{f}  \sim \frac{\pi U_G^2 k_T}{N f}$}
+                  $\quad $
+                  \color{blue}{$\alpha =  1 + 4 \frac {f^2}{U_G^2 k_T^2} - 6 \frac{\lambda^2}{U_G^2 k_T^2}$}
+
+%                  \textbf{Très important}
+            \end{center}
+      \end{alertblock}
+\end{minipage}
+\end{center}
+
+\uncover<2->{\color<2->{black}{=> Profil des oscillations inertielles}} \uncover<3->{ => profil de dissipation}
+%\end{overprint}
+}
+
+\section{Une petite comparaison}
+\subsection{Le modèle}
+\frame
+{
+Vérification des résultats:
+\begin{columns}
+\begin{column}[l]{6cm}
+\begin{itemize}
+\item<1-> Symphonie NH (le fameux)
+\begin{itemize}
+\hilite<2> \item En 2D, périodique en (x,y)
+\hilite<2> \item Grille: 12.5m x 5m
+\hilite<2> \item Domaine: 2km x 2km
+\hilite<2> \item En haut: couche éponge (viscosité augmentée)
+\hilite<2> \item Forçage sur $\frac{\partial P}{\partial y}$ pour $\bf{u} \rightarrow \bf{U}_G$
+\end{itemize}
+\item<3->Paramètres physiques
+\begin{itemize}
+\hilite<4> \item Bathy: $h_t . \sin(\frac{2.\pi x}{2 km})$
+\hilite<4> \item $f=10^{-4}s^{-1}$
+\hilite<4> \item $N=10^{-3}s^{-1}$
+\hilite<4> \item $U_G = 0.1 m.s^{-1}$
+\end{itemize}
+\item<5-> Les paramètres qui changent:
+\end{itemize}
+\end{column}
+\begin{column}[r]{6cm}
+%\includegraphics[height=3cm]{Plots/Snapshot_highlight_cgz.png} \\
+%\begin{itemize}
+%\hilite<6> \item<6-> \includegraphics[height=2cm]{Plots/tableau_parametres.png}
+%\end{itemize}
+\end{column}
+\end{columns}
+}
+\subsection{Comparaison Analytique/Modèle}
+\frame
+{
+%\includegraphics[height=3cm]{Plots/Hovmoller_analytique_decay.jpg} 
+%\includegraphics[height=3cm]{Plots/Comparaison_analytique_numerique_FS.jpg} 
+
+\scriptsize{Hovmoller de $\Gamma(z) . \cos(f.t)$ à gauche, et Hovmoller des oscillations inertielles à droite}
+
+Deux conclusions s'imposent à nous:
+\begin{itemize}
+\item<2->{Le profil supposé des oscillations inertielles, et notamment le noeud à \alert{$h_c$} semble correctement prédit}
+
+\transdissolve<4>
+\framezoom<3><4>[border](6.5cm,0cm)(3cm,3cm)
+\item<5->{Les oscillations inertielles ont une vitesse de phase verticale égale à la vitesse de groupe des ondes internes: \color{blue}{$c_{\phi}^z(IO) = c_g^z(IW)$}}\color{black}
+\end{itemize}
+}
+
+\subsection{Profils de dissipation}
+\frame{
+%\includegraphics[height=3cm]{Plots/Hovmoller_de_la_diffusion_turbulente_long_new_color%.jpg} \\
+\transdissolve<3>
+\framezoom<2><3>[border](0cm,0cm)(7cm,3cm)
+%\includegraphics[height=3cm]{Plots/Energy_dissipation_rate_profile_color_new.jpg}
+\transdissolve<6>
+\framezoom<5><6>[border](0.2cm,3cm)(5cm,2.75cm)
+\uncover<8->{Tout se passe bien en dessous de $h_c$ \\}
+\uncover<9->{On s'attend et on observe une saturation de l'amplitude des oscillations inertielles et de la dissipation (not shown)}
+}
+\section{What next?}
+  \begin{frame}<beamer>
+    \frametitle{Où en est on?}
+    \tableofcontents[currentsection,currentsubsection]
+    \begin{figure}[htbp]
+%    \includegraphics[height=2cm]{Plots/mechanisme.png}
+    \end{figure}
+
+  \end{frame}
+
+\frame
+{
+\begin{itemize}
+\item OSM 2012: fait
+\uncover<2->{
+\item Suite directe:
+\begin{itemize}
+\item Justifier le "phase-locking" par le calcul: \alert{à faire}
+\item Expliquer la saturation: \alert{à faire}
+\item Trouver un profil ET un taux de dissipation: \alert{à faire}
+\end{itemize}
+\item A grande échelle:
+\begin{itemize}
+\item Regarder la distribution de dissipation dans l'océan à partir de données: \alert{à faire}
+\item Regarder l'impact de la dissipation sur la circulation à grande échelle: \alert{à faire}
+\end{itemize}
+\item Autre chemin énergétique:
+\begin{itemize}
+\item Regarder le dépot de qdm dans un écoulement géostrophique: \alert{à faire}
+\end{itemize}
+\item La terreur:
+\begin{itemize}
+\item Ecrire un article: \alert{à faire}
+\end{itemize}
+}
+\end{itemize}
+}
+\frame
+{
+\begin{center}
+\Huge{The End}
+\end{center}
+}
+\frame
+{
+%\includegraphics[height=6cm]{Plots/Re_B.png}
+
+}
+
+
+\end{document}
