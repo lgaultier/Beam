@@ -94,8 +94,8 @@
 
   \note{
 This talk is about the joint use of sub-mesoscale tracer information and mesoscale altimetric field, for the control of ocean circulation. 
-More precisely, the information provided by images of tracers such as the Sea Surface Temperature or the Chlorophyll is used to correct the assessment of the circulation made by altimetric satellites.  
-The originality of this talk is the use of Data Assimilation strategy to control ocean circulation. 
+More precisely, the information provided by images of tracers such as the Sea Surface Temperature or the Chlorophyll is used to complement the assessment of the circulation made by altimetric satellites.  
+The originality of this talk is the use of Data Image Assimilation strategy to control ocean circulation. 
 }
 %The methods are similar to the one used in Data Assimilation, which is one of the field of expertise of the team I am working with. I benefit from these experience to build up this method.}
 \end{frame}
@@ -105,6 +105,7 @@ The originality of this talk is the use of Data Assimilation strategy to control
 
 \section{Context and objectives}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \subsection{The different scales in the Ocean}
 
   \subsection{Observation from space}
 
@@ -279,18 +280,34 @@ We are looking for the velocity that give the FSLE as close as possible to the t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection[Inversion]{Inversion of the tracer image}
-
-%8%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Methodology}
-%\temporal<n> {before}{at n}{after}
-  \begin{block}{}
-    $\bullet$ Cost function:
-    $$J(u)=\|\mathcal{I}_{FSLE}(u)- \mathcal{I}_{OBS}\| + background\ term $$
-    The cost function is strongly non linear, with many local minima.\\
-%\alt<2>{\centering\includegraphics[width=0.5\linewidth]{J2_med19904.png}\includegraphics[width=0.5\linewidth]{Jiter_record6_HR.png}\\}
-%  {
-  \end{block}
+   \frametitle{Methodology}
+  \begin{tikzpicture}
+    \tikzset{pname/.style={draw,rectangle,rounded corners=6pt},text centered,color=black}
+    \tikzstyle{fleche}=[->,>=latex,line width=1.6mm]
+    \node[pname,text width=7cm] (OBS) at (9,3.98) {Observations};
+    \node[pname,text width=7cm] (IM) at (9,-6.08) {Image};
+    \draw[fleche] (OBS)--(IM);
+    \draw[dashed,line width=0.5mm] (13.75,6.98)--(13.75,-7.1);
+
+    \node[pname,text width=10cm] (TRA) at (20.5,6.48) {Sub-mesoscale tracer};
+    \node[pname,text width=10cm] (DYN) at (32.5,6.48) {Dynamics};
+    \draw[dashed,line width=0.5mm] (26.5,6.98)--(26.5,-7.1);
+    \node[pname,text width=10cm] (OBSTRA) at (20.5,2.08) {MODIS observation of Sea Surface Temperature and/or Chlorophyll};
+    \node[pname,text width=10cm] (OBSSSH) at (32.5,3.38) {Sea Surface Height from Altimetry};
+    \node[pname,text width=10cm] (OBSUV) at (32.5,-1.08) {Corresponding geostrophic velocity $\vec{u}$};
+    \draw[fleche] (OBSSSH)--(OBSUV);
+
+    \node[pname, text width=10cm] (IMTRA) at (20.5,-5.88) {Image of tracer filaments $I_{tracer}$};
+    \node[pname,text width=10cm] (IMDYN) at (32.5,-5.88) {Image of FSLE $I_{FSLE}(\vec{u})$};
+    \draw[fleche] (OBSTRA)--(IMTRA);
+    \draw[fleche] (OBSUV)--(IMDYN);
+
+   \node[pname, text width=30cm] (J) at (26.5,-11.08) {COST FUNCTION: $J(\vec{u})=\|I_{tracer}- I_{FSLE}(\vec{u})\| + background\ term$};
+   \draw[fleche] (IMTRA)--(J);
+   \draw[fleche] (IMDYN)--(J);
+  \end{tikzpicture} \\
   \vspace{0.6cm}
   \begin{block}{}
     $\bullet$ Explore sub-space of errors to find the velocity that minimizes the cost function. \\
@@ -301,6 +318,7 @@ We are looking for the velocity that give the FSLE as close as possible to the t
   \vspace{0.2cm}
   \note{
 The method to find this velocity uses the same strategies as the one used in Data Assimilation. 
+We build images representing the dynamical structures visible in the tracer and in the altimetric data. The image representing the tracer structure is the norm of the gradient of the tracer and the image representing the velocity is the corresponding FSLE
 The FSLE and the norm of the tracer gradient are binarized, so that we compare similar quantities. 
 For a given velocity u, we measure the distance between the binarized FSLE (derived from this velocity u) $\lambda(u)$,  and the observation (ie, norm of the gradient tracer binarized).
  The background error is supposed to be small (the mesoscale altimetric velocity field is quite reliable at large scale). 
@@ -318,13 +336,13 @@ We get a sample of the velocity by computing the sub-space of velocity errors, a
 
 %8%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Inversion in a high resolution idealized coupled physico-biogeochemical model}
+  \frametitle{Inversion in a high resolution idealized coupled physical-biogeochemical model}
 %\temporal<n> {before}{at n}{after}
 
-  \begin{block}{Model carastristics}
+  \begin{block}{Model configuration}
   \begin{itemize} 
-    \item Nemo model with a channel configuration, biogeochimics coupled using LOBSTER model
-    \item Domain: $478 \times 500 \times 4$ km ($ 240 \times 252 \times 30$ points de grilles)
+    \item NEMO dynamics coupled with LOBSTER biogeochimics model
+    \item Channel domain: $478 \times 500 \times 4$ km ($ 240 \times 252 \times 30$ points de grilles)
     \item Resolution: 2 km
     \item Sub-mesoscale and mesoscales structures result from an unstable baroclinic jet
   \end{itemize}
@@ -345,10 +363,61 @@ We get a sample of the velocity by computing the sub-space of velocity errors, a
 We build an idelized high resolution model to test the inversion method. The physical code is provided by Nemo and the biogeochemical code by LOBSTER. 
 Basically, the domain is a channel, with a resolution of two km. 
 Mesoscale and sub-mesoscale physics result from the non linear equilibration of an unstable baroclinic jet. 
+We build the subspace of errors using an EOF analyses on the variability of the velocity between 5 days. 
+The background velocity is the model velocity 5 days after the study date. We correct this velocity using the Chlorophyll and the SST model snapshot of the study date. 
+The corrected velocity is compared with the true velocity, that is to say the model velocity of the study date. 
 }
-%La perturbation de la vitesse est calculée grâce à une décomposition en vecteurs propres d'un ensemble de champs de vitesses. Les EOFs  permettent d'obtenir les directions principales de perturbation.}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{}
+\begin{minipage}{0.3\textwidth}
+\begin{center}
+\includegraphics[width=1\linewidth]{./pict/sa_uv-R2BIGvel_0324_pert_mod.eps}
+\\
+{\small \bf Perturbed velocity}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\begin{center}
+\includegraphics[width=1\linewidth]{./pict/sa_uv-R2BIGvel_0324_0070_mod.eps}
+\\
+{\small \bf Corrected velocity}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\begin{center}
+\includegraphics[width=1\linewidth]{./pict/sa_uv-R2BIGvel_0324_F_mod.eps}
+\\
+
+{\small \bf True velocity}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.34\textwidth}
+\begin{center}
+\includegraphics[width=1\linewidth]{./pict/sa_uv-R2BIGsst_0324.eps}
+\\
+{\small \bf SST}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.34\textwidth}
+\begin{center}
+\includegraphics[width=1\linewidth]{./pict/sa_uv-R2BIGchl_0324.eps}
+\\
+{\small \bf Chlorophyll}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\begin{block}{}
+$\simeq$ 40\% of the error on the background velocity corrected
+\end{block}
+\end{minipage}
+
+\note{Here are the results of the inversion of the Chlorophyll or the sst image. We can see that our methods enable us to correct the perturbation in the right direction. The eddy is shifted in accordance with the tracer observation. we are far from correcting all the error, 40\% of the error is corrected. But the xorrection we made improved the assessement of the velocity.}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\section{Test Case}
 %
@@ -515,19 +584,19 @@ Lagrangian trajectories of corrected velocities using SST or Chlorophyll tracers
   \frametitle{Conclusion}
 
   \begin{block}{}
-   \textbf{Sub-mesoscale information are invertible to control larger scales dynamics}
+   \textbf{We succeeded in correcting an altimetric mesoscale velocity field using a sub-mesoscale tracer observation from space}
   \end{block}
   \begin{block}{}
   \begin{itemize}
     \item Altimetry and tracer observations are complementary.
     \item Tracer information can compensate for the lack of SSH resolution in time and space.
-    \item High resolution Sea Surface Temperature or Ocean Color data are useful to control ocean physics. 
+    \item The success of the method is confirmed by the inversion of a tracer in a model. 
   \end{itemize}
   \end{block}
 
   \begin{block}{Future work}
   \begin{itemize}
-    \item Twin experiment in an idealized coupled physico-biogeochemical model to assess the quality of the correction.
+    \item Improvement of the inversion method using idealized and realistic models. 
     \item  Data Assimilation of image in a coupled physico-biogeochemical model.
   \end{itemize}
   \end{block}
@@ -535,11 +604,9 @@ Lagrangian trajectories of corrected velocities using SST or Chlorophyll tracers
   \note{ 
 In this study, the altimetric and the tracer image observation are used together to improve the assessment the dynamic at small scales. 
 We can compensate for the lack of spatial and temporal resolution using information from tracer images.
-It is feasible to invert sub-mesoscale tracer information for the control of dynamic in the ocean at larger scale.
-However, There is no way to assess the improvement made on the velocity during the process of correction because we do not know the truth.   
-Now that we have proven the reliability of this method in a real case, we need to assess the reliability of the solution . 
-The next step is to use a physico-biogeochemical coupled model. The high resolution model is a channel configuration, able to generate few eddies using a baroclinic instability.
-Using this model, we will have access to the truth so that we can assess the reliability of the solution of this method. 
+It is feasible to invert sub-mesoscale tracer information for the control of dynamic in the ocean at larger scale, in a real context. 
+Moreover, the inversion using a model proved that the correction is relevant. 40\% of the error on the perturbed file is corrected. 
+We need to carry on studies on the inversion in a model, to improve the method. Therefore, we also plan on working with a realistic configuration of the Salomon Sea. 
 
 The goal of this study is also to develop Data Assimilation of images in a physical biogeochemical model in order to improve the prediction of oceanic circulations. 
 %
