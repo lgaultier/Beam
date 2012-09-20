@@ -2,9 +2,9 @@
                                            %notesonly to add note not visible on screen (\note[]{})
 %\documentclass[compress,slidescentered,notes=show]{beamer}
 \documentclass[compress,slidescentered,notes=hide]{beamer}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
-\usepackage[english, french]{babel}
+\usepackage[english]{babel}
 \usepackage{pifont}
 \usepackage{beamerthemesplit}
 \usepackage{multicol} %possibility to create columns
@@ -64,7 +64,7 @@
 \setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{./pict/slide0006_background.png}}
 
 \title{On the joint use of high resolution tracer images \hspace{4cm} and altimetric data for the control of ocean circulations.}
-\subtitle{\vspace{1.5em} \textbf{A Data Assimilation strategy}}
+%\subtitle{\vspace{1.5em} \textbf{A Data Assimilation strategy}}
 \author[20 Years of Progress in Radar Altimetry]{Lucile Gaultier, Jacques Verron, Pierre Brasseur, Jean-Michel Brankart}
 \date{\textit{September 26, 2012}}
 
@@ -105,14 +105,49 @@ The originality of this talk is the use of Data Image Assimilation strategy to c
 
 \section{Context and objectives}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  \subsection{The different scales in the Ocean}
+  \subsection{The different scales in the Ocean}
+\begin{frame}
+\frametitle{}
+  \begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] (pict) at (1,0){\includegraphics[width=11.5cm]{scales3.jpg}};
+%\only<2-4>{\node[color=black!60] (meso) at (10.3,3.6) {\tiny{Sub-meso and Mesoscale phenomena}};
+%           \draw[fill=green!60, anchor=base,opacity=0.5] (8.6,5) ellipse (1.4 and 1.6);}
+\only<4-5>{ \draw[fill=yellow!70, anchor=base,opacity=0.6] (7.1,3.5) rectangle (12.0,07.3);
+            \node[color=black] (OC) at (8.55,7.1) {'Tracer' satellites};}
+\only<3-5>{
+            \draw[fill=blue!70, anchor=base,opacity=0.6] (9.4,4.6) rectangle (12.0,07.3);
+            \node[color=blue!70] (alti) at (12.0,5.7) {Altimetric satellites};}
+\only<2-5>{
+           \draw[fill=green!60, anchor=base,opacity=0.6] (8.6,5) ellipse (1.4 and 1.6);
+           \node[color=black!60] (meso) at (10.3,3.6) {Sub-meso and Mesoscale phenomena};}
 
+\only<5>{ \node[fill=mycyan, text width=11.2cm] at (6.7,3) {Sub-sampling of altimetry: use of Biogeochemistry data};
+          \node[fill=mycyan, text width=11.2cm] at (6.7,2) {SWOT, Altika/SARAL project: High resolution altimetric satellites, a need to plan the use of this huge amount of data};}
+%    \begin{itemize}
+%      \item Sub-sampling of altimetry: use of Biogeochemistry data 
+%      \item SWOT, Altika/SARAL project: High resolution altimetric satellites, a need ot plan the use of this huge amount of data
+%    \end{itemize}
+%    \end{block}}
+  \end{tikzpicture}
+\note{
+ Many scales are present in the ocean, from climatology to molecular processes. The scales in which we are interested are located between 1km and 100 km, in the green circle.
+The sub-mesoscale dynamic is mainly observed from few hundred meters to 10 km. \\
+%%%WARNING
+%Mesoscale dynamics cascade into sub-mesoscale dynamics. 
+%%%WARNING
+At sub-mesoscales there is a strong interaction between the physics and the biogeochemistry so that the sub-mesoscale dynamics impact tracer fields. \\
+Altimetric satellites can observe dynamics but are currently limitted to the mesoscale, and can provide at best one map a week, whereas tracer sensors have a fine resolution in space and time.
+We can get nearly a map a day with a resolution as low as 200m.
+We need to find a way to analyse this high resolution data set and extract dynamic information.\\
+
+In the context of SWOT and SARAL projects, which will provide high resolution data (image),  we are also looking for new methods to analyse the huge amount of data.}
+\end{frame}
   \subsection{Observation from space}
 %
 %1%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Observation of sub-mesoscales (1-10~km)}
-  \begin{minipage}{0.48\textwidth}
+  \begin{minipage}{0.49\textwidth}
 %  \begin{columns}
 %   \column{0.01\textwidth}
 %   \column{0.51\textwidth}
@@ -125,7 +160,7 @@ The originality of this talk is the use of Data Image Assimilation strategy to c
  %bservations of the dynamics (altimetry).
     \end{block}
   \end{minipage}
-  \begin{minipage}{0.48\textwidth}
+  \begin{minipage}{0.49\textwidth}
 %  \column{0.0001\textwidth}
 %  \column{0.46\textwidth}
   \begin{center}
@@ -144,7 +179,7 @@ The originality of this talk is the use of Data Image Assimilation strategy to c
 %  \end{columns}
   \only<2>{
   \begin{block}{}
-    Joint use of altimetry and high resolution tracer observation to improve the assessment of the dynamics.
+    Joint use of altimetry and high resolution tracer observation to improve the dynamics.
   \end{block}} 
 \note{
     %altimetry not efficient to represent sub-mesoscale
@@ -209,7 +244,17 @@ To my knowledge, it has never been done before, we build up the strategy from th
 %5%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Outline}
-  \tableofcontents%[pausesections]
+%  \tableofcontents%[pausesections]
+\begin{block}{}
+Inverse problem: aims at estimate a state of the oceaan and the associated error
+\end{block}
+ 
+\begin{bloc}{Perform the inversion on:}
+\begin{enumerate}
+  \item Real data: Prove the feasability of the inversion but without any knowledge of the error on the method. 
+  \item Model data: Assess the error of the method
+\end{enumerate}
+\end{block}
 \note{
 We have already seen the context and objective. 
 we are going to detail some point of the methodology and have a look at some corrections resulting from this method.}
@@ -224,9 +269,9 @@ we are going to detail some point of the methodology and have a look at some cor
 \begin{frame}
 \frametitle{Find a proxy between tracer and velocity}
   \begin{tikzpicture}
-    \node[draw, color=blue, text width=4cm, text centered] (meso) at (0,0) {Mesoscale Velocity};
+    \node[draw, color=blue, text width=4cm, text centered] (meso) at (0,0) {Background mesoscale velocity};
     \node[draw, color=green!60!black, text width=4cm, text centered](subm) at (0,-1) {Sub-mesoscale tracer};
-    \node[draw, color=blue, text width=4cm, text centered] (cor) at (7,-0.5) {Corrected Velocity};
+    \node[draw, color=blue, text width=4cm, text centered] (cor) at (7,-0.5) {Improved mesoscale velocity};
     \draw[->,>=latex] (meso)--(cor);
     \draw[->,>=latex] (subm)--(cor);
   \end{tikzpicture}
@@ -323,7 +368,7 @@ We are looking for the velocity that give the FSLE as close as possible to the t
 
   \begin{block}{}
     $\bullet$ Explore sub-space of errors to find the velocity that minimizes the cost function. 
-    Velocity panel using EOF Analysis with all velocity fields available:
+    Velocity panel using EOF analysis with all velocity fields available:
     $\textbf{u}_k = \bar{\textbf{u}} + \sum_{i=0}^n{\underbrace{a_k^i}_{Eigenvalue}\underbrace{\textbf{u}^i}_{EOF_{}}}$
 %    The number of degrees of freedom is reduced, using only 100 or less EOFs. \\
   \end{block}
@@ -372,7 +417,7 @@ An other test case in the Mediterranean Sea has been published in an article.
 The background velocity is provided by AVISO mapped product. 
 The sub-space of errors is generated using nearly 600 hundred AVISO velocity maps. 
 The velocity resolution is $1/3^o$. 
-The velocity fields are interpolated so that the resolution of FSLE images are $1/48^o$. 
+The velocity fields are interpolated so that the resolution of FSLE images are $1/50^o$. 
 Two tracers are used in this study: the SST and the Chlorophyll. Both images are provided by MODIS sensor at a resolution $1/100^o$. This products are filtered and degraded at the same resolution of FSLE. 
 }
 \end{frame}
@@ -403,7 +448,7 @@ Two tracers are used in this study: the SST and the Chlorophyll. Both images are
      \end{columns}
  \begin{block}{}
   \alt<2>{Use of Simulated Annealing to decrease the cost function.\\
-          Use of Gibbs' sampler to get a sample of the potential solutions.}
+          Use of Gibbs' sampler to get a sample of the likely solutions.}
   {Cost Function : $J(u)=\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{tracer}\| + background\ term $}
   \end{block}
  \note{
@@ -433,30 +478,30 @@ Each plot represents a direction of perturbation.
     & \alt<2>{\small{Chlorophyll}}{\small{SST}} \\
     %\hline
     \rotatebox{90}{\small{OBSERVATION}}
-    & \includegraphics[width=2.75cm]{./pict/satl/aviso_h_020471.png} 
-    & \includegraphics[width=2.35cm]{./pict/satl/aviso_20471_s_atl2_oc.png}
-    & \includegraphics[width=2.75cm]{./pict/satl/fsle_48_stat_reg_20471__bin0.png}
-    & \alt<2>{\includegraphics[width=2.73cm]{./pict/satl/chl2006019.png}} 
-      {\includegraphics[width=2.75cm]{./pict/satl/sst_20471_small.png}} \\
+    & \includegraphics[width=2.72cm]{./pict/satl/aviso_h_020471.png} 
+    & \includegraphics[width=2.40cm]{./pict/satl/aviso_20471_s_atl2_oc.png}
+    & \includegraphics[width=2.72cm]{./pict/satl/fsle_48_stat_reg_20471__bin0.png}
+    & \alt<2>{\includegraphics[width=2.72cm]{./pict/satl/chl2006019.png}} 
+      {\includegraphics[width=2.74cm]{./pict/satl/sst_20471_small.png}} \\
   %   \hline
     % \hline
     \rotatebox{90}{\small{CORRECTION}}
-    & \alt<2>{\includegraphics[width=2.7cm]{./pict/satl/aviso_h_020471_eof_bin1_oc.png}}
-        {\includegraphics[width=2.7cm]{./pict/satl/aviso_h_020471_mean_bin0.png}} 
-   & \alt<2>{\includegraphics[width=2.3cm]{./pict/satl/aviso_20471_s_atl2_sa_oc.png}}
-        {\includegraphics[width=2.3cm]{./pict/satl/aviso_20471_s_atl2_mean-2.png}} 
-   & \alt<2>{\includegraphics[width=2.75cm]{./pict/satl/fsle_48_stat_reg_20471__sa_bin1_oc.png}}
-        {\includegraphics[width=2.75cm]{./pict/satl/fsle_48_stat_reg_20471__eof_bin0.png}} 
+    & \alt<2>{\includegraphics[width=2.72cm]{./pict/satl/aviso_h_020471_min_oc.png}}
+        {\includegraphics[width=2.72cm]{./pict/satl/aviso_h_020471_mean_sst.png}} 
+   & \alt<2>{\includegraphics[width=2.40cm]{./pict/satl/aviso_20471_s_atl2_sa_oc.png}}
+        {\includegraphics[width=2.40cm]{./pict/satl/aviso_20471_s_atl2_mean-2.png}} 
+   & \alt<2>{\includegraphics[width=2.72cm]{./pict/satl/fsle_48_stat_reg_20471__sa_bin1_oc.png}}
+        {\includegraphics[width=2.72cm]{./pict/satl/fsle_48_stat_reg_20471__eof_bin0.png}} 
    & \\      
  %\hline
   \end{tabular}
 
   \note{
 As previously seen, it is not easy to find the global minimum of the cost function.
-Therefore, the next step is to get a sample of all the potential solutions. 
-The potential solutions are the solution that have a cost function value smaller than the minimum found using the Simulated Annealing algorithm. 
-The mean of all these potential solution is represented below. 
-Looking at the variance of all these potential solutions, we can assess the reliability of this velocity field. 
+Therefore, the next step is to get a sample of all the likely solutions. 
+The likely solutions are the solution that have a cost function value smaller than the minimum found using the Simulated Annealing algorithm. 
+The mean of all these likely solution is represented below. 
+Looking at the variance of all these likely solutions, we can assess the reliability of this velocity field. 
 On the first line, the observed field are plotted. From the left to the right, there is the velocity field plotted over the SST tracer, the FSLE, the SSH.
 On the second line the corrected field are plotted.  
 The velocity has been corrected using the SST as a tracer. 
@@ -613,7 +658,7 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
   \end{block}
 
   \note{ 
-In this study, the altimetric and the tracer image observation are used together to improve the assessment the dynamics at small scales. 
+In this study, the altimetric and the tracer image observation are used together to improve the dynamics at small scales. 
 We can compensate for the lack of spatial and temporal resolution using information from tracer images.
 %It is feasible to invert sub-mesoscale tracer information for the control of dynamics in the ocean at larger scale.
 %However, There is no way to assess the improvement made on the velocity during the process of correction because we do not know the truth.   
