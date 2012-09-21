@@ -105,11 +105,11 @@ The originality of this talk is the use of Data Image Assimilation strategy to c
 
 \section{Context and objectives}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \subsection{The different scales in the Ocean}
+  \subsection{The scales in the Ocean}
 \begin{frame}
-\frametitle{}
+\frametitle{Scales in the Ocean}
   \begin{tikzpicture}
-    \node[anchor=south west,inner sep=0] (pict) at (1,0){\includegraphics[width=11.5cm]{scales3.jpg}};
+    \node[anchor=south west,inner sep=0] (pict) at (1,0){\includegraphics[width=11.5cm]{./pict/misc/scales3.jpg}};
 %\only<2-4>{\node[color=black!60] (meso) at (10.3,3.6) {\tiny{Sub-meso and Mesoscale phenomena}};
 %           \draw[fill=green!60, anchor=base,opacity=0.5] (8.6,5) ellipse (1.4 and 1.6);}
 \only<4-5>{ \draw[fill=yellow!70, anchor=base,opacity=0.6] (7.1,3.5) rectangle (12.0,07.3);
@@ -147,6 +147,7 @@ In the context of SWOT and SARAL projects, which will provide high resolution da
 %1%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Observation of sub-mesoscales (1-10~km)}
+  \begin{multicols}{2}
   \begin{minipage}{0.49\textwidth}
 %  \begin{columns}
 %   \column{0.01\textwidth}
@@ -164,17 +165,17 @@ In the context of SWOT and SARAL projects, which will provide high resolution da
 %  \column{0.0001\textwidth}
 %  \column{0.46\textwidth}
   \begin{center}
-    \only<2>{\includegraphics[width=0.65\linewidth]{A2004358041000_L2_LAC_OC.png}\\ 
+    \only<2>{\includegraphics[width=0.61\linewidth]{A2004358041000_L2_LAC_OC.png}\\ 
 \legende{\small Chlorophyll, December 22, 2004, Tasmania region}}
 %  \end{center} 
   \only<2>{
   \begin{block}{}
      Sub-mesoscales are observed using satellite tracer sensors.
-     %\vspace{0.25em}
+     \vspace{0.20em}
   \end{block}}
   \end{center}
   \end{minipage}
-
+\end{multicols}
 %  \column{0.0001\textwidth}
 %  \end{columns}
   \only<2>{
@@ -245,17 +246,18 @@ To my knowledge, it has never been done before, we build up the strategy from th
 \begin{frame}
   \frametitle{Outline}
 %  \tableofcontents%[pausesections]
-\begin{block}{}
-Inverse problem: aims at estimate a state of the oceaan and the associated error
-\end{block}
+
+  \begin{block}{}
+    Inverse problem: aims at estimate a state of the oceaan and the associated error
+  \end{block}
  
-\begin{bloc}{Perform the inversion on:}
-\begin{enumerate}
-  \item Real data: Prove the feasability of the inversion but without any knowledge of the error on the method. 
-  \item Model data: Assess the error of the method
-\end{enumerate}
-\end{block}
-\note{
+  \begin{block}{Perform the inversion on:}
+  \begin{enumerate}
+    \item Real data: Prove the feasability of the inversion but without any knowledge of the error on the method. 
+    \item Model data: Assess the error of the method
+  \end{enumerate}
+  \end{block}
+  \note{
 We have already seen the context and objective. 
 we are going to detail some point of the methodology and have a look at some corrections resulting from this method.}
 \end{frame}
@@ -396,8 +398,14 @@ We get a sample of the velocity by computing the sub-space of velocity errors, a
 \begin{frame}
   \centering
   \frametitle{Test case : small area in the South Atlantic ocean}
+  \begin{tikzpicture}
+    \node[anchor=west,inner sep=0] (pict) at (1,0){\includegraphics[width=11.5cm]{./pict/satl/pict_sst_A20060172006024.L3m_8D_SST_9_atl.jpg}};
+     \node[anchor= east,inner sep=0] (picts) at (6,0){\includegraphics[width=11.5cm]{./pict/satl/pict_sst_A20060172006024.L3m_8D_SST_9_atl.jpg}};
+
+
   \begin{figure}
-    \includegraphics[width=0.5\linewidth]{pict/satl/s_atlb2.jpg}
+    \includegraphics[width=0.5\linewidth]{pict/satl/pict_sst_A20060172006024.L3m_8D_SST_9_atl.jpg}
+     \includegraphics[width=0.5\linewidth]{pict/satl/A2006019163000_L2_LAC_sst.png}
   \end{figure}
   \begin{itemize}
     \item \textbf{Time Range}: from 1998 to June 2009, 595 velocity maps
