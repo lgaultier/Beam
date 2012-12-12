@@ -13,11 +13,12 @@
 %--------------FORM ------------------------------
 \usepackage{beamerthemesplit}
 \usepackage{multicol} %possibility to create columns
+\usepackage{comment} 
 %\usepackage[absolute,showboxes, overlay]{textpos}
 %\textblockorigin{1mm}{1mm}
 %\TPshowboxestrue % or false to display contour
 \usenavigationsymbolstemplate{}
-\usetheme{Darmstadt}
+\usetheme{Frankfurt} %Darmstadt}
 \useoutertheme{smoothbars} %to add numerotation
 \usepackage{color} %creation of own colors
 %\useoutertheme{infolines} %to add numerotation
@@ -73,7 +74,7 @@
 \title{Estimation de la dynamique océanique \hspace{4cm} grâce aux observations satellites altimétriques et images traceurs}
 %\subtitle{\vspace{1.5em} \textbf{A Data Assimilation strategy}}
 \author[Journée CNES]{Lucile Gaultier, Jacques Verron, Pierre Brasseur, Jean-Michel Brankart}
-\date{\textit{11 Décembre 2012}}
+\date{\textit{14 Janvier 2012}}
 
 %\logo{\includegraphics[height=1.5cm]{./pict/logo_meom.jpeg}}
 %\logo{\insertframenumber/\inserttotalframenumber}
@@ -111,8 +112,8 @@ The originality of this talk is the use of Data Image Assimilation strategy to c
 \logo{\insertframenumber/\inserttotalframenumber}
 
 \section{Contexte et enjeux}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \subsection[Observation]{Les observations de l'océan}
+  \subsection[Observations]{Les observations de l'océan}
+%2%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Les différentes échelles océaniques}
   \begin{tikzpicture}
@@ -148,8 +149,11 @@ On cherche donc à utiliser ces images traceurs pour compléter l'observation de l
 %In the context of SWOT and SARAL projects, which will provide high resolution data (image),  we are also looking for new methods to analyse the huge amount of data.
 }
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%1%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Observation de la sous-mésoéchelle}
+%---------------A SUPPRIMER---------------------------
+%3%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Observation de la sous-mésoéchelle (1-10~km)}
   \begin{multicols}{2}
@@ -210,8 +214,10 @@ So we aim at Considering tracer information to improve the assessment of the dyn
     %conjoint use of altimetry and tracer
 }
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection[Methode]{A data assimilation approach}
+\section[Methode]{Une approche d'assimilation de données}
+\subsection{Le contexte assimilatoire}
 %4%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Un contexte d'assimilation de données}
@@ -251,10 +257,10 @@ To my knowledge, it has never been done before, we build up the strategy from th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection[proxy FSLE]{Find a proxy between tracer and velocity}
-
+%\subsection[proxy FSLE]{Find a proxy between tracer and velocity}
+\begin{comment}
 %6%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+%\begin{frame}
 \frametitle{Find a proxy between tracer and velocity}
   \begin{tikzpicture}
     \node[draw, color=blue, text width=4cm, text centered] (meso) at (0,0) {Background mesoscale velocity};
@@ -284,7 +290,7 @@ For this study we choose to use the FSLE as a proxy.
 }
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\end{comment}
 
 \subsection[Inversion]{Inversion d'image traceur}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -341,15 +347,23 @@ We get a sample of the velocity by computing the sub-space of velocity errors, a
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	\section{Test Case}
+	\section[Données réelles]{Cas test}
+\subsection{Difficultés?}
+%9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{La difficulté de détecter les fronts}
 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+   \subsection{Données utilisées}
 %9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \centering
-  \frametitle{Test case : small area in the South Atlantic ocean}
+  \frametitle{Cas test : Une petite zone dans l'océan Sud-Atlantique}
   \begin{tikzpicture}
-    \node[anchor=west,inner sep=0] (pict) at (-6,0){\includegraphics[width=4.5cm]{./pict/satl/pict_sst_A20060172006024_L3m_8D_SST_9_atl.jpg}};
-    \node[anchor= west,inner sep=0] (picts) at (0,0){\includegraphics[width=2.5cm]{./pict/satl/A2006019163000_L2_LAC_SST.png}};
+    \node[anchor=west,inner sep=0] (pict) at (-6,0) {\includegraphics[width=4.5cm]{./pict/satl/pict_sst_A20060172006024_L3m_8D_SST_9_atl.jpg}};
+    \node[anchor= west,inner sep=0] (picts) at (0,0) {\includegraphics[width=2.5cm]{./pict/satl/A2006019163000_L2_LAC_SST.png}};
     \draw[dashed,line width=0.25mm] (-3.75,-0.8)--(0.25,1.15); 
     \draw[dashed,line width=0.25mm] (-3.75,-1.1)--(0.25,-1.05); 
   \end{tikzpicture}
@@ -359,14 +373,14 @@ We get a sample of the velocity by computing the sub-space of velocity errors, a
  %    \includegraphics[width=0.5\linewidth]{pict/satl/A2006019163000_L2_LAC_sst.png}
 %  \end{figure}
   \begin{itemize}
-    \item \textbf{Time Range}: from 1998 to June 2009, 595 velocity maps
-    \item \textbf{Velocity field}: AVISO, Altimetric data
-    \item \textbf{Resolution}: $1/3^o$, grid points : 13*17
-    \item \textbf{FSLE Resolution}: $1/50^o$, grid points : 99*130
+    \item \textbf{Période temporelle}: from 1998 to June 2009, 595 velocity maps
+    \item \textbf{Vitesse}: AVISO, Altimetric data
+    \item \textbf{Résolution}: $1/3^o$, grid points : 13*17
+    \item \textbf{Résolution FSLE}: $1/50^o$, grid points : 99*130
   \end{itemize}
 %  \vsapce{1cm}
   \begin{itemize}
-    \item \textbf{Tracer field}: SST or Chlorophyll data (MODIS sensor, L2 product)
+    \item \textbf{Traceur}: images SST et Chlorophylle (capteur MODIS, produit L2)
     %resolution needed to detect filament $1/100^o$, to match fsle $1/50^o$
   \end{itemize}
   \note{
@@ -382,50 +396,7 @@ Two tracers are used in this study: the SST and the Chlorophyll. Both images are
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection[Cost function]{Study of the cost function}
-
-%10%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \centering
-  \frametitle{Cost function study}
-  %\begin{center}
-  %  STEP 2
-  %\end{center}
-  \begin{columns}
-    \begin{column}{0.49\textwidth}
-    \begin{center}
-     Explore the cost function around the solution \\ 
-    \includegraphics[width=0.78\linewidth]{pict/satl/J1D_tra0s_atl3_1_10.png}
-     \end{center}
-    \end{column}
-    \begin{column}{0.49\textwidth}
-     \begin{center} 
-     Cost function as a function of the number of iterations \\
-    \includegraphics[width=0.78\linewidth]{pict/satl/Jiter_20471_s_atl2.png}
-    \end{center}
-     \end{column}
-     \end{columns}
- \begin{block}{}
-  \alt<2>{Use of Simulated Annealing to decrease the cost function.\\
-          Use of Gibbs' sampler to get a sample of the likely solutions.}
-  {Cost Function : $J(u)=\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{tracer}\| + background\ term $}
-  \end{block}
- \note{
-A first step of tracer inversion is to check that the inversion of FSLE is feasible, that is to say, we can retrieve a velocity field from the FSLE image. 
-The second step is the inversion of the SST tracer. 
-The right picture represent the cost function as a function of the number of iterations (log-log scale). 
-It is reassuring to see that the cost function converges
-The cost function is irregular and many local minimum exist. 
-A Simulated Annealing algorithm is needed to avoid being stuck in a local minimum. 
-The left picture represents the distance between the solution of the process of minimization and the perturbed solution as a function of the amplitude of perturbation. 
-Each plot represents a direction of perturbation. 
-
-}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
-
-   \subsection[Real data]{Corrected velocity field}
-
+\subsection{Correction}
 %11%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Results: Velocity field correction calculated using the \alt<2>{Chl}{SST}}
@@ -470,9 +441,10 @@ The result is quite similar when the Chlorophyll is used to correct the velocity
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+ \subsection{Lagrangian trajectories}
 %12%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Results: Lagrangian trajectories \alt<2>{(tracer: Chl)}{(tracer: SST)}}
+  \frametitle{Results: Lagrangian trajectories }
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \begin{figure}%[!htbp]
@@ -506,47 +478,41 @@ Lagrangian trajectories of corrected velocities using SST or Chlorophyll tracers
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection[Model data]{Validation of the method on a model}
+\section[Limites de la méthode]{Inversion sur un modèle}
 
-%8%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Le modèle d'étude}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Inversion in a high resolution idealized coupled physical-biogeochemical model}
+\frametitle{Le modèle de la mer des Salomons}
 
-
-  \begin{block}{Model configuration}
-  \begin{itemize} 
-    \item NEMO dynamics coupled with LOBSTER biogeochemics model
-    \item Channel domain: $478 \times 500 \times 4$ km ($ 240 \times 252 \times 30$ grid points)
-    \item Resolution: 2 km
-    \item Sub-mesoscale and mesoscale structures result from an unstable baroclinic jet
-  \end{itemize}
-  \end{block}
-  
-%   \begin{figure}
-%     \includegraphics[width=0.5\linewidth]{
-%   \end{figure}
-  \begin{block}{Inversion parameters}
-  \begin{itemize}
-    \item Sub-space of error: EOF analyses on the variation of the model between 5 days
-    \item Background velocity: Velocity 5 days after the study date 
-    \item Tracer Image: Chlorophyll and/or Sea Surface Temperature image
-  \end{itemize}
-  \end{block}
-  \vspace{0.2cm}
-  \note{
-We build an idealized high resolution model to test the inversion method. The physical code is provided by Nemo and the biogeochemical code by LOBSTER. 
-Basically, the domain is a channel, with a resolution of two km. 
-Mesoscale and sub-mesoscale physics result from the non linear equilibration of an unstable baroclinic jet. 
-We build the subspace of errors using an EOF analyses on the variability of the velocity between 5 days. 
-The background velocity is the model velocity 5 days after the study date. We correct this velocity using the Chlorophyll and the SST model snapshot of the study date. 
-The corrected velocity is compared with the true velocity, that is to say the model velocity of the study date. 
-}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\subsection{Limites de la méthode}
+%8%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Comparaison entre le traceur et le FSLE}
+\begin{multicols}{2}
+\includegraphics[width=4.5cm]{./pict/hist_1_SOSMOD36-GND100L_19940909_votemper_fsle.png}\\
+\legende{Angle entre le FSLE et le traceur, histogramme des angles}
+\includegraphics[width=4.5cm]{./pict/Interquantile.png}\\
+        \legende{Premier quantile et Interquantile de la distribution spatiale des angles entre le FSLE et le traceur} 
+\end{multicols}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Construire l'inversion des images}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{L'influence de différents paramètre sur la faisabilité de l'inversion}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Inversion of tracer image from a model}
+  \frametitle{Résultat de l'inversion d'image}
 \begin{minipage}{0.3\textwidth}
 \begin{center}
 \includegraphics[width=1\linewidth]{./pict/sa_uv-R2BIGvel_0324_pert_mod.png}\\
@@ -592,8 +558,23 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	\section[]{Conclusion}
+
+
+
+
+	\section[Perspectives]{Conclusion}
+
+\subsection{Perspectives}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Vers une assimilation des données SWOT?}
+   Assimilation de donnée complète 
+   Que pouvons nous imaginer comme application dans un cadre de donnée SWOT
+\end{frame}
 %13%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \centering
   \frametitle{Conclusion}
@@ -631,121 +612,14 @@ The goal of this study is also to develop Data Assimilation of images in a physi
  }
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%13%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%13%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \begin{center}
 Thank you for your attention 
 \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%15%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Data Assimilation}
-  \begin{figure}
-    \includegraphics[width=0.8\linewidth]{./pict/misc/brasseur_da.png}
-  \end{figure}
-  \legende{Conceptual representation of filtering with sequential assimilation, Brasseur, 2006}
-  
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%15%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%\frametitle{Sub-mesoscale}
-%\begin{block}{}
-%Sub-mesoscales are scales defined by a Rossby number of order one
-%$$R_{o} = \frac{inertial\ force}{Coriolis\ force} =  \frac{U}{fL}$$
 
-%It is caracterized by ageostrophic circulation: strain dominates over rotation. \\
-% \end{block}
- 
-% \begin{block}{}
-% Three major ingredients: 
-%  \begin{itemize}
-%     \item frontogenesis
-%     \item straining by the mesoscale turbulent field 
-%     \item sub-mesoscale baroclinic instability.
-%    \end{itemize}
-%  \end{block}
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%15%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Connection between FSLE and tracer filaments}
-  \begin{columns}
-    \begin{column}{0.49\textwidth}
-      \begin{figure}
-        \includegraphics[width=5cm]{./pict/misc/lohafex.png}
-      \end{figure}
-      \legende{Chlorophyll, South Atlantic, d'Ovidio \& al, 2004} 
-    \end{column}
-    \begin{column}{0.49\textwidth}
-      \begin{figure}
-        \includegraphics[width=5cm]{./pict/misc/lehahn.png}
-      \end{figure}
-      \legende{Chlorophyll, Pomme area, Lehahn \& al, 2008}
-    \end{column}
-  \end{columns}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%%5%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%  \frametitle{Physical meaning of Lyapunov Exponents}
-%  Lyapunov exponents are defined as the exponential rate of separation, averaged over time \\
-%  \vspace{1cm}
-%  \centering
-%%insert graph of advecting trajectories to get stable or unstable manifolds
-%%to I need to specify backwards = Stable = cf Lehahn2007
-%  \begin{columns}
-%    \begin{column}{0.5\textwidth}
-%%      \begin{figure}
-%%        \includegraphics[width=1\linewidth]{manifold.png}
-%%      \end{figure}
-%       \begin{center}
-%       \begin{tikzpicture}
-%%    \node (W) at (-2,0) {};
-%%    \node (E) at (2,0.6) {};
-%%    \node (C) at (0,0) {H};
-%%    \node (N) at (-0.6,2) {};
-%%    \node (S) at (0.6,-2) {};
-%%    \draw[->>,>=latex] (W) edge[bend right] (C);
-%%    \draw[->>,>=latex] (E) edge[bend right] (C);
-%%    \draw[->>,>=latex] (C) edge[bend left] (N); 
-%%    \draw[->>,>=latex] (C) edge[bend left] (S);
-%        \node (xi) at (0,0.2) {Xi};
-%        \node (xf) at (4,1) {Xf};
-%        \node (yi) at (0,-0.2) {Yi};
-%        \node (yf) at (4,-0.8) {Yf};
-%        \node (di) at (0.82,0) {$\delta_{initial}$};
-%        \node (df) at (4.15,0.1) {$\delta_{final}$};
-%
-%        \draw[-,>=latex] (xf) to[bend left=10] (xi);
-%        \draw[-,>=latex] (yf) edge[bend right=10] (yi);
-%        \draw[<->,>=latex] (0.3,0.2)--(0.3,-0.2);
-%        \draw[<->,>=latex] (3.7,0.95)--(3.7,-0.75);
-%      \end{tikzpicture}
-%      \end{center}
-%    \end{column}
-%    \begin{column}{0.49\textwidth}
-%      \begin{block}{FSLE}
-%      $$\lambda  = \frac{1}{T} \times log(\frac{\delta_{final}}{\delta_{initial}}) $$
-%      \end{block}
-%%      \vspace{1cm}
-%%      \legende{Backward (red) and forward (green) integration of trajectories}
-%    \end{column}
-%  \end{columns}
-% \vspace{1cm}
-% Lyapunov exponents constitute Lagrangian transport barriers between different regions (Lehahn \& al (2007)).
-%%  Stable and Unstable Manifolds constitute Lagrangian transport barriers between different regions because they are material invariant curves that cannot be crossed by purely advective process
-%  \note{Lyapunov exponents are defined as the exponential rate of separation, averaged over time. In this study we'll use Finite time Lyapunov Exponent. In practical terms we integrate the trajectories of particles and calculate th final distance of two particles, initially at distance deltai after a time T. }
-%\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%
-%
-%
 \end{document}
