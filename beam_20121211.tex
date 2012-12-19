@@ -72,6 +72,8 @@
 
 %------------MAKE TITLE ----------------------------
 \title{Estimation de la dynamique océanique \hspace{4cm} grâce aux observations satellites altimétriques et images traceurs}
+\title{Inversion des images traceurs haute-résolution\hspace{4cm} pour le contrôle de la dynamique à plus large échelle \hspace{4cm} provenant de l'altimétrie}
+
 %\subtitle{\vspace{1.5em} \textbf{A Data Assimilation strategy}}
 \author[Journée CNES]{Lucile Gaultier, Jacques Verron, Pierre Brasseur, Jean-Michel Brankart}
 \date{\textit{14 Janvier 2012}}
@@ -95,6 +97,8 @@
     \hspace{0.5cm}
     \includegraphics[height=1.5cm]{./pict/logo/logo_legi.jpeg}
     \hspace{0.5cm}
+    %\includegraphics[height=1.5cm]{./pict/logo/logo_lgge.jpeg}
+    \hspace{0.5cm}
     \includegraphics[height=1.5cm]{./pict/logo/logo_cnrs.jpeg}
     \hspace{0.5cm}
     \includegraphics[height=1.5cm]{./pict/logo/logo_cnes.jpeg}
@@ -115,20 +119,20 @@ The originality of this talk is the use of Data Image Assimilation strategy to c
   \subsection[Observations]{Les observations de l'océan}
 %2%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{Les différentes échelles océaniques}
+\frametitle{Observations océaniques}
   \begin{tikzpicture}
     \only<1>{\node[anchor=south west,inner sep=0] (pict) at (1,0){\includegraphics[width=11.5cm]{./pict/misc/scales3.jpg}}};
     \only<2-4>{\node[anchor=south west,inner sep=0, opacity=0.5] (pict) at (1,0){\includegraphics[width=11.5cm]{./pict/misc/scales3.jpg}}};
 %\only<2-4>{\node[color=black!60] (meso) at (10.3,3.6) {\tiny{Sub-meso and Mesoscale phenomena}};
 %           \draw[fill=green!60, anchor=base,opacity=0.5] (8.6,5) ellipse (1.4 and 1.6);}
 \only<4>{ \draw[fill=yellow!70, anchor=base,opacity=0.7] (7.1,3.5) rectangle (12.0,07.3);
-            \node[color=black] (OC) at (8.55,7.1) {\bf 'Tracer' satellite};}
+            \node[color=black] (OC) at (8.55,7.1) {\bf Satellite 'traceur'};}
 \only<3-4>{
             \draw[fill=blue!70, anchor=base,opacity=0.7] (9.4,4.6) rectangle (12.0,07.3);
-            \node[color=black] (alti) at (12.0,5.7) {\bf Altimetric satellite};}
+            \node[color=black] (alti) at (12.0,5.7) {\bf Satellite altimétrique};}
 \only<2-4>{
            \draw[fill=green!60, anchor=base,opacity=0.7] (8.6,5) ellipse (1.4 and 1.6);
-           \node[color=black] (meso) at (10.3,3.6) {\bf Sub-meso and Mesoscale phenomena};}
+           \node[color=black] (meso) at (10.3,3.6) {\bf Phénomènes sous-méso et mésoéchelles};}
 
 %\only<5>{ \node[fill=mycyan, text width=11.2cm] at (6.7,3) {Sub-sampling of altimetry: use of Biogeochemistry data};
  %         \node[fill=mycyan, text width=11.2cm] at (6.7,2) {SWOT, Altika/SARAL project: High resolution altimetric satellites, a need to plan the use of this huge amount of data};}
@@ -214,9 +218,7 @@ So we aim at Considering tracer information to improve the assessment of the dyn
     %conjoint use of altimetry and tracer
 }
 \end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section[Methode]{Une approche d'assimilation de données}
 \subsection{Le contexte assimilatoire}
 %4%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -257,6 +259,7 @@ To my knowledge, it has never been done before, we build up the strategy from th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+\section[Methode]{Une approche d'assimilation de données}
 %\subsection[proxy FSLE]{Find a proxy between tracer and velocity}
 \begin{comment}
 %6%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -295,7 +298,7 @@ For this study we choose to use the FSLE as a proxy.
 \subsection[Inversion]{Inversion d'image traceur}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-   \frametitle{Methodologie}
+   \frametitle{L'inversion d'images traceur}
 
  \begin{tikzpicture}
     \tikzset{pname/.style={draw,rectangle,rounded corners=6pt},text centered,color=black}
@@ -348,13 +351,7 @@ We get a sample of the velocity by computing the sub-space of velocity errors, a
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	\section[Données réelles]{Cas test}
-\subsection{Difficultés?}
-%9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{La difficulté de détecter les fronts}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Faisabilité de l'inversion}
 
    \subsection{Données utilisées}
 %9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -380,7 +377,7 @@ We get a sample of the velocity by computing the sub-space of velocity errors, a
   \end{itemize}
 %  \vsapce{1cm}
   \begin{itemize}
-    \item \textbf{Traceur}: images SST et Chlorophylle (capteur MODIS, produit L2)
+    \item \textbf{Traceurs}: images SST et Chlorophylle (capteur MODIS, produit L2)
     %resolution needed to detect filament $1/100^o$, to match fsle $1/50^o$
   \end{itemize}
   \note{
@@ -396,16 +393,16 @@ Two tracers are used in this study: the SST and the Chlorophyll. Both images are
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Correction}
+\subsection{Résultats}
 %11%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Results: Velocity field correction calculated using the \alt<2>{Chl}{SST}}
+  \frametitle{Résultats: Correction de la dynamique grâce à la Chlorophylle et l SST}
   \begin{tabular}{p{0.2em}cccl}
     %\hline
     & \small{SSH} 
-    & \small{Velocity field}
+    & \small{Vitesse}
     & \small{FSLE} 
-    & \alt<2>{\small{Chlorophyll}}{\small{SST}} \\
+    & \alt<2>{\small{Chlorophylle}}{\small{SST}} \\
     %\hline
     \rotatebox{90}{\small{OBSERVATION}}
     & \includegraphics[width=2.72cm]{./pict/satl/aviso_h_020471.png} 
@@ -416,12 +413,9 @@ Two tracers are used in this study: the SST and the Chlorophyll. Both images are
   %   \hline
     % \hline
     \rotatebox{90}{\small{CORRECTION}}
-    & \alt<2>{\includegraphics[width=2.72cm]{./pict/satl/aviso_h_020471_min_oc.png}}
-        {\includegraphics[width=2.72cm]{./pict/satl/aviso_h_020471_mean_sst.png}} 
-   & \alt<2>{\includegraphics[width=2.40cm]{./pict/satl/aviso_20471_s_atl2_sa_oc.png}}
-        {\includegraphics[width=2.40cm]{./pict/satl/aviso_20471_s_atl2_mean-2.png}} 
-   & \alt<2>{\includegraphics[width=2.72cm]{./pict/satl/fsle_48_stat_reg_20471__sa_bin1_oc.png}}
-        {\includegraphics[width=2.72cm]{./pict/satl/fsle_48_stat_reg_20471__eof_bin0.png}} 
+    & \includegraphics[width=2.72cm]{./pict/satl/aviso_h_020471_min_oc.png} 
+   & \includegraphics[width=2.40cm]{./pict/satl/aviso_20471_s_atl2_sa_oc.png}
+   & \includegraphics[width=2.72cm]{./pict/satl/fsle_48_stat_reg_20471__sa_bin1_oc.png}
    & \\      
  %\hline
   \end{tabular}
@@ -441,30 +435,31 @@ The result is quite similar when the Chlorophyll is used to correct the velocity
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \subsection{Lagrangian trajectories}
+%------------------To be deleted? 
+ \subsection{Trajectoires Lagrangiennes}
 %12%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Results: Lagrangian trajectories }
+  \frametitle{Resultats : trajectoires lagrangiennes}
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \begin{figure}%[!htbp]
         
         \includegraphics[width=4.5cm]{./pict/satl/traj_avi2_sst_20471_s_atl2.png}\\
-        \legende{Lagrangian trajectories from the observed velocity field}
+        \legende{Trajectoires Lagrangiennes provenant de la vitesse observée}
       \end{figure}
     \end{column}
     \begin{column}{0.5\textwidth}
       \begin{figure}
-        \alt<2>{\includegraphics[width=4.5cm]{./pict/satl/traj_sa_chl_20471_s_atl2.png}\\}{\includegraphics[width=4.5cm]{./pict/satl/traj_varsst_20471_s_atl2.png}\\}
-        \legende{Lagrangian trajectories from the corrected velocity field}
+        \includegraphics[width=4.5cm]{./pict/satl/traj_sa_chl_20471_s_atl2.png}\\
+        \legende{Trajectoires lagrangiennes provenant de la vitesse corrigée}
       \end{figure}
     \end{column}
   \end{columns} 
   \begin{block}{}
 
   \begin{itemize}
-    \item The trajectory of six particles are represented over the \alt<2>{Chlorophyll}{SST} 
-    \item These trajectories are similar to the filaments observed in \alt<2>{Chlorophyll}{SST}
+    \item La trajectoire de six particules sont représentés sur une image de \alt<2>{Chlorophylle}{SST} 
+    \item Ces trajectoires sont similaires aux filaments visibles sur l'image \alt<2>{Chlorophylle}{SST}
 %    \item \only<2>{Velocity does not cross frontal structure anymore}
   \end{itemize}
   \end{block}
@@ -478,26 +473,55 @@ Lagrangian trajectories of corrected velocities using SST or Chlorophyll tracers
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section[Limites de la méthode]{Inversion sur un modèle}
+%9%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{La difficulté de détecter les fronts}
+
+%\end{frame}
+
+
+	\section[Limites de la méthode]{Inversion sur un modèle}
 
 \subsection{Le modèle d'étude}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Le modèle de la mer des Salomons}
-
+\begin{minipage}{0.4\textwidth}
+\begin{block}{}
+\begin{itemize}
+  \item Dynamique : Code NEMO-OPA
+  \item Résolution horizontale : $\frac{1}{36}^o$
+  \item Résolution verticale : 46 niveaux
+  \item For\c cages : ERA-ITERIM
+  \item Période : 1989-2000
+\end{itemize}
+\end{block}
+\end{minipage}
+\begin{minipage}{0.59\textwidth}
+%\includegraphics[width=1\linewidth]{}
+\end{minipage}
+\begin{block}{}
+Les traceurs considérés sont la SST et la SSS
+\end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Limites de la méthode}
+\subsection{Comparaison traceur-FSLE}
 %8%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Comparaison entre le traceur et le FSLE}
-\begin{multicols}{2}
+  \frametitle{Comparaison traceur-FSLE}
+\begin{minipage}{0.49\textwidth}
 \includegraphics[width=4.5cm]{./pict/hist_1_SOSMOD36-GND100L_19940909_votemper_fsle.png}\\
 \legende{Angle entre le FSLE et le traceur, histogramme des angles}
+\end{minipage}
+\begin{minipage}{0.49\textwidth}
 \includegraphics[width=4.5cm]{./pict/Interquantile.png}\\
         \legende{Premier quantile et Interquantile de la distribution spatiale des angles entre le FSLE et le traceur} 
-\end{multicols}
+\end{minipage}
+\begin{block}{}
+Dépendance temporelle de la similarité traceur-FSLE\\
+Due à la MLD? au vent? 
+\end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -505,8 +529,9 @@ Lagrangian trajectories of corrected velocities using SST or Chlorophyll tracers
 \subsection{Construire l'inversion des images}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{L'influence de différents paramètre sur la faisabilité de l'inversion}
-
+  \frametitle{Faisabilité de l'inversion}
+Le sous-espace d'erreur\\
+L'image traceur idéale => perte d'information lors de la binarisation du gradient
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -568,8 +593,20 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Vers une assimilation des données SWOT?}
-   Assimilation de donnée complète 
-   Que pouvons nous imaginer comme application dans un cadre de donnée SWOT
+  \begin{block}{Coût de l'assimilation des données SWOT}
+    \begin{itemize} 
+      \item Point par point : 
+      \item Structure :
+    \end{itemize}
+  \end{block}
+  \begin{block}{Assimiler les structures plutôt que la donnée point par point}
+    \begin{itemize}
+      \item Pour réduire le coût d'assimilation
+      \item Pour assimiler SWOT dans des modèles à résolution plus faible
+    \end{itemize}
+  \end{block}
+%   Assimilation de donnée complète 
+%   Que pouvons nous imaginer comme application dans un cadre de donnée SWOT
 \end{frame}
 %13%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -580,20 +617,20 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
   \frametitle{Conclusion}
 
   \begin{block}{}
-   \textbf{We succeeded in correcting an altimetric mesoscale velocity field using a sub-mesoscale tracer observation from space}
+   \textbf{Aujourd'hui, on peut inverser des données traceurs pour compléter les observations altimétriques.}
   \end{block}
   \begin{block}{}
   \begin{itemize}
-    \item Altimetry and tracer observations are complementary.
-    \item Tracer information can compensate for the lack of SSH resolution in time and space.
-    \item The feasability of the method is confirmed by the inversion of a tracer in a model. 
+    \item Utilisation complémentaire de deux types d'observations : image traceur et observation altimétrique
+    \item La validité de la méthode d'inversion est démontré grâce à des modèles hautes-résolutions
+    \item Les limites de l'inversion sont étudiées grâce à un modèle haute-résolution réaliste de la mer des Salomons
   \end{itemize}
   \end{block}
 
   \begin{block}{Future work}
   \begin{itemize}
-    \item Improvement of the inversion method using idealized and realistic models. 
-    \item  Data Assimilation of image in a coupled physical-biogeochemical model.
+    \item Vers une assimilation de données images dans un modèle couplé physique-biogéochimie
+    \item Vers une assimilation des données SWOT
   \end{itemize}
   \end{block}
 
