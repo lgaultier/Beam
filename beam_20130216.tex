@@ -2,29 +2,26 @@
                                            %notesonly to add note not visible on screen (\note[]{})
 \documentclass[compress,slidescentered,notes=show]{beamer}
 %\documentclass[compress,slidescentered,notes=hide]{beamer}
+
+%---------------FONT AND LANGUAGES ---------------------------
 \usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage{pifont}
+
+%--------------FORM ------------------------------
 \usepackage{beamerthemesplit}
 \usepackage{multicol} %possibility to create columns
-\usepackage{graphicx} %add pictures
-\graphicspath{{./pict/}} %path to pictures
-\usepackage{indentfirst}
-\usepackage{tikz} %add schemes
-\usetikzlibrary{shapes} %add diamonds shape to schemes
-\usepackage{multimedia} %add video
+\usepackage{comment} 
 %\usepackage[absolute,showboxes, overlay]{textpos}
 %\textblockorigin{1mm}{1mm}
 %\TPshowboxestrue % or false to display contour
-\usepackage{array}
-\pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
+
 \usenavigationsymbolstemplate{}
-\usetheme{Darmstadt}
-\useoutertheme{infolines} %to add numerotation
-\usepackage{geometry} %put margin
-\geometry{hmargin=0.25cm, vmargin=0.0cm}
+\usetheme{Frankfurt} %Darmstadt}
+\useoutertheme{smoothbars} %to add numerotation
 \usepackage{color} %creation of own colors
+\useoutertheme{infolines} %to add numerotation
 %\usecolortheme[named=SeaGreen]{structure}
 \definecolor{bleuclair}{rgb}{0.2,0.9,0.8}
 %\definecolor{mycyan}{rgb}{.19,0.5,0.5}
@@ -32,10 +29,9 @@
 \setbeamercolor*{palette primary}{use=structure,fg=white,bg=mycyan}
 \setbeamercolor{block title}{bg=mycyan,fg=black}%bg=background, fg= foreground
 \setbeamercolor{block body}{bg=lightgray,fg=black}%bg=background, fg= foreground
-%\setbeamercolor{structure}{bg=black, fg=green}
+\setbeamercolor{structure}{bg=black, fg=mycyan}
 \setbeamercolor{normal text}{fg=black}
 \setbeamercolor{alerted text}{fg=red}
-%\setbeamercolor{background canvas}{bg=white}
 \setbeamercolor{frametitle}{fg=white}
 \setbeamercolor{title}{fg=black}
 \setbeamercolor{titlelike}{fg=black}
@@ -47,26 +43,38 @@
 \setbeamercolor{itemize item}{fg=mycyan}
 \setbeamercolor{section in tableofcontents}{fg=black,bg=black}
 \setbeamercolor*{item projected}{fg = white, bg=mycyan} 
+\useoutertheme{shadow}
 %\setbeamercolor{sidebar}{bg=red}
 %\beamertemplatetransparentcovered %set transparancy
-\useoutertheme{shadow}
 \newcommand{\gu}[1]{#1}
-\newcommand{\legende}[1]{\textit{\footnotesize #1}}
-\renewcommand{\figurename}{Fig.}
-\setlength{\unitlength}{1cm} %to use pictures
 %usepackage{default}
-%\setbeamersize{text margin left=0cm}
-%\setbeamersize{text margin right=0cm}
+\usepackage{geometry} %put margin
+\geometry{hmargin=0.25cm, vmargin=0.0cm}
+\setbeamersize{text margin left=2mm, text margin right=2mm}
 %\setbeamersize{text margin top=0cm}
 %\setbeamersize{sidebar width left=0cm}
 %\setbeamersize{sidebar width right=0cm}
 %\usepackage{fullpage}
 \setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{./pict/slide0006_background.png}}
 
+%-------------GRAPHICS ----------------------------
+\usepackage{graphicx} %add pictures
+\graphicspath{{./pict/}{pict_nemo/}{/data2/gaultier/NEMO/DIAG/}} %path to pictures
+\usepackage{tikz} %add schemes
+\usetikzlibrary{shapes} %add diamonds shape to schemes
+\usepackage{multimedia} %add video
+\usepackage{array}
+\pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>} %avoid color troubles using eps and acroread
+\renewcommand{\figurename}{Fig.}
+\setlength{\unitlength}{1cm} %to use pictures
+\newcommand{\ftitle}[1]{\begin{center}\textcolor{mycyan}{#1} \end{center}} %title for figures
+\newcommand{\legende}[1]{\textit{\footnotesize #1}}
+
+%------------MAKE TITLE ----------------------------
 \title{On the joint use of high resolution tracer images \hspace{4cm} and altimetric data for the control of ocean circulations.}
 %\subtitle{\vspace{1.5em} \textbf{A Data Assimilation strategy}}
 \author[LPO]{Lucile Gaultier, Jacques Verron, Pierre Brasseur, Jean-Michel Brankart}
-\date{\textit{September 26, 2012}}
+\date{\textit{February 16, 2013}}
 
 %\logo{\includegraphics[height=1.5cm]{./pict/logo_meom.jpeg}}
 %\logo{\insertframenumber/\inserttotalframenumber}
