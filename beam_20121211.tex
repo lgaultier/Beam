@@ -232,10 +232,10 @@ So we aim at Considering tracer information to improve the assessment of the dyn
   \begin{tikzpicture}
 %    \node[color=blue, text width=4cm, text centered] (UV) at (7,2.7) {Mesoscale field};
     \node[color=black, text width=3.9cm, text centered] (pUV) at (7,0) {\includegraphics[width=0.9\linewidth]{aviso_20079_tasmania.png}\\ %};
-        \legende{Velocity map}}; %mania region, December 22, 2004}};
+        \legende{Vitesse}}; %mania region, December 22, 2004}};
 %    \node[color=green, text width=4cm, text centered] (TRA) at (0,2.7) {Sub-mesoscale tracer image};
     \node[color=black, text width=3.9cm, text centered] (pTRA) at (0,0) {\includegraphics[width=0.9\linewidth]{pict/A2004358041000_L2_LAC_OC.png}\\ %};
-        \legende{Chlorophyll image}}; %, Tasmania region, December 22, 2004}};
+        \legende{Chlorophylle}}; %, Tasmania region, December 22, 2004}};
     \node[draw] (int) at (3.7,1) {\large{?}};
   \draw[->,>=latex] (pTRA)--(pUV);
     \node[color=black, text width=3.9cm, text centered] (mtext) at (3.5,-1.6) { \legende{Tasmania region,\\ December 22, 2004}};
@@ -243,7 +243,7 @@ So we aim at Considering tracer information to improve the assessment of the dyn
  
   \visible<2->{
   \begin{block}{Approche similiare à une assimilation de donnée}
-   Construire d'un problème inverse: trouver le meilleur compromis entre la vitesse provenant de l'altimétrie et les images traceurs, ainsi que l'erreur associée.
+   Le problème inverse : trouver le meilleur compromis entre la vitesse provenant de l'altimétrie et les images traceurs, ainsi que l'erreur associée.
   \end{block}}
 
 %Find the optimal correction to apply on the velocity in order to take into account the information in the HR image. 
@@ -488,7 +488,14 @@ Lagrangian trajectories of corrected velocities using SST or Chlorophyll tracers
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Le modèle de la mer des Salomons}
-\begin{minipage}{0.4\textwidth}
+  \begin{tikzpicture}
+    \node[anchor=west,inner sep=0] (pict) at (-6,0){\includegraphics[width=6.5cm]{./pict_nemo/1_SOSMOD36-GND100L_1222_big.png}};
+    \node[anchor= west,inner sep=0] (picts) at (1.5,0){\includegraphics[width=2.5cm]{./pict_nemo/1_SOSMOD36-GND100L_1222_small1.png}};
+    \draw[dashed,line width=0.25mm] (-2.6,0.6)--(1.55,1.25);
+    \draw[dashed,line width=0.25mm] (-2.6,-0.65)--(1.55,-1.2);
+  \end{tikzpicture}
+
+%\includegraphics[width=1\linewidth]{}
 \begin{block}{}
 \begin{itemize}
   \item Dynamique : Code NEMO-OPA
@@ -497,13 +504,6 @@ Lagrangian trajectories of corrected velocities using SST or Chlorophyll tracers
   \item For\c cages : ERA-ITERIM
   \item Période : 1989-2000
 \end{itemize}
-\end{block}
-\end{minipage}
-\begin{minipage}{0.59\textwidth}
-%\includegraphics[width=1\linewidth]{}
-\end{minipage}
-\begin{block}{}
-Les traceurs considérés sont la SST et la SSS
 \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -542,33 +542,33 @@ L'image traceur idéale => perte d'information lors de la binarisation du gradien
   \frametitle{Résultat de l'inversion d'image}
 \begin{minipage}{0.3\textwidth}
 \begin{center}
-\includegraphics[width=1\linewidth]{./pict/sa_uv-R2BIGvel_0324_pert_mod.png}\\
+\includegraphics[width=1\linewidth]{./pict_nemo/1_SOSMOD36-GND100L_vel_1218_mod.png}\\
 {\small \bf Background velocity}
 \end{center}
 \end{minipage}
 \begin{minipage}{0.3\textwidth}
 \begin{center}
-\includegraphics[width=1\linewidth]{./pict/sa_uv-R2BIGvel_0324_0017_mod.png}\\
+\includegraphics[width=1\linewidth]{./pict_nemo/sa_uv-GND100L_vel_1222_0046_mod.png}\\
 {\small \bf Corrected velocity}
 \end{center}
 \end{minipage}
 \begin{minipage}{0.3\textwidth}
 \begin{center}
-\includegraphics[width=1\linewidth]{./pict/sa_uv-R2BIGvel_0324_F_mod.png}\\
+\includegraphics[width=1\linewidth]{./pict_nemo/1_SOSMOD36-GND100L_vel_1222_true_mod.png}\\
 
 {\small \bf True velocity}
 \end{center}
 \end{minipage}
 \begin{minipage}{0.34\textwidth}
 \begin{center}
-\includegraphics[width=1\linewidth]{./pict/sa_uv-R2BIGsst_0324.png}\\
+\includegraphics[width=1\linewidth]{./pict_nemo/1_SOSMOD36-GND100Lsst_1222_.png}\\
 {\small \bf SST}
 \end{center}
 \end{minipage}
 \begin{minipage}{0.34\textwidth}
 \begin{center}
-\includegraphics[width=1\linewidth]{./pict/sa_uv-R2BIGchl_0324.png}\\
-{\small \bf Chlorophyll}
+\includegraphics[width=1\linewidth]{./pict_nemo/1_SOSMOD36-GND100Lsss_1222_.png}\\
+{\small \bf SSS}
 \end{center}
 \end{minipage}
 \begin{minipage}{0.3\textwidth}
