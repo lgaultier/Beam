@@ -10,7 +10,7 @@
 \usepackage{pifont}
 
 %--------------FORM ------------------------------
-\usepackage{beamerthemesplit}
+%\usepackage{beamerthemesplit}
 \usepackage{multicol} %possibility to create columns
 \usepackage{comment} 
 %\usepackage[absolute,showboxes, overlay]{textpos}
@@ -20,13 +20,13 @@
 \pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
 \usenavigationsymbolstemplate{}
 
-\usetheme{Warsaw} %Darmstadt} %Frankfurt} 
+\usetheme{Darmstadt} %Frankfurt} 
 %\useoutertheme{smoothbars} %to add numerotation
 \usepackage{color} %creation of own colors
-\useoutertheme{infolines} %to add numerotation
-%\usecolortheme[named=SeaGreen]{structure}
+%\useoutertheme{infolines} %to add numerotation
+%%\usecolortheme[named=SeaGreen]{structure}
 \definecolor{bleuclair}{rgb}{0.2,0.9,0.8}
-%\definecolor{mycyan}{rgb}{.19,0.5,0.5}
+%%\definecolor{mycyan}{rgb}{.19,0.5,0.5}
 \definecolor{mycyan}{rgb}{0.2,0.6,0.6}
 \setbeamercolor*{palette primary}{use=structure,fg=white,bg=mycyan}
 \setbeamercolor{block title}{bg=mycyan,fg=black}%bg=background, fg= foreground
@@ -59,7 +59,7 @@
 %\usepackage{fullpage}
 \setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{./pict/slide0006_background.png}}
 \setcounter{tocdepth}{3}
-%\setbeamertemplate{part page} %To add Part 
+%\setbeamertemplate{part page} %To add number to Part 
 %{
 %  \begin{centering}
 %    {\usebeamerfont{part name}\usebeamercolor[fg]{part name}\partname~\insertpartnumber}
@@ -68,6 +68,30 @@
 %      \usebeamerfont{part title}\insertpart\par
 %    \end{beamercolorbox}
 %  \end{centering}
+%}
+\makeatletter
+\AtBeginPart{\beamer@tocsectionnumber=0\relax\c@section=0
+%  \addtocontents{toc}{\protect\beamer@partintoc{\the\c@part}{\beamer@partnameshort}{\the\c@page}}
+}
+%\@addtoreset{part}{section}
+\makeatother
+
+%\AtBeginPart{%
+%}
+%% number, shortname, page.
+%\providecommand\beamer@partintoc[3]{%
+%  \ifnum\c@tocdepth=-1\relax
+%    % requesting onlyparts.
+%    \makebox[6em]{PART #1:} #2
+%    \par
+%  \fi
+%}
+%\define@key{beamertoc}{onlyparts}[]{%
+%  \c@tocdepth=-1\relax
+%}
+%\makeatother%
+%\AtBeginPart{%
+%  \addtocontents{toc}{blabla}%\insertromanpartnumber \hspace{1em} \insertpart}
 %}
 
 %-------------GRAPHICS ----------------------------
@@ -119,18 +143,34 @@
 \logo{\insertframenumber/\inserttotalframenumber}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Outline}
-  \tableofcontents[hideallsubsections]
+  \frametitle{I INTRODUCTION}
+   
+  \tableofcontents[part=1] %[hideallsubsections]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{II METHOD}
+  
+  \tableofcontents[part=2] %[hideallsubsections]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{III RESULTS}
+  \tableofcontents[part=3] %[hideallsubsections]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \part{Introduction}
+
 \section{Context}% and objectives}
 %-------------------------------%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Outline}
-  \tableofcontents[currentsection]
+  \frametitle{\insertromanpartnumber \hspace{1em} \insertpart}
+  
+  \tableofcontents[hideothersections]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -260,16 +300,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \part{Methodological aspects}
-\section[Method]{Combining altimetric data and tracer images}
+\addtocontents{toc}{Methodological aspects}% \insertromanpartnumber \hspace{1em} \insertpart}
+
 %------------------------------------------------------------%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Outline}
-  \tableofcontents[currentsection, hideotherpart]
+  \frametitle{\insertromanpartnumber \hspace{1em} \insertpart}
+  \tableofcontents[hideotherpart]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Comparing velocity and tracer images}
+\thesection
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Methodoligical aspects}
+%  \tableofcontents[hideotherpart,currentsection]
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	\subsection[proxy FSLE]{Find a proxy between tracer and velocity}
+	\subsection{Find a proxy between tracer and velocity}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
  %\frametitle{A proxy is needed}
@@ -296,7 +345,10 @@
 %\frametitle{What is a FSLE}
 
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+       \subsection{Consistency of FSLE as a proxy}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 %\frametitle{Proxy FSLE consistent}
 %The FSLE is our proxy
@@ -326,7 +378,15 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	\subsection[Inversion]{Inversion of the tracer image}
+\section{Method of Inversion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Methodoligical aspects}
+%  \tableofcontents[hideotherpart,currentsection]
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection{Overview}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 %\frametitle{Inversion Method}
@@ -357,6 +417,8 @@
   \end{tikzpicture} \\
 \end{frame}
 
+	\subsection{Cost function}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 %\frametitle{Inversion Method}
   \begin{block}{}
@@ -379,15 +441,25 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\part{Results}
-\section[Real data]{Feasability study using real observations}
+\part{Results of the Inversion}
+\addtocontents{toc}{Results}%\insertromanpartnumber \hspace{1em} \insertpart}
+
 %-------------------------------------------%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-  \frametitle{Outline}
-  \tableofcontents[currentsection]
+  \frametitle{\insertromanpartnumber \hspace{1em} \insertpart}
+  \tableofcontents[hideotherpart]
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section[Real data]{Feasability study using real observations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Methodoligical aspects}
+%  \tableofcontents[hideotherpart,currentsection]
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 	\subsection{Data}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -465,11 +537,11 @@
 
 \section[Process model data]{Validation of the method on a process model}
 %------------------------------------------------------------------------%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Outline}
-  \tableofcontents[currentsection]
-\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Methodoligical aspects}
+%  \tableofcontents[hideotherpart,currentsection]
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -490,12 +562,13 @@
 
 \section[Realistic Model data]{Limits of inversion using a realistic model}
 %-------------------------------------------------------------------------%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}
+%  \frametitle{Methodoligical aspects}
+%  \tableofcontents[hideotherpart,currentsection]
+%\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-  \frametitle{Outline}
-  \tableofcontents[currentsection]
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 	\subsection{Model data}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -518,7 +591,8 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section[Conclusion]{Prospects and Conclusions}
+\part{Conclusion}
+\section{Prospects and Conclusions}
 %------------------------------------------------%
 
 	\subsection{Prospects}
