@@ -16,10 +16,12 @@
 %\usepackage[absolute,showboxes, overlay]{textpos}
 %\textblockorigin{1mm}{1mm}
 %\TPshowboxestrue % or false to display contour
-
+\usepackage{array}
+\pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}
 \usenavigationsymbolstemplate{}
-\usetheme{Frankfurt} %Darmstadt}
-\useoutertheme{smoothbars} %to add numerotation
+
+\usetheme{Warsaw} %Darmstadt} %Frankfurt} 
+%\useoutertheme{smoothbars} %to add numerotation
 \usepackage{color} %creation of own colors
 \useoutertheme{infolines} %to add numerotation
 %\usecolortheme[named=SeaGreen]{structure}
@@ -43,7 +45,7 @@
 \setbeamercolor{itemize item}{fg=mycyan}
 \setbeamercolor{section in tableofcontents}{fg=black,bg=black}
 \setbeamercolor*{item projected}{fg = white, bg=mycyan} 
-\useoutertheme{shadow}
+%\useoutertheme{shadow}
 %\setbeamercolor{sidebar}{bg=red}
 %\beamertemplatetransparentcovered %set transparancy
 \newcommand{\gu}[1]{#1}
@@ -56,6 +58,17 @@
 %\setbeamersize{sidebar width right=0cm}
 %\usepackage{fullpage}
 \setbeamertemplate{background}{\includegraphics[width=\paperwidth,height=\paperheight]{./pict/slide0006_background.png}}
+\setcounter{tocdepth}{3}
+%\setbeamertemplate{part page} %To add Part 
+%{
+%  \begin{centering}
+%    {\usebeamerfont{part name}\usebeamercolor[fg]{part name}\partname~\insertpartnumber}
+%    \vskip1em\par
+%    \begin{beamercolorbox}[sep=16pt,center]{part title}
+%      \usebeamerfont{part title}\insertpart\par
+%    \end{beamercolorbox}
+%  \end{centering}
+%}
 
 %-------------GRAPHICS ----------------------------
 \usepackage{graphicx} %add pictures
@@ -69,6 +82,7 @@
 \setlength{\unitlength}{1cm} %to use pictures
 \newcommand{\ftitle}[1]{\begin{center}\textcolor{mycyan}{#1} \end{center}} %title for figures
 \newcommand{\legende}[1]{\textit{\footnotesize #1}}
+
 
 %------------MAKE TITLE ----------------------------
 \title{On the joint use of high resolution tracer images \hspace{4cm} and altimetric data for the control of ocean circulations.}
@@ -106,11 +120,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Outline}
-  \tableofcontents
+  \tableofcontents[hideallsubsections]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Context and objectives}
+\part{Introduction}
+\section{Context}% and objectives}
 %-------------------------------%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -192,6 +207,7 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Objective}
 	\subsection{A data assimilation approach}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -243,13 +259,13 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\part{Methodological aspects}
 \section[Method]{Combining altimetric data and tracer images}
 %------------------------------------------------------------%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   \frametitle{Outline}
-  \tableofcontents[currentsection]
+  \tableofcontents[currentsection, hideotherpart]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -363,7 +379,7 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\part{Results}
 \section[Real data]{Feasability study using real observations}
 %-------------------------------------------%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
