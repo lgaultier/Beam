@@ -77,24 +77,6 @@
 %\@addtoreset{part}{section}
 \makeatother
 
-%\AtBeginPart{%
-%}
-%% number, shortname, page.
-%\providecommand\beamer@partintoc[3]{%
-%  \ifnum\c@tocdepth=-1\relax
-%    % requesting onlyparts.
-%    \makebox[6em]{PART #1:} #2
-%    \par
-%  \fi
-%}
-%\define@key{beamertoc}{onlyparts}[]{%
-%  \c@tocdepth=-1\relax
-%}
-%\makeatother%
-%\AtBeginPart{%
-%  \addtocontents{toc}{blabla}%\insertromanpartnumber \hspace{1em} \insertpart}
-%}
-
 %-------------GRAPHICS ----------------------------
 \usepackage{graphicx} %add pictures
 \graphicspath{{./pict/}{pict_nemo/}{/data2/gaultier/NEMO/DIAG/}} %path to pictures
@@ -992,6 +974,11 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{Data image assimilation}
+  \begin{block}{Growing of complexities in model and observation}
+  \begin{itemize}
+    \item Increase of non-linear effects 
+    \item Non Gaussian statistics
+  \end{itemize}
 \begin{tabular}{ccc}
 %  \begin{minipage}{0.3\textwidth}
     State control & Observation &  \\
