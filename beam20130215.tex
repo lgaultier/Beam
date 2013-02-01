@@ -499,6 +499,7 @@ In practical terms we integrate the trajectories of particles and calculate the 
     $\bullet$ Cost function:
     $$J(\vec{u})=\|\mathcal{I}_{FSLE}(\vec{u}) -\mathcal{I}_{tracer}\| + background\ term $$
     The cost function is strongly non linear, with many local minima.\\
+   
 %\alt<2>{\centering\includegraphics[width=0.5\linewidth]{J2_med19904.png}\includegraphics[width=0.5\linewidth]{Jiter_record6_HR.png}\\}
 %  {
   \end{block}
@@ -510,8 +511,13 @@ In practical terms we integrate the trajectories of particles and calculate the 
     The number of degrees of freedom is reduced, using only 100 or less EOFs. \\
   \end{block}
   \vspace{0.2cm}
-
-%DA Parameters )subspace of error, decreasing algorithm, Gibbs algorithm
+\note{
+Cost function complex and non linear, non differentiable: new methods necessary to decrease the cost function. \\
+Sub space of error: 
+Reduce Space: similar to filter SEEK.  \\ 
+%ddDA Parameters )subspace of error, decreasing algorithm, Gibbs algorithm
+}
+%ddDA Parameters )subspace of error, decreasing algorithm, Gibbs algorithm
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -528,8 +534,8 @@ In practical terms we integrate the trajectories of particles and calculate the 
     \item Real data: Prove the feasibility of the inversion but without any knowledge of the error.% on the method. 
     \item Model data: 
     \begin{itemize}
-      \item Process model: Assess the error of the estimate (and of the method).
-      \item Realistic model: Limits of the method, Required conditions to apply the method
+      \item Process model: High Resolution coupled physico-biogeochemical model. Inversion of the SST and the Chlorophyll: Assess the error of the estimate (and of the method), study impact of image processing on the estimation of the velocity
+      \item Realistic model: High Resolution realistic model of the Solomon Sea. Inversion of the SST and the SSS: Assess the efficiency of the correction on the velocity, the required conditions to apply the method
     \end{itemize}
   \end{enumerate}
   \end{block}
@@ -585,7 +591,9 @@ In practical terms we integrate the trajectories of particles and calculate the 
 \note{
 In the following, we show that the inversion of tracer images is feasible in a real case.
 I choose to show you a test case in a small rectangular area located in the South Atlantic Ocean.
-An other test case in the Mediterranean Sea has been published in an article.
+This area is at the border of the ACC where submesoscales structures are created. 
+There is a nice gradient in SST and in Chlorophyll. 
+An other test case in the Mediterranean Sea, in the Algerian Current,  has been published in an article.
 The background velocity is provided by AVISO mapped product.
 The sub-space of errors is generated using nearly 600 hundred AVISO velocity maps.
 The velocity resolution is $1/3^o$.
@@ -714,11 +722,12 @@ The Lagrangian trajectories derived from corrected velocities are much more cons
 	\subsection{Model data}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+\frame{High Resolution coupled physico-biogeochemical model}
 %Physicobiogeochemical Model
   \includegraphics[width=0.3\linewidth]{pict_nemo/R2BIG_initial_sst.png}%initialisations
   \includegraphics[width=0.7\linewidth]{R2BIG_TCHL_m02_d52.png}%a un temps t
   %Movie? 
-  \begin{block}{Model configuration}
+  \begin{block}{Model configuration: Levy, 2002}
   \begin{itemize}
     \item NEMO dynamics coupled with LOBSTER biochemical model
     \item Channel domain: $478 \times 500 \times 4$ km ($ 240 \times 252 \times 30$ grid points)
@@ -892,11 +901,17 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
   \item Merging SST and Chlorophyll enables us to detect structure from the dynamics only
 \end{itemize}
 \end{block}
-\end{frame} 
+\end{frame}
+ 
+\begin{frame}
+Improvement of image processing necessary\\
+Even if the image processing is rough, good results\\
+Find good observation, extract good structures from observation\\
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section[Realistic Model data]{Limits of inversion using a realistic model}
+\section[Realistic Model data]{Inversion on data from a realistic model}
 %----------------------------------------------------------------------%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -917,8 +932,8 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
     \draw[dashed,line width=0.25mm] (-2.6,0.6)--(1.55,1.25);
     \draw[dashed,line width=0.25mm] (-2.6,-0.65)--(1.55,-1.2);
   \end{tikzpicture}
-
-%\includegraphics[width=1\linewidth]{}
+%ADD MOVIE
+%\includemovie
 \begin{block}{}
 \begin{itemize}
   \item Dynamics : NEMO-OPA code
@@ -1019,6 +1034,12 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}
+The correction we made on the velocity is consistent and the inversion method showed good results on model, can be trusted. 
+
+
+\end{frame}
+
 %-----------------%%
 \part{Conclusion} %%
 %-----------------%%
@@ -1035,6 +1056,17 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
     \item Increase of non-linear effects 
     \item Non Gaussian statistics
   \end{itemize}
+  \begin{tikzpicture}
+    \node[anchor=west,inner sep=0] (AVISO) at (-6,0){\includegraphics[width=6.5cm]{}}; % pict AVISO Solomon
+    \node[anchor= west,inner sep=0] (SST) at (-6,-6){\includegraphics[width=2.5cm]{}}; %pict SST Solomon
+    %\node pict model Solomon
+    %\node pict model Solomon
+    \draw[=>,line width=0.25mm] (-2.6,0.6)--(1.55,1.25); %from AVISO to model
+    \draw[=>,line width=0.25mm] (-2.6,-0.65)--(1.55,-1.2); %from SST to model
+  \end{tikzpicture}
+% mettre image vitesse, image structure
+%Assimiler la donnee altimetrique, pour controler la large echelle
+%les images structures pour controler les structures  plus fines. 
 \begin{tabular}{ccc}
 %  \begin{minipage}{0.3\textwidth}
     State control & Observation &  \\
@@ -1059,7 +1091,7 @@ $ \begin{pmatrix}
 \end{tabular}
   \begin{block}{Data assimilation in a high resolution model}
   At large scale, altimetry can control dynamics in the ocean \\
-  At small scales, non Gaussian information is added using inversion of tracer images \\
+  At small scales, control complex structures using tracer images \\
   \end{block}
 \end{frame}
 
@@ -1078,8 +1110,9 @@ $ \begin{pmatrix}
   \end{minipage}
   \begin{block}{}
   \begin{itemize}
-    \item Add non Gaussian information using the inversion of image \\
-    \item Assimilation with model at different resolution possible \\
+    \item Add complex information using the inversion of image 
+    \item Enrichir le signal par rapport à de l'assimilation point par point %%%%%
+    \item Assimilation with model at different resolution possible 
   \end{itemize}
   \end{block}
 \end{frame}
@@ -1096,7 +1129,14 @@ $ \begin{pmatrix}
   \begin{itemize}
    \item Real data experiment: the inversion of SST and Chlorophyll images is feasible
    \item Models experiment: 50\% of the error is corrected using the inversion method on several models. 
-   \item Limits of the method: investigated with realistic model
+  
+  \end{itemize}
+  \end{block}
+
+  \begin{block}{}
+  \begin{itemize}
+     \item Investigation of the necessary condition to apply this method, is this universel? does it require specific conditions? 
+     \item Improvement of the image processing: More dynamical information can be extracted from images.  
   \end{itemize}
   \end{block}
   \begin{block}{Future Prospect}
