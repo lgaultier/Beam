@@ -233,10 +233,12 @@
   \end{itemize}
   \end{block}
   \begin{minipage}{0.49\textwidth}
-  %include chl image
+    \includegraphics[width=0.9\linewidth]{./pict/sstbret.png}\\
+    {\small SST from MODIS sensor \\ (4-11 August 2012)}
   \end{minipage}
   \begin{minipage}{0.49\textwidth}
-  %include sst image
+    \includegraphics[width=0.9\linewidth]{./pict/chlbret.png}\\
+   {\small Chlorophyll from MODIS sensor \\ (4-11 August 2012)}
   \end{minipage}
   \begin{block}{}
   Sub-mesoscales filaments revealed by tracer images
@@ -254,13 +256,13 @@
   \begin{columns}
     \begin{column}{0.49\textwidth}
       \begin{figure}
-        \includegraphics[width=5cm]{./pict/misc/lohafex.png}
+        \includegraphics[width=4.9cm]{./pict/misc/lohafex.png}
       \end{figure}
       \legende{Chlorophyll, South Atlantic, d'Ovidio \& al, 2004}
     \end{column}
     \begin{column}{0.49\textwidth}
       \begin{figure}
-        \includegraphics[width=5cm]{./pict/misc/lehahn.png}
+        \includegraphics[width=4.9cm]{./pict/misc/lehahn.png}
       \end{figure}
       \legende{Chlorophyll, Pomme area, Lehahn \& al, 2008}
     \end{column}
@@ -658,13 +660,13 @@ Two tracers are used in this study: the SST and the Chlorophyll. Both images are
     \begin{column}{0.49\textwidth}
     \begin{center}
      Explore the cost function around the solution \\
-  \alt<2>{\includegraphics[width=0.78\linewidth]{pict/satl/J1D_tra0s_atl3_1_10.png}}{}
+  \alt<2>{\includegraphics[width=0.78\linewidth]{pict/satl/J1D_tra0s_atl3_1_10.png}}{\includegraphics[width=0.78\linewidth]{pict/satl/J1D_fsles_atl2_1_10.png}}
      \end{center}
     \end{column}
     \begin{column}{0.49\textwidth}
      \begin{center}
      Cost function as a function of the number of iterations \\
-     \alt<2>{\includegraphics[width=0.78\linewidth]{pict/satl/Jiter_20471_s_atl2.png}}{}
+     \alt<2>{\includegraphics[width=0.78\linewidth]{pict/satl/Jiter_20471_s_atl2.png}}{\includegraphics[width=0.78\linewidth]{pict/satl/Jiter_s_atltest.png}}
     \end{center}
      \end{column}
      \end{columns}
@@ -807,7 +809,7 @@ The Lagrangian trajectories derived from corrected velocities are much more cons
   \end{minipage}
   \begin{minipage}{0.3\textwidth}
   \begin{center}
-    \alt<2>{\includegraphics[width=1\linewidth]{./pict_nemo/image.png}}
+    \alt<2>{\includegraphics[width=1\linewidth]{./pict_nemo/diffP.png}}
     {\includegraphics[width=1\linewidth]{./pict_nemo/sa_uv-R2BIGvel_0324_0090chl_mod.png}}\\
     \alt<2>{$||\vec{u}_{corrected}-\vec{u}_{true}||$}
     {\small \bf Corrected velocity}
@@ -1025,7 +1027,7 @@ Improving the image processing may improve the estimation of the velocity
 \begin{frame}
 %Salomon model
   \begin{tikzpicture}
-    \node[anchor=west,inner sep=0] (pict) at (-6,0){\movie[externalviewer]{\includegraphics[width=6.5cm]{./pict_nemo/1_SOSMOD36-GND100L_1222_big.png}}{./pict_nemo/RV-SST_design_video_G1N_y93-00_lev1.avi}};
+    \node[anchor=west,inner sep=0] (pict) at (-6,0){\movie[externalviewer]{\includegraphics[width=6.5cm]{./pict_nemo/1_SOSMOD36-GND100L_1222_big.png}}{./pict_nemo/SST_design_video_G1N_y93-00_lev1.avi}};
     \node[anchor= west,inner sep=0] (picts) at (1.5,0){\includegraphics[width=2.5cm]{./pict_nemo/1_SOSMOD36-GND100L_1222_small1.png}};
     \draw[dashed,line width=0.25mm] (-2.6,0.6)--(1.55,1.25);
     \draw[dashed,line width=0.25mm] (-2.6,-0.65)--(1.55,-1.2);
@@ -1187,29 +1189,44 @@ The velocity has been corrected using the SST as a tracer.}
     \item Non Gaussian statistics
   \end{itemize}
   \end{block}
+  \begin{minipage}{0.60\textwidth}
   \begin{tikzpicture}
-%    \node[anchor=west,inner sep=0] (AVISO) at (-6,0){\includegraphics[width=6.5cm]{}}; % pict AVISO Solomon
- %   \node[anchor= west,inner sep=0] (SST) at (-6,-6){\includegraphics[width=2.5cm]{}}; %pict SST Solomon
-%    \node[anchor=west,inner sep=0] (AVISO) at (-6,0){\includegraphics[width=6.5cm]{}}; % pict model vel Solomon
+     \tikzstyle{ar}=[->,>=latex,line width=0.25mm]
+     \node[anchor=west,inner sep=0] (AVISO) at (-1.9,2.9){\includegraphics[width=3.2cm]{SAL_AVISO_20765.png}}; % pict AVISO Solomon
+     \node[anchor= west,inner sep=0] (SST) at (1.9,2.8){\includegraphics[width=3.6cm]{SAL_SST_2006314.png}}; %pict SST Solomon
+     \only<2-5>{\node[anchor= west,inner sep=0] (SST1) at (2.3,2.8){\includegraphics[width=3.6cm]{SAL_SST_2006314.png}}}; %pict SST Solomon
+     \only<3-5>{\node[anchor= west,inner sep=0] (SST2) at (2.7,2.8){\includegraphics[width=3.6cm]{SAL_SST_2006314.png}}}; %pict SST Solomon
+     \only<4-5>{\node[anchor= west,inner sep=0] (SST3) at (3.1,2.8){\includegraphics[width=3.6cm]{SAL_SST_2006314.png}}}; %pict SST Solomon
+     \node[anchor=west,inner sep=0] (UV) at (0,-0.3){\includegraphics[width=3.2cm]{SAL_SOSMOD_20061110.png}}; % pict model vel Solomon
+     \only<2-5>{\node[anchor=west,inner sep=0] (UV1) at (0.4,-0.3){\includegraphics[width=3.2cm]{SAL_SOSMOD_20061110.png}}}; % pict model vel Solomon
+     \only<3-5>{\node[anchor=west,inner sep=0] (UV2) at (0.8,-0.3){\includegraphics[width=3.2cm]{SAL_SOSMOD_20061110.png}}}; % pict model vel Solomon
+     \only<4-5>{\node[anchor=west,inner sep=0] (UV3) at (1.2,-0.3){\includegraphics[width=3.2cm]{SAL_SOSMOD_20061110.png}}}; % pict model vel Solomon
  %   \node[anchor= west,inner sep=0] (SST) at (-6,-6){\includegraphics[width=2.5cm]{}}; %pict model SST Solomon
     %\node pict model Solomon
     %\node pict model Solomon
-    \draw[=>,line width=0.25mm] (-2.6,0.6)--(1.55,1.25); %from AVISO to model
-    \draw[=>,line width=0.25mm] (-2.6,-0.65)--(1.55,-1.2); %from SST to model
+    \draw[ar] (AVISO)  edge node[left]{Large scales} (UV); %from AVISO to model
+    \draw[ar] (SST) edge node[right]{Small scales} (UV); %from SST to model
+    \only<2-5>{\draw[ar] (SST1) edge (UV1)}; %from SST to model
+    \only<3-5>{\draw[ar] (SST2) edge (UV2)}; %from SST to model
+    \only<4-5>{\draw[ar] (SST3) edge (UV3)}; %from SST to model
   \end{tikzpicture}
+  \end{minipage}
 % mettre image vitesse, image structure
 %Assimiler la donnee altimetrique, pour controler la large echelle
 %les images structures pour controler les structures  plus fines. 
+  \only<5>{
+  \begin{minipage}{0.38\textwidth}
   \begin{block}{Data assimilation in a high resolution model}
-  At large scale, altimetry can control dynamics in the ocean. \\
-  At small scales, using tracer images to control complex structures. \\
+  \ding{226} At large scale, altimetry can control dynamics in the ocean. \\
+  \ding{226} At small scales, using tracer images to control complex structures. \\
   \end{block}
+  \end{minipage}}
 \end{frame}
 
 \begin{frame}
 \frametitle{SWOT prospects}
   \begin{minipage}{0.5\textwidth}
-    \includegraphics[width=1\textwidth]{swot.png}
+    \includegraphics[width=0.9\textwidth]{swot.png}
   \end{minipage}
   \begin{minipage}{0.48\textwidth}
  \begin{block}{}
