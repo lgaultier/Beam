@@ -195,6 +195,7 @@
     %\end{itemize}
      \small{(Capet \& al, 2008, Thomas \& al, 2008, Klein \& al, 2008, Ferrari \& al, 2008)  }
   \end{block}
+\note{link between meso and sub-mesoscales. can we contrôle mesoscale dynamics using sub-mesoscales information?}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -207,6 +208,7 @@
     \item Geostrophic velocity derived from ssh gradients
     \item Data: e.g. AVISO (interpolated maps, velocity, ssh)
   \end{itemize}
+  Use of gridded SST and velocity: interpolation between tracks
   \end{block}
   \begin{minipage}{0.49\textwidth}
   \begin{figure}
@@ -220,6 +222,7 @@
     \ding{226} Submesoscales cannot currently be seen by altimetric satellites (Fu and Ferrari, 2008).
   \end{block}
   \end{minipage}
+\note{Enhance the fact that Altimetric product are a rough estimation of the dynamics, lost of information during the process. }
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -286,6 +289,7 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%Slide model? model nath+model levy
 
 \section{Motivation}% and objectives}
 %----------------------------------------------------------------------%
@@ -362,7 +366,7 @@ Obs altimetric. Obs image
   The inversion of sub-mesoscale tracer information to correct mesoscale velocity has never been done before
   %Optimization problem
   \end{block}}
-%Def de l'AD
+\note{Complexify assimilation to enhance the signal. }
 \end{frame}
 
 %\begin{frame}
@@ -488,7 +492,14 @@ In practical terms we integrate the trajectories of particles and calculate the 
   $\rightarrow$ Link between sub-mesoscale dynamics and biologic stirring. \\
   (Lehahn \& al, 2008, d'Ovidio \& al, 2004)
   \end{block}
+  \begin{block}{}
+  \begin{itemize}
+    \item Binarisation of FSLE
+    \item Binarisation of the norm of the gradient of tracer filtered image, image processing to reduce the noise (developped by LJK) 
+  \end{itemize}
+  \end{block}
   %Maximum lines of Lyapunov exponents and frontal tracer structures present similar patterns (d'Ovidio \& al (2004)).
+  \note{Roughness of the image processing}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -578,7 +589,7 @@ Reduce Space: similar to filter SEEK.  \\
     \item Model data: Estimate the velocity and assess the error of the estimate.
     \begin{itemize}
       \item Process model: High Resolution coupled physico-biogeochemical model. Inversion of the SST and the Chlorophyll: Assess the impact of image processing on the estimation of the velocity
-      \item Realistic model: High Resolution realistic model of the Solomon Sea. Inversion of the SST and the SSS: Assess the required conditions to apply the method
+      \item Realistic model: High Resolution (sub-mesoscale permitting) realistic model of the Solomon Sea. Inversion of the SST and the SSS: Assess the required conditions to apply the method
     \end{itemize}
   \end{enumerate}
   \end{block}
@@ -675,7 +686,8 @@ Two tracers are used in this study: the SST and the Chlorophyll. Both images are
           Use of Gibbs' sampler to get a sample of the likely solutions.}
   {Cost Function : $J(\vec{u})=\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{tracer}\| + background\ term $}
   \end{block}
-\note{not a unique solution, a sample of likely solution}
+\note{not a unique solution, a sample of likely solution.
+Explain Gibbs sampler (the purpose)}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 
@@ -715,7 +727,8 @@ On the first line, the observed field are plotted. From the left to the right, t
 On the second line the corrected field are plotted.
 The velocity has been corrected using the SST as a tracer.
 The eddy on the corrected velocity is much more alike the tracer structure that the one on the observed velocity.
-The result is quite similar when the Chlorophyll is used to correct the velocity field
+The result is quite similar when the Chlorophyll is used to correct the velocity field. 
+
 }
 \end{frame}
 
@@ -792,6 +805,8 @@ The Lagrangian trajectories derived from corrected velocities are much more cons
   \end{itemize}
   \end{block}
   \vspace{0.2cm}
+\note{COUPLED MODEL, LOBster because the model is simple and complex enough for our study. 
+First guess not too far from truth
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -969,7 +984,8 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
     More information to be extracted from tracer structure. \\
   \end{block}
   \end{minipage}
-\note{Here are the results of the inversion of the Chlorophyll or the SST image.
+\note{Huge improvement because the error on the first guess is small 
+Here are the results of the inversion of the Chlorophyll or the SST image.
 We can see that our methods enable us to correct the perturbation in the right direction.
 The eddy is shifted in accordance with the tracer observation.
 We are far from correcting all the error, 45\% of the error is corrected. But the correction we made improved the assessment of the velocity.}
@@ -1001,6 +1017,7 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
 \end{itemize}
 Improving the image processing may improve the estimation of the velocity
 \end{block}
+\note{How to improve image observation? image detection? }
 \end{frame}
  
 %\begin{frame}
@@ -1036,7 +1053,7 @@ Improving the image processing may improve the estimation of the velocity
 %\includemovie
 \begin{block}{High Resolution realistic model of the Solomon Sea (Nathcha Djath)}
 \begin{itemize}
-  \item Dynamics : NEMO-OPA code
+  \item Dynamics : NEMO-OPA code, sub-mesoscale permitting
   \item Horizontal resolution : $\frac{1}{36}^o$
   \item Vertical resolution : 46 levels
   \item Forcing : ERA-INTERIM
@@ -1062,6 +1079,7 @@ Improving the image processing may improve the estimation of the velocity
     Seasonal cycle of the tracer-FSLE similarity
     Influenced by : MLD? External forcing (wind,...)?
   \end{block}
+\note{Angles represent  a mesure of distance between the two images}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
