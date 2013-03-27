@@ -681,9 +681,11 @@ Two tracers are used in this study: the SST and the Chlorophyll. Both images are
      \end{column}
      \end{columns}
  \begin{block}{}
+  \alt<2>{Cost Function : $J(\vec{u})=(\alpha)\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SST}\| + (1-\alpha)\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{CHL}\|+ background\ term $}
+  {Cost Function : $J(\vec{u})=\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{synthetique}\| + background\ term $}
+  \\
   \alt<2>{Use of Simulated Annealing to decrease the cost function.\\
-          Use of Gibbs' sampler to get a sample of the likely solutions.}
-  {Cost Function : $J(\vec{u})=\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{tracer}\| + background\ term $}
+          Use of Gibbs' sampler to get a sample of the likely solutions.}{}
   \end{block}
 \note{not a unique solution, a sample of likely solution.
 Explain Gibbs sampler (the purpose)}
@@ -716,6 +718,9 @@ Explain Gibbs sampler (the purpose)}
     & \\
  %\hline
   \end{tabular}
+  \begin{block}{}
+$J(\vec{u})=\alpha\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SST}\| + (1-\alpha)\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{CHL}\|+ background\ term $
+  \end{block}
   \note{
 As previously seen, it is not easy to find the global minimum of the cost function.
 Therefore, the next step is to get a sample of all the likely solutions.
@@ -812,6 +817,7 @@ First guess not too far from truth}
 	\subsection{Inversion of a tracer image from the model}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
+\frametitle{$J(\vec{u})=\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{CHL}\|+ bg $} 
 %Inversion with SST alone, Chl alone 
   \begin{minipage}{0.3\textwidth}
   \begin{center}
@@ -845,7 +851,7 @@ First guess not too far from truth}
   \end{minipage}
   \begin{minipage}{0.6\textwidth}
   \begin{block}{}
-    $\simeq$ 20\% of the error on the background velocity is corrected using the Chlorophyll as a tracer. \\
+    $\simeq$ 20\% of the error on the background velocity is corrected. \\
   \end{block}
   \end{minipage}
 \note{Here are the results of the inversion of the Chlorophyll or the SST image.
@@ -855,6 +861,7 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
 \end{frame}
 
 \begin{frame}
+\frametitle{$J(\vec{u})=\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SST}\|+ bg $ }
 %Inversion with SST alone, Chl alone 
   \begin{minipage}{0.3\textwidth}
   \begin{center}
@@ -888,7 +895,7 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
   \end{minipage}
   \begin{minipage}{0.6\textwidth}
   \begin{block}{}
-    $\simeq$ 45\% of the error on the background velocity is corrected using the SST as a tracer. \\
+    $\simeq$ 45\% of the error on the background velocity is corrected. \\
   \end{block}
   \end{minipage}
 \note{Here are the results of the inversion of the Chlorophyll or the SST image.
@@ -899,6 +906,7 @@ ion we made improved the assessment of the velocity.}
 \end{frame}
 
 \begin{frame}
+\frametitle{$J(\vec{u})=\alpha\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SST}\| + (1-\alpha)\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{CHL}\|+ bg $}
 %Inversion with SST and Chl,  
   \begin{minipage}{0.3\textwidth}
   \begin{center}
@@ -946,6 +954,7 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
 \end{frame} 
 
 \begin{frame}
+\frametitle{$J(\vec{u})=\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{struct}\| + bg $}
 %Inversion with bidouille SST+Chl 
   \begin{minipage}{0.3\textwidth}
   \begin{center}
@@ -972,7 +981,7 @@ We are far from correcting all the error, 45\% of the error is corrected. But th
   \begin{minipage}{0.34\textwidth}
   \begin{center}
     \includegraphics[width=1\linewidth]{./pict_nemo/sa_uv-R2BIGstruct_0324.png}\\
-    {\small \bf Image with structures from SST and Chlorophyll}
+    {\small \bf Image with structures }
   \end{center}
   \end{minipage}
   \begin{minipage}{0.05\textwidth}
