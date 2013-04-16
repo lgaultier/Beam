@@ -254,6 +254,7 @@
 \begin{frame}
   \frametitle{FSLE: Finite-Size Lyapunov Exponents}
   \begin{block}{}
+Lagrangian tool that gives a measure of ocean stirring \\
    Tracer observation and FSLE derived from altimetric velocity have shown similar patterns (Lehahn \& al 2008, d'Ovidio \& al 2004).
   \end{block}
   \begin{columns}
@@ -422,7 +423,7 @@ Obs altimetric. Obs image
 %5%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
   %\frametitle{Physical meaning of Lyapunov Exponents}
-  Lyapunov exponents are defined as the exponential rate of separation, averaged over time \\
+%  Lyapunov exponents are defined as the exponential rate of separation, averaged over time \\
   \vspace{1cm}
   \centering
   \begin{columns}
@@ -455,9 +456,11 @@ Obs altimetric. Obs image
  \vspace{1cm}
 % Lyapunov exponents constitute Lagrangian transport barriers between different regions (Lehahn \& al (2007)).
   \begin{block}{Lyapunov Exponent constitute Lagrangian transport barriers between different regions}
-     Particles are separated by a distance $\delta_{initial}$ \\
-     Advect particles backward in time \\
-     Record the time T at which one of the distances become larger than $\delta_{final}$
+      FSLE measures the separation rate of particules \\
+      Tracer cannot cross lines of maximum of FSLE 
+ %    Particles are separated by a distance $\delta_{initial}$ \\
+ %    Advect particles backward in time \\
+ %    Record the time T at which one of the distances become larger than $\delta_{final}$
   \end{block}
 %  Stable and Unstable Manifolds constitute Lagrangian transport barriers between different regions because they are material invariant curves that cannot be crossed by purely advective process
   \note{Lyapunov exponents are defined as the exponential rate of separation, averaged over time. 
@@ -475,13 +478,19 @@ In practical terms we integrate the trajectories of particles and calculate the 
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \begin{figure}%[!htbp]
-        \includegraphics[width=4.5cm]{pict/fsle_24_stat_reg_20814_s_atl.png}\\
+        \alt<2>{\includegraphics[width=4.1cm]{pict/pfsle20814.png}}{\includegraphics[width=4.5cm]{pict/fsle_24_stat_reg_20814_s_atl.png}}\\
+%\alt<2>{\includegraphics[width=4.5cm]{pict/med/pfsle_48_stat_reg_19904_med.jpg}}
+%{\includegraphics[width=4.5cm]{pict/med/fsle_48_stat_reg_19904_med.jpg}} \\
         \legende{FSLE, South Atlantic region, \\December 27, 2006}
+%\legende{FSLE, Mediterranean area}
       \end{figure}
     \end{column}
     \begin{column}{0.5\textwidth}
       \begin{figure}
-        \includegraphics[width=4.5cm]{pict/A2006360165000_L2_LAC_SST.png}\\
+%\alt<2>{\includegraphics[width=4.5cm]{pict/med/binsst_bin1.png}}
+%{\includegraphics[width=4.5cm]{pict/med/A2004184123500_L2_LAC_SST.jpg}} \\
+%\legende{Tracer (SST), Mediterranean area}
+        \alt<2>{\includegraphics[width=4.1cm]{pict/sst20814.png}}{\includegraphics[width=4.5cm]{pict/A2006360165000_L2_LAC_SST.png}}\\
         \legende{Tracer (SST), South Atlantic region, \\December 27, 2006}
       \end{figure}
     \end{column}
@@ -1071,6 +1080,7 @@ Improving the image processing may improve the estimation of the velocity
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\iffalse
 	\subsection{Similarities between FSLE and tracer}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -1091,18 +1101,17 @@ Improving the image processing may improve the estimation of the velocity
 \note{Angles represent  a measure of distance between the two images}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 	\subsection{Inversion of a tracer image}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{$J(\vec{u})=\alpha\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SST}\| + (1-\alpha)\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SSS}\| +bg $}
+%\frametitle{$J(\vec{u})=\alpha\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SST}\| + (1-\alpha)\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SSS}\| +bg $}
 %Feasability of the inversion 
-  \begin{block}{}
-     Looking for a case where FSLE and tracer have similar patterns \\
-    \
-    {\centering
-    \ding{226} Inversion study date : December 22, 1993}
-  \end{block}
+ % \begin{block}{}
+  %   Looking for a case where FSLE and tracer have similar patterns \\
+   % \
+    %{\centering
+   % \ding{226} Inversion study date : December 22, 1993}
+ % \end{block}
   \begin{block}{Sub-space of error}
     High-resolution model very turbulent: hard to build a consistent error sub-space. \\
     In the following, the sub-space is idealized. \\
@@ -1118,8 +1127,13 @@ Improving the image processing may improve the estimation of the velocity
   \end{block}
 \end{frame}
 
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\subsection{Inversion of a tracer image}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{$J(\vec{u})=\alpha\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SST}\| + (1-\alpha)\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SSS}\| +bg $}
+%\frametitle{$J(\vec{u})=\alpha\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SST}\| + (1-\alpha)\|\mathcal{I}_{FSLE}(\vec{u})- \mathcal{I}_{SSS}\| +bg $}
 %  \frametitle{Résultat de l'inversion d'image}
   \begin{minipage}{0.3\textwidth}
   \begin{center}
